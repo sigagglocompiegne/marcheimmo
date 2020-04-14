@@ -231,10 +231,33 @@ COMMENT ON COLUMN m_economie.lt_immo_etat.valeur IS 'Valeur de l''état du bien 
 -- ###############################################################################################################################
 
 
---################################################################# NAME #######################################################
+--################################################################# geo_immo_objet #######################################################
 
+CREATE TABLE m_economie.geo_immo_objet--------------------------------------------- Objet primitif du bien immobilier
+	(
+	idimmo      integer DEFAULT nextval( 'O' || 'm_economie.geo_immo_objet_seq') NOT NULL,---- Identifiant unique de l'objet
+	idsite      character varying (7),-------------------------------------------------------- Identifiant du site d'activité d'appartenance
+	sup_m2      integer ,--------------------------------------------------------------------- Superficie de l''objet en m²
+	ityp        character varying (2) ,--------------------------------------- --------------- Type d''objet
+	observ      character varying (254) ,--------------------------------------- Commune sur laquelle est situé le nœud
+	op_sai      character varying (5),------------------------------------------ Code insee de la commune sur laquelle est situé le nœud
+	date_sai    character varying (254),---------------------------------------- Entreprise ayant posé l''ouvrage électrique
+	date_maj    timestamp without time zone ,----------------------------------- Date de la pose
+	src_geom    varchar(2) NOT NULL DEFAULT '00',-------------------------------- Source du référentiel géographique pour le positionnement du nœud
+	src_date
+	insee
+	commune
+	geom
+);
 
+ALTER TABLE m_economie.geo_immo_objet
+  ADD CONSTRAINT geo_immo_objet_pkey PRIMARY KEY(idimmo);
 
+COMMENT ON TABLE m_economie.geo_immo_objet IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
+COMMENT ON COLUMN m_economie.geo_immo_objet.idimmo IS 'Identifiant unique de l''objet';
+COMMENT ON COLUMN m_economie.geo_immo_objet.idimmo IS 'Identifiant du site d''activité d'appartenance';
+COMMENT ON COLUMN m_economie.geo_immo_objet.sup_m2 IS 'Superficie de l''objet en m²';
+COMMENT ON COLUMN m_economie.geo_immo_objet.ityp IS 'Type d''objet';
 
 
 -- ###############################################################################################################################
