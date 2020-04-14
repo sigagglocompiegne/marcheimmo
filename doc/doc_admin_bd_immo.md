@@ -1,4 +1,4 @@
-![picto](/doc/img/.png)
+![picto](img/.png)
 
 # Documentation d'administration de la base #
 
