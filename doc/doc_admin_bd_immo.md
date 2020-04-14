@@ -4,7 +4,7 @@
 
 ## Principes
  
- * **Généralités** :
+ **Généralités** :
  
 Le service du développement économique exploite déjà une base de données liée à son domaine d'activité à savoir le suivi de la commercialisation du foncier à vocation économique dans les zones aménagées par l'Agglomération de la Région de Compiègne. 
 
@@ -14,7 +14,7 @@ Une bourse aux locaux (BAL) a également été mise en place pour répondre aux 
 
 Cette orientation pourrait également déboucher sur un observatoire des commerces ou locaux de centre-ville à moyen ou long terme.
  
- * **Résumé fonctionnel** :
+ **Résumé fonctionnel** :
  
  * une seule géométrie est créé pour : un terrain (non bâti), un local d'activité correspondant à un bâtiment, un local dans un bâtiment comprenant x locaux (locaux divisés), un local (non identifié) dans un bâtiment (dans ce cas la géométrie du local est égale à la géométrie du bâtiment)
  * une classe `biens` permet de décrire le type de biens (terrain ou local) avec la possibilité d'intégrer des informations sur le bâtiment et le propriétaire
