@@ -142,11 +142,88 @@ INSERT INTO m_economie.lt_immo_dbati(code, valeur)
 	('11','Charge au sol);
 
 COMMENT ON TABLE m_economie.lt_immo_dbati
-  IS 'Code permettant de décrire la description du bien';
+  IS 'Code permettant de décrire la description du bâtiment';
 COMMENT ON COLUMN m_economie.lt_immo_dbati.code IS 'Code du type décrivant des éléments du bâtiment';
 COMMENT ON COLUMN m_economie.lt_immo_dbati.valeur IS 'Valeur du type décrivant des éléments du bâtiment';
 
-	
+--############################################################ lt_immo_dbien ##################################################
+
+CREATE TABLE m_reseau_sec.lt_immo_dbien
+(
+  code character varying(2) NOT NULL,
+  valeur character varying(80) NOT NULL,
+  CONSTRAINT lt_immo_dbien_pkey PRIMARY KEY (code)
+)
+WITH (
+  OIDS=FALSE
+);
+
+INSERT INTO m_economie.lt_immo_dbien(code, valeur)
+    VALUES
+	('0','Non renseigné'),
+        ('1','Vitrine'),
+	('2','Présence d''une remise'),
+	('3','Autre')
+	;
+
+COMMENT ON TABLE m_economie.lt_immo_dbien
+  IS 'Code permettant de décrire la description du bien';
+COMMENT ON COLUMN m_economie.lt_immo_dbien.code IS 'Code du type décrivant des éléments du bien';
+COMMENT ON COLUMN m_economie.lt_immo_dbien.valeur IS 'Valeur du type décrivant des éléments du bien';
+
+--############################################################ lt_immo_tbien ##################################################
+
+CREATE TABLE m_reseau_sec.lt_immo_tbien
+(
+  code character varying(2) NOT NULL,
+  valeur character varying(80) NOT NULL,
+  CONSTRAINT lt_immo_tbien_pkey PRIMARY KEY (code)
+)
+WITH (
+  OIDS=FALSE
+);
+
+INSERT INTO m_economie.lt_immo_tbien(code, valeur)
+    VALUES
+        ('10','Terrain vierge'),
+	('11','Parking'),
+	('12','Surface de dépôt ou de stockage'),
+	('13','Surface agricole'),
+	('20','Bureau'),
+	('21','Commerce'),
+	('22','Activité');
+
+COMMENT ON TABLE m_economie.lt_immo_tbien
+  IS 'Code permettant de décrire le type de bien';
+COMMENT ON COLUMN m_economie.lt_immo_tbien.code IS 'Code du type de bien';
+COMMENT ON COLUMN m_economie.lt_immo_tbien.valeur IS 'Valeur du type de bien';
+
+--############################################################ lt_immo_etat ##################################################
+
+CREATE TABLE m_reseau_sec.lt_immo_etat
+(
+  code character varying(2) NOT NULL,
+  valeur character varying(80) NOT NULL,
+  CONSTRAINT lt_immo_etat_pkey PRIMARY KEY (code)
+)
+WITH (
+  OIDS=FALSE
+);
+
+INSERT INTO m_economie.lt_immo_etat(code, valeur)
+    VALUES
+        ('00','Non renseigné'),
+	('10','Disponible à la vente (vacant)'),
+	('20','Disponible à la vente (occupé)'),
+	('30','Disponible à la locatiob'),
+	('40','Indisponible (occupé)'),
+	('ZZ','Non concerné');
+
+COMMENT ON TABLE m_economie.lt_immo_etat
+  IS 'Code permettant de décrire l''état du bien pour la vente';
+COMMENT ON COLUMN m_economie.lt_immo_etat.code IS 'Code de l''état du bien pour la vente';
+COMMENT ON COLUMN m_economie.lt_immo_etat.valeur IS 'Valeur de l''état du bien pour la vente';
+
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
 -- ###                                                        CLASSES OBJETS                                                   ###
