@@ -1,4 +1,4 @@
-![picto](/doc/img/.png)
+![picto](/doc/img/geocompiegnois2020.png)
 
 # L'immobilier d'entreprises
 
