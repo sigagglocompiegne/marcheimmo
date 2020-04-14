@@ -25,6 +25,8 @@ SOMMAIRE :
 
 -- VUES 
 
+ (à venir)
+
 -- CLASSES
 
 DROP TABLE IF EXISTS m_economie.geo_immo_objet CASCADE;
@@ -48,7 +50,12 @@ DROP TABLE IF EXISTS m_economie.m lt_immo_etat CASCADE;
 
 --SEQUENCES
 
-DROP SEQUENCE m_economie. ;
+DROP SEQUENCE m_economie.geo_immo_objet_seq;
+DROP SEQUENCE m_economie.an_immo_bien_seq;
+DROP SEQUENCE m_economie.an_immo_comm_seq ;
+DROP SEQUENCE m_economie.an_immo_bati_seq;
+DROP SEQUENCE m_economie.an_immo_prop_seq;
+DROP SEQUENCE m_economie.an_immo_media_seq;
 
 --TRIGGERS
 
