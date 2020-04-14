@@ -24,9 +24,7 @@ Cette orientation pourrait également déboucher sur un observatoire des commerc
 
 ## Modèle conceptuel simplifié
 
-![mcd](/img/BAL.png)
-
-[Ou accédez au diagramme source](https://dbdiagram.io/d/5e9552f139d18f5553fd8d0c)
+[Cliquez ici pour accéder au MCD](https://dbdiagram.io/d/5e9552f139d18f5553fd8d0c)
 
 ## Schéma fonctionnel
 
