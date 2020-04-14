@@ -6,13 +6,18 @@
  
  * **Généralités** :
  
-Le service du développement économique exploite déjà une base de données liée à son domaine d'activité à savoir le suivi de la commercialisation du foncier à vocation économique dans les zones aménagées par l'Agglomération de la Région de Compiègne. Ce suivi est complété par une information sur les contacts et les emplois par entreprises. Ces données locales viennent enrichir la base SIRENE de l'Insee sur les établissement mise à jour trimestriellement et géolocalisés à l'adresse. L'ensemble de ces informations permet d'extraire des indicateurs de suivis sur les ZAE (zones d'activités économiques).
-Une bourse aux locaux (BAL) a également été mise en place pour répondre aux demandes d'entreprises cherchant à s'implanter sur le territoire. Cette BAL ne répond pas entièrement aux attentes du service et une réflexion s'est engagée pour que le service puisse disposer d'une vision globale d'occupation des locaux et de proposer des terrains privés à la vente. Cette orientation pourrait également déboucher sur un observatoire des commerces ou locaux de centre-ville à moyen ou long terme.
+Le service du développement économique exploite déjà une base de données liée à son domaine d'activité à savoir le suivi de la commercialisation du foncier à vocation économique dans les zones aménagées par l'Agglomération de la Région de Compiègne. 
+
+Ce suivi est complété par une information sur les contacts et les emplois par entreprises. Ces données locales viennent enrichir la base SIRENE de l'Insee sur les établissement mise à jour trimestriellement et géolocalisés à l'adresse. L'ensemble de ces informations permet d'extraire des indicateurs de suivis sur les ZAE (zones d'activités économiques).
+
+Une bourse aux locaux (BAL) a également été mise en place pour répondre aux demandes d'entreprises cherchant à s'implanter sur le territoire. Cette BAL ne répond pas entièrement aux attentes du service et une réflexion s'est engagée pour que le service puisse disposer d'une vision globale d'occupation des locaux et de proposer des terrains privés à la vente. 
+
+Cette orientation pourrait également déboucher sur un observatoire des commerces ou locaux de centre-ville à moyen ou long terme.
  
  * **Résumé fonctionnel** :
  
- * une seule géométrie est créé pour : un terrain (non bâti), un local d'activité correspondant à un bâtiment, un local dans un bâtiment comprenant x locaux (locaux divisés), un local (non identifié) dans un bâtiment (dans ce cas la géométrie du local est égale à la géométrie du bâtiment).
- * une classe `biens` permet de décrire le type de biens (terrain ou local) avec la possibilité d'intégrer des informations sur le bâtiment et les différentes propriétaires (bâtiment, local).
+ * une seule géométrie est créé pour : un terrain (non bâti), un local d'activité correspondant à un bâtiment, un local dans un bâtiment comprenant x locaux (locaux divisés), un local (non identifié) dans un bâtiment (dans ce cas la géométrie du local est égale à la géométrie du bâtiment)
+ * une classe `biens` permet de décrire le type de biens (terrain ou local) avec la possibilité d'intégrer des informations sur le bâtiment et le propriétaire
  * un `bien` est complété par son occupant (si existe) à savoir un établissement. Par défaut un local sans occupant est concidéré comme vacant (fonctionnel de la vacance à confirmer ici)
  * une classe `commercialisation` gère les périodes de mise en location ou vente
  * toutes les classes peuvent indépendemment intégrer de la documentation
