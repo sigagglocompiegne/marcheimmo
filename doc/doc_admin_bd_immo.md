@@ -1,4 +1,4 @@
-![picto](img/.png)
+![picto](/img/geocompiegnois20.png)
 
 # Documentation d'administration de la base #
 
