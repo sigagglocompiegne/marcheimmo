@@ -27,11 +27,23 @@ SOMMAIRE :
 
 -- CLASSES
 
-DROP TABLE IF EXISTS m_economie. CASCADE;
+DROP TABLE IF EXISTS m_economie.geo_immo_objet CASCADE;
+DROP TABLE IF EXISTS m_economie.an_immo_bien CASCADE;
+DROP TABLE IF EXISTS m_economie.an_immo_bati CASCADE;
+DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
+DROP TABLE IF EXISTS m_economie.an_immo_comm CASCADE;
+DROP TABLE IF EXISTS m_economie.an_immo_media CASCADE;
+DROP TABLE IF EXISTS m_economie.lk_immo_objet CASCADE;
+DROP TABLE IF EXISTS m_economie.lk_immo_occupant CASCADE;
+DROP TABLE IF EXISTS m_economie.lk_immo_bienbati CASCADE;
 
 -- DOMAINES DE VALEUR
 
-DROP TABLE IF EXISTS m_economie.m lt_ CASCADE;
+DROP TABLE IF EXISTS m_economie.m lt_immo_ityp CASCADE;
+DROP TABLE IF EXISTS m_economie.m lt_immo_bdesc CASCADE;
+DROP TABLE IF EXISTS m_economie.m lt_immo_bbati CASCADE;
+DROP TABLE IF EXISTS m_economie.m lt_immo_tbien CASCADE;
+DROP TABLE IF EXISTS m_economie.m lt_immo_etat CASCADE;
 
 
 --SEQUENCES
