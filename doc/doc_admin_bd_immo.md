@@ -12,7 +12,7 @@
 
 ## Modèle conceptuel simplifié
 
-![mcd](img/BAL.png)
+![mcd](/img/BAL.png)
 
 ## Schéma fonctionnel
 
