@@ -5,8 +5,8 @@
 Ensemble des éléments constituant la mise en oeuvre de la base de données sur le marché immobilier des terrains privés et locaux d'activités :
 
 - Script d'initialisation de la base de données
-  * [Suivi des modifications](SQL/IMMO_00_trace.sql)
-  * [Création  de la structure initiale](SQL/IMMO_10_squelette.sql)
+  * [Suivi des modifications](sql/IMMO_00_trace.sql)
+  * [Création  de la structure initiale](sql/IMMO_10_squelette.sql)
   * Création des vues de gestion
   * Création des vues applicatives
   * Création des privilèges
