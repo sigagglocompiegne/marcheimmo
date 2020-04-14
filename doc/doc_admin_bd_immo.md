@@ -12,9 +12,9 @@
 
 ## Modèle conceptuel simplifié
 
-[Ouvrez le diagramme](https://dbdiagram.io/d/5e9552f139d18f5553fd8d0c)
-
 ![mcd](/img/BAL.png)
+
+[Ou accédez au diagramme source](https://dbdiagram.io/d/5e9552f139d18f5553fd8d0c)
 
 ## Schéma fonctionnel
 
