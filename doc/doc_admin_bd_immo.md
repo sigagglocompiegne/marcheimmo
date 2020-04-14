@@ -18,7 +18,7 @@
 
 ## Schéma fonctionnel
 
-![schema_fonctionnel](img/.png)
+(à venir)
 
 ## Dépendances
 
