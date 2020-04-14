@@ -41,11 +41,11 @@ DROP TABLE IF EXISTS m_economie.lk_immo_bienbati CASCADE;
 
 -- DOMAINES DE VALEUR
 
-DROP TABLE IF EXISTS m_economie.m lt_immo_ityp CASCADE;
-DROP TABLE IF EXISTS m_economie.m lt_immo_bdesc CASCADE;
-DROP TABLE IF EXISTS m_economie.m lt_immo_bbati CASCADE;
-DROP TABLE IF EXISTS m_economie.m lt_immo_tbien CASCADE;
-DROP TABLE IF EXISTS m_economie.m lt_immo_etat CASCADE;
+DROP TABLE IF EXISTS m_economie.lt_immo_ityp CASCADE;
+DROP TABLE IF EXISTS m_economie.lt_immo_bdesc CASCADE;
+DROP TABLE IF EXISTS m_economie.lt_immo_bbati CASCADE;
+DROP TABLE IF EXISTS m_economie.lt_immo_tbien CASCADE;
+DROP TABLE IF EXISTS m_economie.lt_immo_etat CASCADE;
 
 
 --SEQUENCES
@@ -70,8 +70,17 @@ DROP TRIGGER IF EXISTS  ON m_economie. ;
 -- ###############################################################################################################################
 
 
---############################################################ NAME ##################################################
+--############################################################ geo_immo_objet_seq ##################################################
 
+--############################################################ an_immo_bien_seq ##################################################
+
+--############################################################ an_immo_comm_seq ##################################################
+
+--############################################################ an_immo_bati_seq ##################################################
+
+--############################################################ an_immo_prop_seq ##################################################
+
+--############################################################ an_immo_media_seq ##################################################
 
 
 -- ###############################################################################################################################
@@ -81,19 +90,19 @@ DROP TRIGGER IF EXISTS  ON m_economie. ;
 -- ###############################################################################################################################
 
 
---############################################################ NAME ##################################################
+--############################################################ lt_immo_ityp ##################################################
 
 
-INSERT INTO m_economie.lt_(code, valeur)
+INSERT INTO m_economie.lt_immo_ityp(code, valeur)
     VALUES
-	('10','Actif'),
-	('11','Inactif'),
-	('12','Supprimé');
+	('10','Terrain virger'),
+	('20','..'),
+	('21','..');
 
-COMMENT ON TABLE m_economie.lt_ecl_situation
-  IS 'Code permettant de décrire la situation réelle de l''objet';
-COMMENT ON COLUMN m_economie.lt_ecl_situation.code IS 'Code de la liste';
-COMMENT ON COLUMN m_economie.lt_ecl_situation.valeur IS 'Valeur de la liste';
+COMMENT ON TABLE m_economie.lt_immo_ityp
+  IS 'Code permettant de décrire le type d''objet saisie';
+COMMENT ON COLUMN m_economie.lt_immo_ityp.code IS 'Code de la liste de l''objet saisi';
+COMMENT ON COLUMN m_economie.lt_immo_ityp.valeur IS 'Valeur de la liste l''objet saisi';
 
 	
 -- ###############################################################################################################################
