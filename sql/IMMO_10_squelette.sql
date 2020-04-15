@@ -139,23 +139,25 @@ CREATE TABLE m_economie.lt_immo_ityp
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
+  ityp character varying(2) NOT NULL,
   CONSTRAINT lt_immo_ityp_pkey PRIMARY KEY (code)
 )
 WITH (
   OIDS=FALSE
 );
 
-INSERT INTO m_economie.lt_immo_ityp(code, valeur)
+INSERT INTO m_economie.lt_immo_ityp(code, valeur,ityp)
     VALUES
-	('10','Terrain vierge'),
-	('21','Local (Bâtiment non divisé)'),
-	('22','Local indépendant divisé'),
-	('23','Local non identifié dans un bâtiment divisible');
+	('10','Terrain vierge','10'),
+	('21','Local (Bâtiment non divisé)','20'),
+	('22','Local indépendant divisé','20'),
+	('23','Local non identifié dans un bâtiment divisible','20');
 
 COMMENT ON TABLE m_economie.lt_immo_ityp
   IS 'Code permettant de décrire le type d''objet saisie';
 COMMENT ON COLUMN m_economie.lt_immo_ityp.code IS 'Code du type d''objet immobilier saisi';
 COMMENT ON COLUMN m_economie.lt_immo_ityp.valeur IS 'Valeur du type d''objet immobilier saisi';
+COMMENT ON COLUMN m_economie.lt_immo_ityp.ityp IS 'Valeur du type d''occupation liée (pour fonctionnel GEO)';
 
 --############################################################ lt_immo_dbati ##################################################
 
@@ -220,26 +222,28 @@ CREATE TABLE m_economie.lt_immo_tbien
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
+  ityp character varying(2) NOT NULL
   CONSTRAINT lt_immo_tbien_pkey PRIMARY KEY (code)
 )
 WITH (
   OIDS=FALSE
 );
 
-INSERT INTO m_economie.lt_immo_tbien(code, valeur)
+INSERT INTO m_economie.lt_immo_tbien(code, valeur,ityp)
     VALUES
-        ('10','Terrain vierge'),
-	('11','Parking'),
-	('12','Surface de dépôt ou de stockage'),
-	('13','Surface agricole'),
-	('20','Bureau'),
-	('21','Commerce'),
-	('22','Activité');
+        ('10','Terrain vierge','10'),
+	('11','Parking','10'),
+	('12','Surface de dépôt ou de stockage','10'),
+	('13','Surface agricole','10'),
+	('20','Bureau','20'),
+	('21','Commerce','20'),
+	('22','Activité';'20');
 
 COMMENT ON TABLE m_economie.lt_immo_tbien
   IS 'Code permettant de décrire le type de bien';
 COMMENT ON COLUMN m_economie.lt_immo_tbien.code IS 'Code du type de bien';
 COMMENT ON COLUMN m_economie.lt_immo_tbien.valeur IS 'Valeur du type de bien';
+COMMENT ON COLUMN m_economie.lt_immo_tbien.ityp IS 'Valeur du type d''occupation liée (pour fonctionnel GEO)';
 
 --############################################################ lt_immo_etat ##################################################
 
