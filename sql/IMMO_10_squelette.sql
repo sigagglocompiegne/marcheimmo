@@ -281,7 +281,7 @@ CREATE TABLE m_economie.geo_immo_bien-------------------------------------------
 	idimmo      integer DEFAULT nextval( 'O' || 'm_economie.geo_immo_bien_seq') NOT NULL,---- Identifiant unique de l'objet
 	idsite      character varying (7),-------------------------------------------------------- Identifiant du site d'activité d'appartenance
 	sup_m2      integer ,--------------------------------------------------------------------- Superficie de l''objet en m² (surface SIG)
-	ityp        character varying (2) ,------------------------------------------------------- Type d''objet
+	ityp        character varying (2) ,------------------------------------------------------- Type d''occupation
 	observ      character varying (254) ,----------------------------------------------------- Observations
 	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
 	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
@@ -300,7 +300,7 @@ COMMENT ON TABLE m_economie.geo_immo_bien IS 'Table des objets graphiques corres
 COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant unique de l''objet';
 COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant du site d''activité d''appartenance';
 COMMENT ON COLUMN m_economie.geo_immo_bien.sup_m2 IS 'Superficie de l''objet en m²';
-COMMENT ON COLUMN m_economie.geo_immo_bien.ityp IS 'Type d''objet';
+COMMENT ON COLUMN m_economie.geo_immo_bien.ityp IS 'Type d''occupation';
 COMMENT ON COLUMN m_economie.geo_immo_bien.observ IS 'Observations';
 COMMENT ON COLUMN m_economie.geo_immo_bien.op_sai IS 'Opérateur de saisie';
 COMMENT ON COLUMN m_economie.geo_immo_bien.date_sai IS 'Date de saisie';
