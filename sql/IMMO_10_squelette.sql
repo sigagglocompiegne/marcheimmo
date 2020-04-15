@@ -459,18 +459,18 @@ CREATE TABLE m_economie.an_immo_comm -------------------------------------------
 	(
 	idcomm      text DEFAULT 'C' || nextval('m_economie.an_immo_comm_seq') NOT NULL,---------- Identifiant unique de la commercialisation
 	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
-	prix     character varying (254),--------------------------------------------------------- Prix total
+	prix        integer,---------------------------------------------------------------------- Prix total
 	prix_m      integer,---------------------------------------------------------------------- Prix au m²
-	loyer        integer,--------------------------------------------------------------------- Loyer total
+	loyer       integer,---------------------------------------------------------------------- Loyer total
 	loyer_m     integer,---------------------------------------------------------------------- Loyer au m²
-	bail       integer,----------------------------------------------------------------------- Montant du Bail
-	comm       character varying(100),-------------------------------------------------------- Nom du commercialisateur
-	commtel      character varying(1000)------------------------------------------------------ Téléphone du commercialisateur
-	commtelp      character varying(1000)----------------------------------------------------- Téléphone portable du commercialisateur
-	commmail      character varying(1000)----------------------------------------------------- Email du commercialisateur
-	etat      character varying(1000)--------------------------------------------------------- Etat de la commercialisation
-	source      character varying(1000)------------------------------------------------------- Source
-	refext      character varying(254)-------------------------------------------------------- Référence externe d'un site internet présentant une fiche de commercialisation
+	bail        integer,---------------------------------------------------------------------- Montant du Bail
+	comm        character varying(150),------------------------------------------------------- Nom du commercialisateur
+	commtel     character varying(14),-------------------------------------------------------- Téléphone du commercialisateur
+	commtelp    character varying(14),-------------------------------------------------------- Téléphone portable du commercialisateur
+	commmail    character varying(80),-------------------------------------------------------- Email du commercialisateur
+	etat        character varying(2),--------------------------------------------------------- Etat de la commercialisation
+	source      character varying(254),------------------------------------------------------- Source
+	refext      character varying(254),------------------------------------------------------- Référence externe d'un site internet présentant une fiche de commercialisation
 	observ      character varying(1000)------------------------------------------------------- Observations
 );
 
