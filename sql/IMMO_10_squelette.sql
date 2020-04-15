@@ -383,7 +383,7 @@ CREATE TABLE m_economie.an_immo_prop -------------------------------------------
 	(
 	idprop      text DEFAULT 'P' || nextval('m_economie.an_immo_prop_seq') NOT NULL,---------- Identifiant unique du propriétaire
 	idbati      text,------------------------------------------------------------------------- Identifiant du bâtiment
-	idbien	    text,------------------------------------------------------------------------- Identifiant du bien
+	idimmo	    text,------------------------------------------------------------------------- Identifiant de l'objet
 	propnom     character varying (100),------------------------------------------------------ Nom du propriétaire
 	proptel     character varying (14),------------------------------------------------------- Téléphone du propriétaire
 	proptelp    character varying (14),------------------------------------------------------- Téléphone portable du propriétaire	
@@ -400,7 +400,7 @@ ALTER TABLE m_economie.an_immo_prop
 COMMENT ON TABLE m_economie.an_immo_prop IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 COMMENT ON COLUMN m_economie.an_immo_prop.idprop IS 'Identifiant du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.idbati IS 'Identifiant du bâtiment';
-COMMENT ON COLUMN m_economie.an_immo_prop.idbien IS 'Identifiant du bien';
+COMMENT ON COLUMN m_economie.an_immo_prop.idimmo IS 'Identifiant de l''objet';
 COMMENT ON COLUMN m_economie.an_immo_prop.propnom IS 'Nom du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.proptel IS 'Téléphone du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.proptelp IS 'Téléphone portable du propriétaire';
