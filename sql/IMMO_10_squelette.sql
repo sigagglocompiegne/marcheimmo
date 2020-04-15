@@ -237,17 +237,17 @@ CREATE TABLE m_economie.geo_immo_objet------------------------------------------
 	(
 	idimmo      integer DEFAULT nextval( 'O' || 'm_economie.geo_immo_objet_seq') NOT NULL,---- Identifiant unique de l'objet
 	idsite      character varying (7),-------------------------------------------------------- Identifiant du site d'activité d'appartenance
-	sup_m2      integer ,--------------------------------------------------------------------- Superficie de l''objet en m²
-	ityp        character varying (2) ,--------------------------------------- --------------- Type d''objet
-	observ      character varying (254) ,--------------------------------------- Commune sur laquelle est situé le nœud
-	op_sai      character varying (5),------------------------------------------ Code insee de la commune sur laquelle est situé le nœud
-	date_sai    character varying (254),---------------------------------------- Entreprise ayant posé l''ouvrage électrique
-	date_maj    timestamp without time zone ,----------------------------------- Date de la pose
-	src_geom    varchar(2) NOT NULL DEFAULT '00',-------------------------------- Source du référentiel géographique pour le positionnement du nœud
-	src_date
-	insee
-	commune
-	geom
+	sup_m2      integer ,--------------------------------------------------------------------- Superficie de l''objet en m² (surface SIG)
+	ityp        character varying (2) ,------------------------------------------------------- Type d''objet
+	observ      character varying (254) ,----------------------------------------------------- Observations
+	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
+	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
+	date_maj    timestamp without time zone ,------------------------------------------------- Date de mise à jour
+	src_geom    varchar(2) NOT NULL DEFAULT '00',--------------------------------------------- Source du référentiel géographique pour le positionnement du nœud
+	src_date    integer,---------------------------------------------------------------------- Année du référentiel de saisi
+	insee       character varying(11),-------------------------------------------------------- Code Insee de la ou des communes d'assises
+	commune     character varying(160),------------------------------------------------------- Libellé de la ou des communes d'assises
+	geom        geom(multipolygon,2154)------------------------------------------------------- Attribut de géométrie
 );
 
 ALTER TABLE m_economie.geo_immo_objet
@@ -258,7 +258,60 @@ COMMENT ON COLUMN m_economie.geo_immo_objet.idimmo IS 'Identifiant unique de l''
 COMMENT ON COLUMN m_economie.geo_immo_objet.idimmo IS 'Identifiant du site d''activité d'appartenance';
 COMMENT ON COLUMN m_economie.geo_immo_objet.sup_m2 IS 'Superficie de l''objet en m²';
 COMMENT ON COLUMN m_economie.geo_immo_objet.ityp IS 'Type d''objet';
+COMMENT ON COLUMN m_economie.geo_immo_objet.observ IS 'Observations';
+COMMENT ON COLUMN m_economie.geo_immo_objet.op_sai IS 'Opérateur de saisie';
+COMMENT ON COLUMN m_economie.geo_immo_objet.date_sai IS 'Date de saisie';
+COMMENT ON COLUMN m_economie.geo_immo_objet.date_maj IS 'Date de mise à jour';
+COMMENT ON COLUMN m_economie.geo_immo_objet.src_geom IS 'Source du référentiel géographique pour le positionnement du nœud';
+COMMENT ON COLUMN m_economie.geo_immo_objet.src_date IS 'Année du référentiel de saisi';
+COMMENT ON COLUMN m_economie.geo_immo_objet.insee IS 'Code Insee de la ou des communes d'assises';
+COMMENT ON COLUMN m_economie.geo_immo_objet.commune IS 'Libellé de la ou des communes d'assises';
+COMMENT ON COLUMN m_economie.geo_immo_objet.geom IS 'Attribut de géométrie';
 
+--################################################################# an_immo_bien #######################################################
+
+CREATE TABLE m_economie.an_immo_bien--------------------------------------------- Objet primitif du bien immobilier
+	(
+	idbien      integer DEFAULT nextval( 'B' || 'm_economie.geo_immo_objet_seq') NOT NULL,---- Identifiant unique du bien
+	tbien       character varying (2),-------------------------------------------------------- Type de bien
+	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
+	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
+	pdp	    boolean default false,-------------------------------------------------------- Bien en pas-de-porte
+	bal	    integer,---------------------------------------------------------------------- Identifiant de la base adresse
+	adr	    character varying (254),------------------------------------------------------ Adresse litérale (si différente de la BAL)
+	adrcomp	    character varying (100),------------------------------------------------------ Complément d'adresse
+	surf	    double precision,------------------------------------------------------------- Surface en hectare
+	surf_m	    integer,---------------------------------------------------------------------- Surface en m²
+	mprop	    boolean default false,-------------------------------------------------------- Même propriétaire que le bâtiment
+	source	    character varying (254),------------------------------------------------------ Source de la mise à jour
+	refext	    character varying (254),------------------------------------------------------ Lien vers un site présentant le terrain
+	observ      character varying (254) ,----------------------------------------------------- Observations
+	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
+	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
+	date_maj    timestamp without time zone--------------------------------------------------- Date de mise à jour
+);
+
+ALTER TABLE m_economie.geo_immo_objet
+  ADD CONSTRAINT geo_immo_objet_pkey PRIMARY KEY(idimmo);
+
+COMMENT ON TABLE m_economie.geo_immo_objet IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
+COMMENT ON COLUMN m_economie.geo_immo_objet.idbien IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.tbien IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.libelle IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.bdesc IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.pdp IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.bal IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.adr IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.adrcomp IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.surf IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.surf_m IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.mprop IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.source IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.refext IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.observ IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.op_sai IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.date_sai IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.date_maj IS '';
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
@@ -267,5 +320,5 @@ COMMENT ON COLUMN m_economie.geo_immo_objet.ityp IS 'Type d''objet';
 -- ###############################################################################################################################
 
 
-
+-- CLE ETRANGERE
 
