@@ -72,8 +72,35 @@ DROP TRIGGER IF EXISTS  ON m_economie. ;
 
 --############################################################ geo_immo_bien_seq ##################################################
 
+--############################################################ OBJETS ##################################################
+
+
+--DROP SEQUENCE m_economie.geo_immo_bien_seq;
+
+CREATE SEQUENCE m_economie.geo_immo_bien_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1 
+  CACHE 1;
+  
+COMMENT ON SEQUENCE m_economie.geo_immo_bien_seq
+  IS 'Séquence unique pour tous les objets biens (la séquence est complétée par 'O' dans l'attribut idimmo);
+
 --############################################################ an_immo_bien_seq ##################################################
 
+--DROP SEQUENCE m_economie.an_immo_bien_seq;
+
+CREATE SEQUENCE m_economie.an_immo_bien_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1 
+  CACHE 1;
+  
+COMMENT ON SEQUENCE m_economie.an_immo_bien_seq
+  IS 'Séquence unique pour tous les objets biens (la séquence est complétée par 'B' dans l'attribut idbien);
+  
 --############################################################ an_immo_comm_seq ##################################################
 
 --############################################################ an_immo_bati_seq ##################################################
