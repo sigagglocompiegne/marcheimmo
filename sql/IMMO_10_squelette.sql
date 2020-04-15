@@ -171,7 +171,6 @@ WITH (
 
 INSERT INTO m_economie.lt_immo_dbati(code, valeur)
     VALUES
-	('0','Non renseigné'),
 	('1','Double vitrage'),
 	('2','Site clôturé'),
 	('3','Places de parking'),
@@ -203,7 +202,6 @@ WITH (
 
 INSERT INTO m_economie.lt_immo_dbien(code, valeur)
     VALUES
-	('0','Non renseigné'),
         ('1','Vitrine'),
 	('2','Présence d''une remise'),
 	('3','Autre')
