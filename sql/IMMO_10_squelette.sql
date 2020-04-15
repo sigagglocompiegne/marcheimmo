@@ -459,6 +459,7 @@ CREATE TABLE m_economie.an_immo_comm -------------------------------------------
 	(
 	idcomm      text DEFAULT 'C' || nextval('m_economie.an_immo_comm_seq') NOT NULL,---------- Identifiant unique de la commercialisation
 	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
+	idbien      text,------------------------------------------------------------------------- Identifiant du bien
 	prix        integer,---------------------------------------------------------------------- Prix total
 	prix_m      integer,---------------------------------------------------------------------- Prix au m²
 	loyer       integer,---------------------------------------------------------------------- Loyer total
@@ -480,6 +481,7 @@ ALTER TABLE m_economie.an_immo_comm
 COMMENT ON TABLE m_economie.an_immo_comm IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
 COMMENT ON COLUMN m_economie.an_immo_comm.idcomm IS 'Identifiant unique de la commercialisation';
 COMMENT ON COLUMN m_economie.an_immo_comm.idimmo IS 'Identifiant de l''objet bien';
+COMMENT ON COLUMN m_economie.an_immo_comm.idbien IS 'Identifiant du bien';
 COMMENT ON COLUMN m_economie.an_immo_comm.prix IS 'Prix total';
 COMMENT ON COLUMN m_economie.an_immo_comm.prix_m IS 'Prix au m²';
 COMMENT ON COLUMN m_economie.an_immo_comm.loyer IS 'Loyer total';
