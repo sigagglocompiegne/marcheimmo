@@ -9,7 +9,7 @@ Ensemble des éléments constituant la mise en oeuvre de la base de données sur
   * [Création  de la structure initiale](sql/IMMO_10_squelette.sql)
   * Création des vues de gestion
   * Création des vues applicatives
-  * [Création des privilèges] (sql/IMMO_99_grant.sql)
+  * [Création des privilèges](sql/IMMO_99_grant.sql)
 - [Documentation d'administration de la base](doc/doc_admin_bd_immo.md)
 - [Documentation d'administration de l'application Activité Economique](../../../amt_fon_eco/blob/master/doc/doc_admin_app_eco.md)
 - Documentation utilisateur de l'application
