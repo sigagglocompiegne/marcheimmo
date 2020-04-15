@@ -25,7 +25,7 @@ SOMMAIRE :
 
 -- VUES 
 
- (à venir)
+-- (à venir)
 
 -- CLASSES
 
@@ -88,7 +88,7 @@ CREATE SEQUENCE m_economie.geo_immo_bien_seq
   CACHE 1;
   
 COMMENT ON SEQUENCE m_economie.geo_immo_bien_seq
-  IS 'Séquence unique pour tous les objets biens (la séquence est complétée par 'O' dans l'attribut idimmo);
+  IS 'Séquence unique pour tous les objets biens (la séquence est complétée par ''O'' dans l''attribut idimmo');
 
 --############################################################ an_immo_bien_seq ##################################################
 
@@ -102,7 +102,7 @@ CREATE SEQUENCE m_economie.an_immo_bien_seq
   CACHE 1;
   
 COMMENT ON SEQUENCE m_economie.an_immo_bien_seq
-  IS 'Séquence unique pour tous les objets biens (la séquence est complétée par 'B' dans l'attribut idbien);
+  IS 'Séquence unique pour tous les objets biens (la séquence est complétée par ''B'' dans l''attribut idbien)';
   
 --############################################################ an_immo_comm_seq ##################################################
 
@@ -124,7 +124,7 @@ CREATE SEQUENCE m_economie.lk_immo_bien_seq
   CACHE 1;
   
 COMMENT ON SEQUENCE m_economie.lk_immo_bien_seq
-  IS 'Séquence unique pour toutes les relations objats bien et attributs métiers bien;
+  IS 'Séquence unique pour toutes les relations objats bien et attributs métiers bien';
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
@@ -298,7 +298,7 @@ ALTER TABLE m_economie.geo_immo_bien
 
 COMMENT ON TABLE m_economie.geo_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant unique de l''objet';
-COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant du site d''activité d'appartenance';
+COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant du site d''activité d''appartenance';
 COMMENT ON COLUMN m_economie.geo_immo_bien.sup_m2 IS 'Superficie de l''objet en m²';
 COMMENT ON COLUMN m_economie.geo_immo_bien.ityp IS 'Type d''objet';
 COMMENT ON COLUMN m_economie.geo_immo_bien.observ IS 'Observations';
@@ -307,13 +307,13 @@ COMMENT ON COLUMN m_economie.geo_immo_bien.date_sai IS 'Date de saisie';
 COMMENT ON COLUMN m_economie.geo_immo_bien.date_maj IS 'Date de mise à jour';
 COMMENT ON COLUMN m_economie.geo_immo_bien.src_geom IS 'Source du référentiel géographique pour le positionnement du nœud';
 COMMENT ON COLUMN m_economie.geo_immo_bien.src_date IS 'Année du référentiel de saisi';
-COMMENT ON COLUMN m_economie.geo_immo_bien.insee IS 'Code Insee de la ou des communes d'assises';
-COMMENT ON COLUMN m_economie.geo_immo_bien.commune IS 'Libellé de la ou des communes d'assises';
+COMMENT ON COLUMN m_economie.geo_immo_bien.insee IS 'Code Insee de la ou des communes d''assises';
+COMMENT ON COLUMN m_economie.geo_immo_bien.commune IS 'Libellé de la ou des communes d''assises';
 COMMENT ON COLUMN m_economie.geo_immo_bien.geom IS 'Attribut de géométrie';
 
 --################################################################# an_immo_bien #######################################################
 
-CREATE TABLE m_economie.an_immo_bien--------------------------------------------- Objet primitif du bien immobilier
+CREATE TABLE m_economie.an_immo_bien--------------------------------------------- Attribut métier du bien immobilier
 	(
 	idbien      integer DEFAULT nextval( 'B' || 'm_economie.geo_immo_objet_seq') NOT NULL,---- Identifiant unique du bien
 	tbien       character varying (2),-------------------------------------------------------- Type de bien
@@ -338,23 +338,23 @@ ALTER TABLE m_economie.geo_immo_objet
   ADD CONSTRAINT geo_immo_objet_pkey PRIMARY KEY(idimmo);
 
 COMMENT ON TABLE m_economie.geo_immo_objet IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
-COMMENT ON COLUMN m_economie.geo_immo_objet.idbien IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.tbien IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.libelle IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.bdesc IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.pdp IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.bal IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.adr IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.adrcomp IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.surf IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.surf_m IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.mprop IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.source IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.refext IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.observ IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.op_sai IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.date_sai IS '';
-COMMENT ON COLUMN m_economie.geo_immo_objet.date_maj IS '';
+COMMENT ON COLUMN m_economie.geo_immo_objet.idbien IS 'Identifiant unique du bien';
+COMMENT ON COLUMN m_economie.geo_immo_objet.tbien IS 'Type de bien';
+COMMENT ON COLUMN m_economie.geo_immo_objet.libelle IS 'Libellé du bien';
+COMMENT ON COLUMN m_economie.geo_immo_objet.bdesc IS 'Description du bien';
+COMMENT ON COLUMN m_economie.geo_immo_objet.pdp IS 'Bien en pas-de-porte';
+COMMENT ON COLUMN m_economie.geo_immo_objet.bal IS 'Identifiant de la base adresse';
+COMMENT ON COLUMN m_economie.geo_immo_objet.adr IS 'Adresse litérale (si différente de la BAL)';
+COMMENT ON COLUMN m_economie.geo_immo_objet.adrcomp IS 'Complément d''adresse';
+COMMENT ON COLUMN m_economie.geo_immo_objet.surf IS 'Surface en hectare';
+COMMENT ON COLUMN m_economie.geo_immo_objet.surf_m IS 'Surface en m²';
+COMMENT ON COLUMN m_economie.geo_immo_objet.mprop IS 'Même propriétaire que le bâtiment';
+COMMENT ON COLUMN m_economie.geo_immo_objet.source IS 'Source de la mise à jour';
+COMMENT ON COLUMN m_economie.geo_immo_objet.refext IS 'Lien vers un site présentant le terrain';
+COMMENT ON COLUMN m_economie.geo_immo_objet.observ IS 'Observations';
+COMMENT ON COLUMN m_economie.geo_immo_objet.op_sai IS 'Opérateur de saisie';
+COMMENT ON COLUMN m_economie.geo_immo_objet.date_sai IS 'Date de saisie';
+COMMENT ON COLUMN m_economie.geo_immo_objet.date_maj IS 'Date de mise à jour';
 
 
 --################################################################# lk_immo_bien #######################################################
