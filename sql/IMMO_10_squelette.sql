@@ -160,7 +160,7 @@ WITH (
 
 INSERT INTO m_economie.lt_immo_ityp(code, valeur)
     VALUES
-	('10','Terrain vierge'),
+	('10','Terrain'),
 	('21','Local (Bâtiment non divisé)'),
 	('22','Local indépendant divisé'),
 	('23','Local non identifié dans un bâtiment divisible');
