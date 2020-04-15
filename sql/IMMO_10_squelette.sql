@@ -282,7 +282,7 @@ CREATE TABLE m_economie.geo_immo_bien-------------------------------------------
 	idsite      character varying (7),-------------------------------------------------------- Identifiant du site d'activité d'appartenance
 	sup_m2      integer ,--------------------------------------------------------------------- Superficie de l''objet en m² (surface SIG)
 	ityp        character varying (2) ,------------------------------------------------------- Type d''occupation
-	observ      character varying (254) ,----------------------------------------------------- Observations
+	observ      character varying (1000) ,----------------------------------------------------- Observations
 	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
 	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
 	date_maj    timestamp without time zone ,------------------------------------------------- Date de mise à jour
@@ -329,7 +329,7 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	mprop	    boolean default false,-------------------------------------------------------- Même propriétaire que le bâtiment
 	source	    character varying (254),------------------------------------------------------ Source de la mise à jour
 	refext	    character varying (254),------------------------------------------------------ Lien vers un site présentant le terrain
-	observ      character varying (254) ,----------------------------------------------------- Observations
+	observ      character varying (1000) ,----------------------------------------------------- Observations
 	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
 	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
 	date_maj    timestamp without time zone--------------------------------------------------- Date de mise à jour
