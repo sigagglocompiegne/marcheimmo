@@ -139,25 +139,23 @@ CREATE TABLE m_economie.lt_immo_ityp
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
-  ityp character varying(2) NOT NULL,
   CONSTRAINT lt_immo_ityp_pkey PRIMARY KEY (code)
 )
 WITH (
   OIDS=FALSE
 );
 
-INSERT INTO m_economie.lt_immo_ityp(code, valeur,ityp)
+INSERT INTO m_economie.lt_immo_ityp(code, valeur)
     VALUES
-	('10','Terrain vierge','10'),
-	('21','Local (Bâtiment non divisé)','20'),
-	('22','Local indépendant divisé','20'),
-	('23','Local non identifié dans un bâtiment divisible','20');
+	('10','Terrain vierge'),
+	('21','Local (Bâtiment non divisé)',
+	('22','Local indépendant divisé'),
+	('23','Local non identifié dans un bâtiment divisible');
 
 COMMENT ON TABLE m_economie.lt_immo_ityp
   IS 'Code permettant de décrire le type d''objet saisie';
 COMMENT ON COLUMN m_economie.lt_immo_ityp.code IS 'Code du type d''objet immobilier saisi';
 COMMENT ON COLUMN m_economie.lt_immo_ityp.valeur IS 'Valeur du type d''objet immobilier saisi';
-COMMENT ON COLUMN m_economie.lt_immo_ityp.ityp IS 'Valeur du type d''occupation liée (pour fonctionnel GEO)';
 
 --############################################################ lt_immo_dbati ##################################################
 
@@ -220,7 +218,7 @@ COMMENT ON COLUMN m_economie.lt_immo_dbien.valeur IS 'Valeur du type décrivant 
 
 CREATE TABLE m_economie.lt_immo_tbien
 (
-  code character varying(2) NOT NULL,
+  code character varying(4) NOT NULL,
   valeur character varying(80) NOT NULL,
   ityp character varying(2) NOT NULL,
   CONSTRAINT lt_immo_tbien_pkey PRIMARY KEY (code)
@@ -231,13 +229,19 @@ WITH (
 
 INSERT INTO m_economie.lt_immo_tbien(code, valeur,ityp)
     VALUES
-        ('10','Terrain vierge','10'),
-	('11','Parking','10'),
-	('12','Surface de dépôt ou de stockage','10'),
-	('13','Surface agricole','10'),
-	('20','Bureau','20'),
-	('21','Commerce','20'),
-	('22','Activité','20');
+        ('1010','Terrain vierge','10'),
+	('1110','Parking','10'),
+	('1210','Surface de dépôt ou de stockage','10'),
+	('1310','Surface agricole','10'),
+	('2021','Bureau','21'),
+	('2121','Commerce','21'),
+	('2221','Activité','21'),
+	('2022','Bureau','22'),
+	('2122','Commerce','22'),
+	('2222','Activité','22'),
+	('2023','Bureau','23'),
+	('2123','Commerce','23'),
+	('2223','Activité','23');
 
 COMMENT ON TABLE m_economie.lt_immo_tbien
   IS 'Code permettant de décrire le type de bien';
@@ -321,7 +325,7 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	(
 	idbien      text DEFAULT 'B' || nextval('m_economie.an_immo_bien_seq') NOT NULL,---------- Identifiant unique du bien
 	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
-	tbien       character varying (2),-------------------------------------------------------- Type de bien
+	tbien       character varying (4),-------------------------------------------------------- Type de bien
 	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
 	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
 	pdp	    boolean default false,-------------------------------------------------------- Bien en pas-de-porte
