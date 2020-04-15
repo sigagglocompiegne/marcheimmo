@@ -1,4 +1,3 @@
-﻿
 /*ECL V1.0*/
 /*Creation droits sur l'ensemble des objets */
 /*IMMO_99_GRANT.sql */
