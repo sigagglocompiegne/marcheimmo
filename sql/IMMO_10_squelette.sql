@@ -278,7 +278,7 @@ COMMENT ON COLUMN m_economie.lt_immo_etat.valeur IS 'Valeur de l''état du bien 
 
 CREATE TABLE m_economie.geo_immo_bien--------------------------------------------- Objet primitif du bien immobilier
 	(
-	idimmo      integer DEFAULT nextval( 'O' || 'm_economie.geo_immo_bien_seq') NOT NULL,---- Identifiant unique de l'objet
+	idimmo      text DEFAULT 'O' || nextval('m_economie.geo_immo_bien_seq') NOT NULL,--------- Identifiant unique de l'objet
 	idsite      character varying (7),-------------------------------------------------------- Identifiant du site d'activité d'appartenance
 	sup_m2      integer ,--------------------------------------------------------------------- Superficie de l''objet en m² (surface SIG)
 	ityp        character varying (2) ,------------------------------------------------------- Type d''occupation
@@ -315,8 +315,8 @@ COMMENT ON COLUMN m_economie.geo_immo_bien.geom IS 'Attribut de géométrie';
 
 CREATE TABLE m_economie.an_immo_bien--------------------------------------------- Attribut métier du bien immobilier
 	(
-	idbien      integer DEFAULT nextval( 'B' || 'm_economie.an_immo_bien_seq') NOT NULL,------ Identifiant unique du bien
-	idimmo      integer,---------------------------------------------------------------------- Identifiant de l''objet bien
+	idbien      text DEFAULT 'B' || nextval('m_economie.an_immo_bien_seq') NOT NULL,---------- Identifiant unique du bien
+	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
 	tbien       character varying (2),-------------------------------------------------------- Type de bien
 	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
 	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
@@ -364,8 +364,8 @@ COMMENT ON COLUMN m_economie.an_immo_bien.date_maj IS 'Date de mise à jour';
 CREATE TABLE m_economie.lk_immo_bien
 	(
 	id          integer DEFAULT nextval('m_economie.lk_immo_bien_seq') NOT NULL,---- Identifiant unique de l'objet
-	idimmo      integer,------------------------------------------------------------ Identifiant unique géographique du bien
-	idbien      integer ------------------------------------------------------------ Identifiant unique métier du bien
+	idimmo      text,------------------------------------------------------------ Identifiant unique géographique du bien
+	idbien      text ------------------------------------------------------------ Identifiant unique métier du bien
 	
 );
 
