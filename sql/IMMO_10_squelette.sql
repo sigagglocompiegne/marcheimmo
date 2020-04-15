@@ -491,7 +491,7 @@ COMMENT ON COLUMN m_economie.an_immo_comm.commtelp IS 'Téléphone portable du c
 COMMENT ON COLUMN m_economie.an_immo_comm.commmail IS 'Email du commercialisateur';
 COMMENT ON COLUMN m_economie.an_immo_comm.etat IS 'Etat de la commercialisation';
 COMMENT ON COLUMN m_economie.an_immo_comm.source IS 'Source';
-COMMENT ON COLUMN m_economie.an_immo_comm.refext IS 'Référence externe d'un site internet présentant une fiche de commercialisation';
+COMMENT ON COLUMN m_economie.an_immo_comm.refext IS 'Référence externe d''un site internet présentant une fiche de commercialisation';
 COMMENT ON COLUMN m_economie.an_immo_comm.observ IS 'Observations';
 
 --################################################################# lk_immo_bien #######################################################
