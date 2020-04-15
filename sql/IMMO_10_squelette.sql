@@ -108,6 +108,19 @@ COMMENT ON SEQUENCE m_economie.an_immo_bien_seq
 
 --############################################################ an_immo_bati_seq ##################################################
 
+--DROP SEQUENCE m_economie.an_immo_bati_seq;
+/*
+CREATE SEQUENCE m_economie.an_immo_bati_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1 
+  CACHE 1;
+  
+COMMENT ON SEQUENCE m_economie.an_immo_bati_seq
+  IS 'Séquence unique pour les bâtiments (la séquence est complétée par ''BA'' dans l''attribut idbati)';
+  */
+
 --############################################################ an_immo_prop_seq ##################################################
 
 --DROP SEQUENCE m_economie.an_immo_prop_seq;
@@ -398,6 +411,35 @@ COMMENT ON COLUMN m_economie.an_immo_prop.proptelp IS 'Téléphone portable du p
 COMMENT ON COLUMN m_economie.an_immo_prop.propmail IS 'Email du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.observ IS 'Observations';
 
+--################################################################# an_immo_bati #######################################################
+
+CREATE TABLE m_economie.an_immo_bati --------------------------------------------- Attribut métier du propriétaire
+	(
+	idbati      text DEFAULT 'BA' || nextval('m_economie.an_immo_bati_seq') NOT NULL,--------- Identifiant unique du bâtiment
+	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet
+	libelle     character varying (254),------------------------------------------------------ Libellé du bâtiment
+	surf_m      integer,---------------------------------------------------------------------- Surface en m²	
+	shon        integer,---------------------------------------------------------------------- Surface de plancher en m²
+	hauteur     integer,---------------------------------------------------------------------- Hauteur em mètre
+	nbloc       integer,---------------------------------------------------------------------- Nombre de local dans le bâtiment
+	bdesc       character varying(100),------------------------------------------------------- Description du bâtiment
+	observ      character varying(1000)------------------------------------------------------- Observations
+);
+
+ALTER TABLE m_economie.an_immo_bati
+  ADD CONSTRAINT an_immo_bati_pkey PRIMARY KEY(idbati);
+
+COMMENT ON TABLE m_economie.an_immo_bati IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
+COMMENT ON COLUMN m_economie.an_immo_bati.idbati IS 'Identifiant du bâtiment';
+COMMENT ON COLUMN m_economie.an_immo_bati.idimmo IS 'Identifiant de l''objet';
+COMMENT ON COLUMN m_economie.an_immo_bati.libelle IS 'Libellé du bâtiment';
+COMMENT ON COLUMN m_economie.an_immo_bati.surf_m IS 'Surface en m²';
+COMMENT ON COLUMN m_economie.an_immo_bati.shon IS 'Surface de plancher en m²';
+COMMENT ON COLUMN m_economie.an_immo_bati.hauteur IS 'Hauteur em mètre';
+COMMENT ON COLUMN m_economie.an_immo_bati.nbloc IS 'Nombre de local dans le bâtiment';
+COMMENT ON COLUMN m_economie.an_immo_bati.bdesc IS 'Description du bâtiment';
+COMMENT ON COLUMN m_economie.an_immo_bati.observ IS 'Observations';
+
 
 --################################################################# lk_immo_bien #######################################################
 
@@ -441,3 +483,11 @@ ALTER TABLE m_economie.an_immo_bien
   ADD CONSTRAINT an_immo_bien_tbien_fkey FOREIGN KEY (tbien)
       REFERENCES m_economie.lt_immo_tbien(code) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE SET DEFAULT;
+
+/*
+-- pas de clé étrangère ici car plusieurs valeurs possibles depuis GEO
+ALTER TABLE m_economie.an_immo_bati
+  ADD CONSTRAINT an_immo_bati_bdesc_fkey FOREIGN KEY (bdesc)
+      REFERENCES m_economie.lt_immo_dbati(code) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE SET DEFAULT;
+*/
