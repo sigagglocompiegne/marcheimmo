@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS m_economie.lt_immo_etat CASCADE;
 
 
 --SEQUENCES
-
+/*
 DROP SEQUENCE m_economie.geo_immo_bien_seq;
 DROP SEQUENCE m_economie.an_immo_bien_seq;
 DROP SEQUENCE m_economie.an_immo_comm_seq ;
@@ -59,7 +59,7 @@ DROP SEQUENCE m_economie.an_immo_bati_seq;
 DROP SEQUENCE m_economie.an_immo_prop_seq;
 DROP SEQUENCE m_economie.an_immo_media_seq;
 DROP SEQUENCE m_economie.lk_immo_bien_seq;
-
+*/
 --TRIGGERS
 
 -- DROP TRIGGER IF EXISTS  ON m_economie. ;
@@ -77,7 +77,7 @@ DROP SEQUENCE m_economie.lk_immo_bien_seq;
 
 --############################################################ OBJETS ##################################################
 
-
+/*
 --DROP SEQUENCE m_economie.geo_immo_bien_seq;
 
 CREATE SEQUENCE m_economie.geo_immo_bien_seq
@@ -89,11 +89,11 @@ CREATE SEQUENCE m_economie.geo_immo_bien_seq
   
 COMMENT ON SEQUENCE m_economie.geo_immo_bien_seq
   IS 'Séquence unique pour tous les objets biens (la séquence est complétée par ''O'' dans l''attribut idimmo)';
-
+*/
 --############################################################ an_immo_bien_seq ##################################################
 
 --DROP SEQUENCE m_economie.an_immo_bien_seq;
-
+/*
 CREATE SEQUENCE m_economie.an_immo_bien_seq
   INCREMENT 1
   MINVALUE 1
@@ -103,19 +103,32 @@ CREATE SEQUENCE m_economie.an_immo_bien_seq
   
 COMMENT ON SEQUENCE m_economie.an_immo_bien_seq
   IS 'Séquence unique pour tous les objets biens (la séquence est complétée par ''B'' dans l''attribut idbien)';
-  
+  */
 --############################################################ an_immo_comm_seq ##################################################
 
 --############################################################ an_immo_bati_seq ##################################################
 
 --############################################################ an_immo_prop_seq ##################################################
 
+--DROP SEQUENCE m_economie.an_immo_prop_seq;
+/*
+CREATE SEQUENCE m_economie.an_immo_prop_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1 
+  CACHE 1;
+  
+COMMENT ON SEQUENCE m_economie.an_immo_prop_seq
+  IS 'Séquence unique pour les propriétaires (la séquence est complétée par ''P'' dans l''attribut idprop)';
+  */
+
 --############################################################ an_immo_media_seq ##################################################
 
 --############################################################ lk_immo_bien_seq ##################################################
 
 --DROP SEQUENCE m_economie.lk_immo_bien_seq;
-
+/*
 CREATE SEQUENCE m_economie.lk_immo_bien_seq
   INCREMENT 1
   MINVALUE 1
@@ -125,7 +138,7 @@ CREATE SEQUENCE m_economie.lk_immo_bien_seq
   
 COMMENT ON SEQUENCE m_economie.lk_immo_bien_seq
   IS 'Séquence unique pour toutes les relations objats bien et attributs métiers bien';
-
+*/
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
 -- ###                                                    DOMAINES DE VALEURS                                                  ###
@@ -364,6 +377,38 @@ COMMENT ON COLUMN m_economie.an_immo_bien.op_sai IS 'Opérateur de saisie';
 COMMENT ON COLUMN m_economie.an_immo_bien.date_sai IS 'Date de saisie';
 COMMENT ON COLUMN m_economie.an_immo_bien.date_maj IS 'Date de mise à jour';
 
+--################################################################# an_immo_prop #######################################################
+
+CREATE TABLE m_economie.an_immo_prop --------------------------------------------- Attribut métier du propriétaire
+	(
+	idprop      text DEFAULT 'P' || nextval('m_economie.an_immo_prop_seq') NOT NULL,---------- Identifiant unique du propriétaire
+	idbati      text,------------------------------------------------------------------------- Identifiant du bâtiment
+	idbien	    text,------------------------------------------------------------------------- Identifiant du bien
+	propnom     character varying (100),------------------------------------------------------ Nom du propriétaire
+	proptel     character varying (14),------------------------------------------------------- Téléphone du propriétaire
+	proptelp    character varying (14),------------------------------------------------------- Téléphone portable du propriétaire	
+	propmail    character varying (80),------------------------------------------------------- Email du propriétaire	
+	observ      character varying (1000) ,---------------------------------------------------- Observations
+	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
+	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
+	date_maj    timestamp without time zone--------------------------------------------------- Date de mise à jour
+);
+
+ALTER TABLE m_economie.an_immo_prop
+  ADD CONSTRAINT an_immo_prop_pkey PRIMARY KEY(idprop);
+
+COMMENT ON TABLE m_economie.an_immo_prop IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
+COMMENT ON COLUMN m_economie.an_immo_prop.idprop IS 'Identifiant du propriétaire';
+COMMENT ON COLUMN m_economie.an_immo_prop.idbati IS 'Identifiant du bâtiment';
+COMMENT ON COLUMN m_economie.an_immo_prop.idbien IS 'Identifiant du bien';
+COMMENT ON COLUMN m_economie.an_immo_prop.propnom IS 'Nom du propriétaire';
+COMMENT ON COLUMN m_economie.an_immo_prop.proptel IS 'Téléphone du propriétaire';
+COMMENT ON COLUMN m_economie.an_immo_prop.proptelp IS 'Téléphone portable du propriétaire';
+COMMENT ON COLUMN m_economie.an_immo_prop.propmail IS 'Email du propriétaire';
+COMMENT ON COLUMN m_economie.an_immo_prop.observ IS 'Observations';
+COMMENT ON COLUMN m_economie.an_immo_prop.op_sai IS 'Opérateur de saisie';
+COMMENT ON COLUMN m_economie.an_immo_prop.date_sai IS 'Date de saisie';
+COMMENT ON COLUMN m_economie.an_immo_prop.date_maj IS 'Date de mise à jour';
 
 --################################################################# lk_immo_bien #######################################################
 
