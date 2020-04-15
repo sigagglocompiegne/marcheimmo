@@ -315,7 +315,8 @@ COMMENT ON COLUMN m_economie.geo_immo_bien.geom IS 'Attribut de géométrie';
 
 CREATE TABLE m_economie.an_immo_bien--------------------------------------------- Attribut métier du bien immobilier
 	(
-	idbien      integer DEFAULT nextval( 'B' || 'm_economie.an_immo_bien_seq') NOT NULL,---- Identifiant unique du bien
+	idbien      integer DEFAULT nextval( 'B' || 'm_economie.an_immo_bien_seq') NOT NULL,------ Identifiant unique du bien
+	idimmo      integer,---------------------------------------------------------------------- Identifiant de l''objet bien
 	tbien       character varying (2),-------------------------------------------------------- Type de bien
 	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
 	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
@@ -339,6 +340,7 @@ ALTER TABLE m_economie.an_immo_bien
 
 COMMENT ON TABLE m_economie.an_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 COMMENT ON COLUMN m_economie.an_immo_bien.idbien IS 'Identifiant unique du bien';
+COMMENT ON COLUMN m_economie.an_immo_bien.idimmo IS 'Identifiant unique de l''objet bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.tbien IS 'Type de bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.libelle IS 'Libellé du bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.bdesc IS 'Description du bien';
