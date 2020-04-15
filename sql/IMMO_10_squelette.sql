@@ -298,7 +298,7 @@ ALTER TABLE m_economie.geo_immo_bien
 
 COMMENT ON TABLE m_economie.geo_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant unique de l''objet';
-COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant du site d''activité d''appartenance';
+COMMENT ON COLUMN m_economie.geo_immo_bien.idsite IS 'Identifiant du site d''activité d''appartenance';
 COMMENT ON COLUMN m_economie.geo_immo_bien.sup_m2 IS 'Superficie de l''objet en m²';
 COMMENT ON COLUMN m_economie.geo_immo_bien.ityp IS 'Type d''occupation';
 COMMENT ON COLUMN m_economie.geo_immo_bien.observ IS 'Observations';
