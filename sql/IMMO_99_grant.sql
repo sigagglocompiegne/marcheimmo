@@ -71,3 +71,9 @@ GRANT ALL ON TABLE m_economie.lk_immo_bien TO create_sig;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lk_immo_bien TO edit_sig;
 GRANT SELECT ON TABLE m_economie.lk_immo_bien TO read_sig;
 
+ALTER TABLE m_economie.an_immo_bati
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_economie.an_immo_bati TO sig_create;
+GRANT ALL ON TABLE m_economie.an_immo_bati TO create_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_bati TO edit_sig;
+GRANT SELECT ON TABLE m_economie.an_immo_bati TO read_sig;
