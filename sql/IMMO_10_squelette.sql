@@ -348,10 +348,7 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	mprop	    boolean default false,-------------------------------------------------------- Même propriétaire que le bâtiment
 	source	    character varying (254),------------------------------------------------------ Source de la mise à jour
 	refext	    character varying (254),------------------------------------------------------ Lien vers un site présentant le terrain
-	observ      character varying (1000) ,----------------------------------------------------- Observations
-	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
-	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
-	date_maj    timestamp without time zone--------------------------------------------------- Date de mise à jour
+	observ      character varying (1000) ----------------------------------------------------- Observations
 );
 
 ALTER TABLE m_economie.an_immo_bien
@@ -373,9 +370,6 @@ COMMENT ON COLUMN m_economie.an_immo_bien.mprop IS 'Même propriétaire que le b
 COMMENT ON COLUMN m_economie.an_immo_bien.source IS 'Source de la mise à jour';
 COMMENT ON COLUMN m_economie.an_immo_bien.refext IS 'Lien vers un site présentant le terrain';
 COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
-COMMENT ON COLUMN m_economie.an_immo_bien.op_sai IS 'Opérateur de saisie';
-COMMENT ON COLUMN m_economie.an_immo_bien.date_sai IS 'Date de saisie';
-COMMENT ON COLUMN m_economie.an_immo_bien.date_maj IS 'Date de mise à jour';
 
 --################################################################# an_immo_prop #######################################################
 
@@ -388,10 +382,7 @@ CREATE TABLE m_economie.an_immo_prop -------------------------------------------
 	proptel     character varying (14),------------------------------------------------------- Téléphone du propriétaire
 	proptelp    character varying (14),------------------------------------------------------- Téléphone portable du propriétaire	
 	propmail    character varying (80),------------------------------------------------------- Email du propriétaire	
-	observ      character varying (1000) ,---------------------------------------------------- Observations
-	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
-	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
-	date_maj    timestamp without time zone--------------------------------------------------- Date de mise à jour
+	observ      character varying (1000) ----------------------------------------------------- Observations
 );
 
 ALTER TABLE m_economie.an_immo_prop
@@ -406,9 +397,7 @@ COMMENT ON COLUMN m_economie.an_immo_prop.proptel IS 'Téléphone du propriétai
 COMMENT ON COLUMN m_economie.an_immo_prop.proptelp IS 'Téléphone portable du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.propmail IS 'Email du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.observ IS 'Observations';
-COMMENT ON COLUMN m_economie.an_immo_prop.op_sai IS 'Opérateur de saisie';
-COMMENT ON COLUMN m_economie.an_immo_prop.date_sai IS 'Date de saisie';
-COMMENT ON COLUMN m_economie.an_immo_prop.date_maj IS 'Date de mise à jour';
+
 
 --################################################################# lk_immo_bien #######################################################
 
