@@ -106,6 +106,19 @@ COMMENT ON SEQUENCE m_economie.an_immo_bien_seq
   */
 --############################################################ an_immo_comm_seq ##################################################
 
+--DROP SEQUENCE m_economie.an_immo_comm_seq;
+/*
+CREATE SEQUENCE m_economie.an_immo_comm_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1 
+  CACHE 1;
+  
+COMMENT ON SEQUENCE m_economie.an_immo_comm_seq
+  IS 'Séquence unique pour les bâtiments (la séquence est complétée par ''C'' dans l''attribut idcomm)';
+  */
+
 --############################################################ an_immo_bati_seq ##################################################
 
 --DROP SEQUENCE m_economie.an_immo_bati_seq;
@@ -440,6 +453,46 @@ COMMENT ON COLUMN m_economie.an_immo_bati.nbloc IS 'Nombre de local dans le bât
 COMMENT ON COLUMN m_economie.an_immo_bati.bdesc IS 'Description du bâtiment';
 COMMENT ON COLUMN m_economie.an_immo_bati.observ IS 'Observations';
 
+--################################################################# an_immo_comm #######################################################
+
+CREATE TABLE m_economie.an_immo_comm --------------------------------------------- Attribut métier de la commercialisation
+	(
+	idcomm      text DEFAULT 'C' || nextval('m_economie.an_immo_comm_seq') NOT NULL,---------- Identifiant unique de la commercialisation
+	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
+	prix     character varying (254),--------------------------------------------------------- Prix total
+	prix_m      integer,---------------------------------------------------------------------- Prix au m²
+	loyer        integer,--------------------------------------------------------------------- Loyer total
+	loyer_m     integer,---------------------------------------------------------------------- Loyer au m²
+	bail       integer,----------------------------------------------------------------------- Montant du Bail
+	comm       character varying(100),-------------------------------------------------------- Nom du commercialisateur
+	commtel      character varying(1000)------------------------------------------------------ Téléphone du commercialisateur
+	commtelp      character varying(1000)----------------------------------------------------- Téléphone portable du commercialisateur
+	commmail      character varying(1000)----------------------------------------------------- Email du commercialisateur
+	etat      character varying(1000)--------------------------------------------------------- Etat de la commercialisation
+	source      character varying(1000)------------------------------------------------------- Source
+	refext      character varying(254)-------------------------------------------------------- Référence externe d'un site internet présentant une fiche de commercialisation
+	observ      character varying(1000)------------------------------------------------------- Observations
+);
+
+ALTER TABLE m_economie.an_immo_comm
+  ADD CONSTRAINT an_immo_comm_pkey PRIMARY KEY(idcomm);
+
+COMMENT ON TABLE m_economie.an_immo_comm IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
+COMMENT ON COLUMN m_economie.an_immo_comm.idcomm IS 'Identifiant unique de la commercialisation';
+COMMENT ON COLUMN m_economie.an_immo_comm.idimmo IS 'Identifiant de l''objet bien';
+COMMENT ON COLUMN m_economie.an_immo_comm.prix IS 'Prix total';
+COMMENT ON COLUMN m_economie.an_immo_comm.prix_m IS 'Prix au m²';
+COMMENT ON COLUMN m_economie.an_immo_comm.loyer IS 'Loyer total';
+COMMENT ON COLUMN m_economie.an_immo_comm.loyer_m IS 'Loyer au m²';
+COMMENT ON COLUMN m_economie.an_immo_comm.bail IS 'Montant du Bail';
+COMMENT ON COLUMN m_economie.an_immo_comm.comm IS 'Nom du commercialisateur';
+COMMENT ON COLUMN m_economie.an_immo_comm.commtel IS 'Téléphone du commercialisateur';
+COMMENT ON COLUMN m_economie.an_immo_comm.commtelp IS 'Téléphone portable du commercialisateur';
+COMMENT ON COLUMN m_economie.an_immo_comm.commmail IS 'Email du commercialisateur';
+COMMENT ON COLUMN m_economie.an_immo_comm.etat IS 'Etat de la commercialisation';
+COMMENT ON COLUMN m_economie.an_immo_comm.source IS 'Source';
+COMMENT ON COLUMN m_economie.an_immo_comm.refext IS 'Référence externe d'un site internet présentant une fiche de commercialisation';
+COMMENT ON COLUMN m_economie.an_immo_comm.observ IS 'Observations';
 
 --################################################################# lk_immo_bien #######################################################
 
