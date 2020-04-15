@@ -222,7 +222,7 @@ CREATE TABLE m_economie.lt_immo_tbien
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
-  ityp character varying(2) NOT NULL
+  ityp character varying(2) NOT NULL,
   CONSTRAINT lt_immo_tbien_pkey PRIMARY KEY (code)
 )
 WITH (
@@ -237,7 +237,7 @@ INSERT INTO m_economie.lt_immo_tbien(code, valeur,ityp)
 	('13','Surface agricole','10'),
 	('20','Bureau','20'),
 	('21','Commerce','20'),
-	('22','Activité';'20');
+	('22','Activité','20');
 
 COMMENT ON TABLE m_economie.lt_immo_tbien
   IS 'Code permettant de décrire le type de bien';
