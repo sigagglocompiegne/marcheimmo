@@ -29,7 +29,7 @@ SOMMAIRE :
 
 -- CLASSES
 
-DROP TABLE IF EXISTS m_economie.geo_immo_objet CASCADE;
+DROP TABLE IF EXISTS m_economie.geo_immo_bien CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_bien CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_bati CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS m_economie.lt_immo_etat CASCADE;
 
 --SEQUENCES
 
-DROP SEQUENCE m_economie.geo_immo_objet_seq;
+DROP SEQUENCE m_economie.geo_immo_bien_seq;
 DROP SEQUENCE m_economie.an_immo_bien_seq;
 DROP SEQUENCE m_economie.an_immo_comm_seq ;
 DROP SEQUENCE m_economie.an_immo_bati_seq;
@@ -70,7 +70,7 @@ DROP TRIGGER IF EXISTS  ON m_economie. ;
 -- ###############################################################################################################################
 
 
---############################################################ geo_immo_objet_seq ##################################################
+--############################################################ geo_immo_bien_seq ##################################################
 
 --############################################################ an_immo_bien_seq ##################################################
 
@@ -92,7 +92,7 @@ DROP TRIGGER IF EXISTS  ON m_economie. ;
 
 --############################################################ lt_immo_ityp ##################################################
 
-CREATE TABLE m_reseau_sec.lt_immo_ityp
+CREATE TABLE m_economie.lt_immo_ityp
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
@@ -116,7 +116,7 @@ COMMENT ON COLUMN m_economie.lt_immo_ityp.valeur IS 'Valeur du type d''objet imm
 
 --############################################################ lt_immo_dbati ##################################################
 
-CREATE TABLE m_reseau_sec.lt_immo_dbati
+CREATE TABLE m_economie.lt_immo_dbati
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
@@ -148,7 +148,7 @@ COMMENT ON COLUMN m_economie.lt_immo_dbati.valeur IS 'Valeur du type décrivant 
 
 --############################################################ lt_immo_dbien ##################################################
 
-CREATE TABLE m_reseau_sec.lt_immo_dbien
+CREATE TABLE m_economie.lt_immo_dbien
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
@@ -173,7 +173,7 @@ COMMENT ON COLUMN m_economie.lt_immo_dbien.valeur IS 'Valeur du type décrivant 
 
 --############################################################ lt_immo_tbien ##################################################
 
-CREATE TABLE m_reseau_sec.lt_immo_tbien
+CREATE TABLE m_economie.lt_immo_tbien
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
@@ -200,7 +200,7 @@ COMMENT ON COLUMN m_economie.lt_immo_tbien.valeur IS 'Valeur du type de bien';
 
 --############################################################ lt_immo_etat ##################################################
 
-CREATE TABLE m_reseau_sec.lt_immo_etat
+CREATE TABLE m_economie.lt_immo_etat
 (
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
@@ -231,11 +231,11 @@ COMMENT ON COLUMN m_economie.lt_immo_etat.valeur IS 'Valeur de l''état du bien 
 -- ###############################################################################################################################
 
 
---################################################################# geo_immo_objet #######################################################
+--################################################################# geo_immo_bien #######################################################
 
-CREATE TABLE m_economie.geo_immo_objet--------------------------------------------- Objet primitif du bien immobilier
+CREATE TABLE m_economie.geo_immo_bien--------------------------------------------- Objet primitif du bien immobilier
 	(
-	idimmo      integer DEFAULT nextval( 'O' || 'm_economie.geo_immo_objet_seq') NOT NULL,---- Identifiant unique de l'objet
+	idimmo      integer DEFAULT nextval( 'O' || 'm_economie.geo_immo_bien_seq') NOT NULL,---- Identifiant unique de l'objet
 	idsite      character varying (7),-------------------------------------------------------- Identifiant du site d'activité d'appartenance
 	sup_m2      integer ,--------------------------------------------------------------------- Superficie de l''objet en m² (surface SIG)
 	ityp        character varying (2) ,------------------------------------------------------- Type d''objet
@@ -250,23 +250,23 @@ CREATE TABLE m_economie.geo_immo_objet------------------------------------------
 	geom        geom(multipolygon,2154)------------------------------------------------------- Attribut de géométrie
 );
 
-ALTER TABLE m_economie.geo_immo_objet
-  ADD CONSTRAINT geo_immo_objet_pkey PRIMARY KEY(idimmo);
+ALTER TABLE m_economie.geo_immo_bien
+  ADD CONSTRAINT geo_immo_bien_pkey PRIMARY KEY(idimmo);
 
-COMMENT ON TABLE m_economie.geo_immo_objet IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
-COMMENT ON COLUMN m_economie.geo_immo_objet.idimmo IS 'Identifiant unique de l''objet';
-COMMENT ON COLUMN m_economie.geo_immo_objet.idimmo IS 'Identifiant du site d''activité d'appartenance';
-COMMENT ON COLUMN m_economie.geo_immo_objet.sup_m2 IS 'Superficie de l''objet en m²';
-COMMENT ON COLUMN m_economie.geo_immo_objet.ityp IS 'Type d''objet';
-COMMENT ON COLUMN m_economie.geo_immo_objet.observ IS 'Observations';
-COMMENT ON COLUMN m_economie.geo_immo_objet.op_sai IS 'Opérateur de saisie';
-COMMENT ON COLUMN m_economie.geo_immo_objet.date_sai IS 'Date de saisie';
-COMMENT ON COLUMN m_economie.geo_immo_objet.date_maj IS 'Date de mise à jour';
-COMMENT ON COLUMN m_economie.geo_immo_objet.src_geom IS 'Source du référentiel géographique pour le positionnement du nœud';
-COMMENT ON COLUMN m_economie.geo_immo_objet.src_date IS 'Année du référentiel de saisi';
-COMMENT ON COLUMN m_economie.geo_immo_objet.insee IS 'Code Insee de la ou des communes d'assises';
-COMMENT ON COLUMN m_economie.geo_immo_objet.commune IS 'Libellé de la ou des communes d'assises';
-COMMENT ON COLUMN m_economie.geo_immo_objet.geom IS 'Attribut de géométrie';
+COMMENT ON TABLE m_economie.geo_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
+COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant unique de l''objet';
+COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant du site d''activité d'appartenance';
+COMMENT ON COLUMN m_economie.geo_immo_bien.sup_m2 IS 'Superficie de l''objet en m²';
+COMMENT ON COLUMN m_economie.geo_immo_bien.ityp IS 'Type d''objet';
+COMMENT ON COLUMN m_economie.geo_immo_bien.observ IS 'Observations';
+COMMENT ON COLUMN m_economie.geo_immo_bien.op_sai IS 'Opérateur de saisie';
+COMMENT ON COLUMN m_economie.geo_immo_bien.date_sai IS 'Date de saisie';
+COMMENT ON COLUMN m_economie.geo_immo_bien.date_maj IS 'Date de mise à jour';
+COMMENT ON COLUMN m_economie.geo_immo_bien.src_geom IS 'Source du référentiel géographique pour le positionnement du nœud';
+COMMENT ON COLUMN m_economie.geo_immo_bien.src_date IS 'Année du référentiel de saisi';
+COMMENT ON COLUMN m_economie.geo_immo_bien.insee IS 'Code Insee de la ou des communes d'assises';
+COMMENT ON COLUMN m_economie.geo_immo_bien.commune IS 'Libellé de la ou des communes d'assises';
+COMMENT ON COLUMN m_economie.geo_immo_bien.geom IS 'Attribut de géométrie';
 
 --################################################################# an_immo_bien #######################################################
 
@@ -322,3 +322,17 @@ COMMENT ON COLUMN m_economie.geo_immo_objet.date_maj IS '';
 
 -- CLE ETRANGERE
 
+ALTER TABLE m_economie.geo_immo_bien
+  ADD CONSTRAINT geo_immo_bien_ityp_fkey FOREIGN KEY (ityp)
+      REFERENCES m_economie.lt_immo_ityp(code) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE SET DEFAULT;
+      
+ALTER TABLE m_economie.geo_immo_bien
+  ADD CONSTRAINT geo_immo_bien_geom_fkey FOREIGN KEY (src_geom)
+      REFERENCES r_objet.lt_src_geom(code) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE SET DEFAULT;
+      
+ALTER TABLE m_economie.an_immo_bien
+  ADD CONSTRAINT an_immo_bien_tbien_fkey FOREIGN KEY (tbien)
+      REFERENCES m_economie.lt_immo_tbien(code) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE SET DEFAULT;
