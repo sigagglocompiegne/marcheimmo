@@ -544,3 +544,8 @@ ALTER TABLE m_economie.an_immo_bati
       REFERENCES m_economie.lt_immo_dbati(code) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE SET DEFAULT;
 */
+
+ALTER TABLE m_economie.an_immo_comm
+  ADD CONSTRAINT an_immo_comm_etat_fkey FOREIGN KEY (etat)
+      REFERENCES m_economie.lt_immo_etat(code) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE SET DEFAULT;
