@@ -35,11 +35,7 @@ DROP TABLE IF EXISTS m_economie.an_immo_bati CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_comm CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_media CASCADE;
-DROP TABLE IF EXISTS m_economie.lk_immo_bien CASCADE;
 DROP TABLE IF EXISTS m_economie.lk_immo_occupant CASCADE;
-DROP TABLE IF EXISTS m_economie.lk_immo_bienbati CASCADE;
-
-
 
 -- DOMAINES DE VALEUR
 
@@ -58,7 +54,6 @@ DROP SEQUENCE m_economie.an_immo_comm_seq ;
 DROP SEQUENCE m_economie.an_immo_bati_seq;
 DROP SEQUENCE m_economie.an_immo_prop_seq;
 DROP SEQUENCE m_economie.an_immo_media_seq;
-DROP SEQUENCE m_economie.lk_immo_bien_seq;
 */
 --TRIGGERS
 
@@ -151,20 +146,7 @@ COMMENT ON SEQUENCE m_economie.an_immo_prop_seq
 
 --############################################################ an_immo_media_seq ##################################################
 
---############################################################ lk_immo_bien_seq ##################################################
 
---DROP SEQUENCE m_economie.lk_immo_bien_seq;
-/*
-CREATE SEQUENCE m_economie.lk_immo_bien_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1 
-  CACHE 1;
-  
-COMMENT ON SEQUENCE m_economie.lk_immo_bien_seq
-  IS 'Séquence unique pour toutes les relations objats bien et attributs métiers bien';
-*/
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
 -- ###                                                    DOMAINES DE VALEURS                                                  ###
@@ -175,7 +157,7 @@ COMMENT ON SEQUENCE m_economie.lk_immo_bien_seq
 --############################################################ lt_immo_ityp ##################################################
 
 CREATE TABLE m_economie.lt_immo_ityp
-(
+(a
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
   CONSTRAINT lt_immo_ityp_pkey PRIMARY KEY (code)
@@ -404,6 +386,7 @@ CREATE TABLE m_economie.an_immo_prop -------------------------------------------
 	idprop      text DEFAULT 'P' || nextval('m_economie.an_immo_prop_seq') NOT NULL,---------- Identifiant unique du propriétaire
 	idbati      text,------------------------------------------------------------------------- Identifiant du bâtiment
 	idimmo	    text,------------------------------------------------------------------------- Identifiant de l'objet
+	idbien	    text,------------------------------------------------------------------------- Identifiant du bien
 	propnom     character varying (100),------------------------------------------------------ Nom du propriétaire
 	proptel     character varying (14),------------------------------------------------------- Téléphone du propriétaire
 	proptelp    character varying (14),------------------------------------------------------- Téléphone portable du propriétaire	
@@ -418,6 +401,7 @@ COMMENT ON TABLE m_economie.an_immo_prop IS 'Table des objets graphiques corresp
 COMMENT ON COLUMN m_economie.an_immo_prop.idprop IS 'Identifiant du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.idbati IS 'Identifiant du bâtiment';
 COMMENT ON COLUMN m_economie.an_immo_prop.idimmo IS 'Identifiant de l''objet';
+COMMENT ON COLUMN m_economie.an_immo_prop.idbien IS 'Identifiant du bien';
 COMMENT ON COLUMN m_economie.an_immo_prop.propnom IS 'Nom du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.proptel IS 'Téléphone du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.proptelp IS 'Téléphone portable du propriétaire';
@@ -495,24 +479,6 @@ COMMENT ON COLUMN m_economie.an_immo_comm.etat IS 'Etat de la commercialisation'
 COMMENT ON COLUMN m_economie.an_immo_comm.source IS 'Source';
 COMMENT ON COLUMN m_economie.an_immo_comm.refext IS 'Référence externe d''un site internet présentant une fiche de commercialisation';
 COMMENT ON COLUMN m_economie.an_immo_comm.observ IS 'Observations';
-
---################################################################# lk_immo_bien #######################################################
-
-CREATE TABLE m_economie.lk_immo_bien
-	(
-	id          integer DEFAULT nextval('m_economie.lk_immo_bien_seq') NOT NULL,---- Identifiant unique de l'objet
-	idimmo      text,------------------------------------------------------------ Identifiant unique géographique du bien
-	idbien      text ------------------------------------------------------------ Identifiant unique métier du bien
-	
-);
-
-ALTER TABLE m_economie.lk_immo_bien
-  ADD CONSTRAINT lk_immo_bien_pkey PRIMARY KEY(id);
-
-COMMENT ON TABLE m_economie.lk_immo_bien IS 'Table des relations entre les objets biens et les attributs métiers biens (1 objet peut contenir n fiches bien)';
-COMMENT ON COLUMN m_economie.lk_immo_bien.id IS 'Identifiant unique de la relation';
-COMMENT ON COLUMN m_economie.lk_immo_bien.idimmo IS 'Identifiant unique géographique du bien';
-COMMENT ON COLUMN m_economie.lk_immo_bien.idbien IS 'Identifiant unique métier du bien';
 
 
 -- ###############################################################################################################################
