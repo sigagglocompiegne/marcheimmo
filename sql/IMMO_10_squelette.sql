@@ -500,19 +500,18 @@ COMMENT ON COLUMN m_economie.an_immo_comm.observ IS 'Observations';
 
 CREATE TABLE m_economie.lk_immo_occup --------------------------------------------- Attribut métier de la commercialisation
 	(
-	id          intger DEFAULT nextval('m_economie.lk_immo_occup_seq') NOT NULL,------------- Identifiant unique de l'occupation
+	id          integer DEFAULT nextval('m_economie.lk_immo_occup_seq') NOT NULL,------------ Identifiant unique de l'occupation
 	idbien      text,------------------------------------------------------------------------ Identifiant du bien occupé
-	siret       character varying(14),------------------------------------------------------- N° SIRET de l'établissement occupant
-	
-);
+	siret       character varying(14)-------------------------------------------------------- N° SIRET de l'établissement occupant
+	);
 
 ALTER TABLE m_economie.lk_immo_occup
   ADD CONSTRAINT lk_immo_occup_pkey PRIMARY KEY(id);
 
-COMMENT ON TABLE m_economie.an_immo_comm IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
-COMMENT ON COLUMN m_economie.an_immo_comm.id IS 'Identifiant unique de l''occupation';
-COMMENT ON COLUMN m_economie.an_immo_comm.idbien IS 'Identifiant du bien occupé';
-COMMENT ON COLUMN m_economie.an_immo_comm.siret IS 'N° SIRET de l''établissement occupant';
+COMMENT ON TABLE m_economie.lk_immo_occup IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
+COMMENT ON COLUMN m_economie.lk_immo_occup.id IS 'Identifiant unique de l''occupation';
+COMMENT ON COLUMN m_economie.lk_immo_occup.idbien IS 'Identifiant du bien occupé';
+COMMENT ON COLUMN m_economie.lk_immo_occup.siret IS 'N° SIRET de l''établissement occupant';
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
