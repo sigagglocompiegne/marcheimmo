@@ -84,3 +84,12 @@ GRANT ALL ON TABLE m_economie.an_immo_prop TO sig_create;
 GRANT ALL ON TABLE m_economie.an_immo_prop TO create_sig;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_prop TO edit_sig;
 GRANT SELECT ON TABLE m_economie.an_immo_prop TO read_sig;
+
+ALTER TABLE m_economie.lk_immo_occup
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_economie.lk_immo_occup TO sig_create;
+GRANT ALL ON TABLE m_economie.lk_immo_occup TO create_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lk_immo_occup TO edit_sig;
+GRANT SELECT ON TABLE m_economie.lk_immo_occup TO read_sig;
+
+
