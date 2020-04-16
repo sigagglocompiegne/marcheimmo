@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS m_economie.an_immo_bati CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_comm CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_media CASCADE;
-DROP TABLE IF EXISTS m_economie.lk_immo_occupant CASCADE;
+DROP TABLE IF EXISTS m_economie.lk_immo_occup CASCADE;
 
 -- DOMAINES DE VALEUR
 
@@ -54,6 +54,7 @@ DROP SEQUENCE m_economie.an_immo_comm_seq ;
 DROP SEQUENCE m_economie.an_immo_bati_seq;
 DROP SEQUENCE m_economie.an_immo_prop_seq;
 DROP SEQUENCE m_economie.an_immo_media_seq;
+DROP SEQUENCE m_economie.lk_immo_occup_seq;
 */
 --TRIGGERS
 
@@ -146,6 +147,19 @@ COMMENT ON SEQUENCE m_economie.an_immo_prop_seq
 
 --############################################################ an_immo_media_seq ##################################################
 
+--############################################################ lk_immo_occup_seq ##################################################
+--DROP SEQUENCE m_economie.lk_immo_occup_seq;
+/*
+CREATE SEQUENCE m_economie.lk_immo_occup_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1 
+  CACHE 1;
+  
+COMMENT ON SEQUENCE m_economie.lk_immo_occup_seq
+  IS 'Séquence unique pour la relation bien et occupant(s)';
+  */
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
@@ -348,6 +362,7 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
 	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
 	pdp	    boolean default false,-------------------------------------------------------- Bien en pas-de-porte
+	lib_occup   character varying(150),------------------------------------------------------- Libellé de l'occupant ou détail sur le type d'occupation (si pas un établissement lié)
 	bal	    integer,---------------------------------------------------------------------- Identifiant de la base adresse
 	adr	    character varying (254),------------------------------------------------------ Adresse litérale (si différente de la BAL)
 	adrcomp	    character varying (100),------------------------------------------------------ Complément d'adresse
@@ -367,6 +382,7 @@ COMMENT ON COLUMN m_economie.an_immo_bien.idbien IS 'Identifiant unique du bien'
 COMMENT ON COLUMN m_economie.an_immo_bien.idimmo IS 'Identifiant unique de l''objet bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.tbien IS 'Type de bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.libelle IS 'Libellé du bien';
+COMMENT ON COLUMN m_economie.an_immo_bien.lib_occup IS 'Libellé de l''occupant ou détail sur le type d''occupation (si pas un établissement lié)';
 COMMENT ON COLUMN m_economie.an_immo_bien.bdesc IS 'Description du bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.pdp IS 'Bien en pas-de-porte';
 COMMENT ON COLUMN m_economie.an_immo_bien.bal IS 'Identifiant de la base adresse';
@@ -480,6 +496,23 @@ COMMENT ON COLUMN m_economie.an_immo_comm.source IS 'Source';
 COMMENT ON COLUMN m_economie.an_immo_comm.refext IS 'Référence externe d''un site internet présentant une fiche de commercialisation';
 COMMENT ON COLUMN m_economie.an_immo_comm.observ IS 'Observations';
 
+--################################################################# lk_immo_occup #######################################################
+
+CREATE TABLE m_economie.lk_immo_occup --------------------------------------------- Attribut métier de la commercialisation
+	(
+	id          intger DEFAULT nextval('m_economie.lk_immo_occup_seq') NOT NULL,------------- Identifiant unique de l'occupation
+	idbien      text,------------------------------------------------------------------------ Identifiant du bien occupé
+	siret       character varying(14),------------------------------------------------------- N° SIRET de l'établissement occupant
+	
+);
+
+ALTER TABLE m_economie.lk_immo_occup
+  ADD CONSTRAINT lk_immo_occup_pkey PRIMARY KEY(id);
+
+COMMENT ON TABLE m_economie.an_immo_comm IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
+COMMENT ON COLUMN m_economie.an_immo_comm.id IS 'Identifiant unique de l''occupation';
+COMMENT ON COLUMN m_economie.an_immo_comm.idbien IS 'Identifiant du bien occupé';
+COMMENT ON COLUMN m_economie.an_immo_comm.siret IS 'N° SIRET de l''établissement occupant';
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
