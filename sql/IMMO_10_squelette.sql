@@ -157,7 +157,7 @@ COMMENT ON SEQUENCE m_economie.an_immo_prop_seq
 --############################################################ lt_immo_ityp ##################################################
 
 CREATE TABLE m_economie.lt_immo_ityp
-(a
+(
   code character varying(2) NOT NULL,
   valeur character varying(80) NOT NULL,
   CONSTRAINT lt_immo_ityp_pkey PRIMARY KEY (code)
