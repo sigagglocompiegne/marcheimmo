@@ -502,6 +502,7 @@ CREATE TABLE m_economie.lk_immo_occup ------------------------------------------
 	(
 	id          integer DEFAULT nextval('m_economie.lk_immo_occup_seq') NOT NULL,------------ Identifiant unique de l'occupation
 	idbien      text,------------------------------------------------------------------------ Identifiant du bien occupé
+	idimmo	    text,------------------------------------------------------------------------ Identifiant de l''objet bien
 	siret       character varying(14)-------------------------------------------------------- N° SIRET de l'établissement occupant
 	);
 
@@ -511,6 +512,7 @@ ALTER TABLE m_economie.lk_immo_occup
 COMMENT ON TABLE m_economie.lk_immo_occup IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
 COMMENT ON COLUMN m_economie.lk_immo_occup.id IS 'Identifiant unique de l''occupation';
 COMMENT ON COLUMN m_economie.lk_immo_occup.idbien IS 'Identifiant du bien occupé';
+COMMENT ON COLUMN m_economie.lk_immo_occup.idimmo IS 'Identifiant de l''objet bien';
 COMMENT ON COLUMN m_economie.lk_immo_occup.siret IS 'N° SIRET de l''établissement occupant';
 
 -- ###############################################################################################################################
