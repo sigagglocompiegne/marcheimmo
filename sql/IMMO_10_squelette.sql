@@ -299,7 +299,7 @@ INSERT INTO m_economie.lt_immo_etat(code, valeur)
         ('00','Non renseigné'),
 	('10','Disponible à la vente (vacant)'),
 	('20','Disponible à la vente (occupé)'),
-	('30','Disponible à la locatiob'),
+	('30','Disponible à la location'),
 	('40','Indisponible (occupé)'),
 	('ZZ','Non concerné');
 
