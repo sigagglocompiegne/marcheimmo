@@ -64,13 +64,6 @@ GRANT ALL ON TABLE m_economie.an_immo_bien TO create_sig;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_bien TO edit_sig;
 GRANT SELECT ON TABLE m_economie.an_immo_bien TO read_sig;
 
-ALTER TABLE m_economie.lk_immo_bien
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.lk_immo_bien TO sig_create;
-GRANT ALL ON TABLE m_economie.lk_immo_bien TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lk_immo_bien TO edit_sig;
-GRANT SELECT ON TABLE m_economie.lk_immo_bien TO read_sig;
-
 ALTER TABLE m_economie.an_immo_bati
   OWNER TO sig_create;
 GRANT ALL ON TABLE m_economie.an_immo_bati TO sig_create;
@@ -84,3 +77,10 @@ GRANT ALL ON TABLE m_economie.an_immo_comm TO sig_create;
 GRANT ALL ON TABLE m_economie.an_immo_comm TO create_sig;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_comm TO edit_sig;
 GRANT SELECT ON TABLE m_economie.an_immo_comm TO read_sig;
+
+ALTER TABLE m_economie.an_immo_prop
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_economie.an_immo_prop TO sig_create;
+GRANT ALL ON TABLE m_economie.an_immo_prop TO create_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_prop TO edit_sig;
+GRANT SELECT ON TABLE m_economie.an_immo_prop TO read_sig;
