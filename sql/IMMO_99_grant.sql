@@ -92,4 +92,10 @@ GRANT ALL ON TABLE m_economie.lk_immo_occup TO create_sig;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lk_immo_occup TO edit_sig;
 GRANT SELECT ON TABLE m_economie.lk_immo_occup TO read_sig;
 
+-- ########################################################### VUE APPLICATIVE  ####################################################################
 
+
+GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_etat TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_etat TO read_sig;
+GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_etat TO edit_sig;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_etat TO create_sig;
