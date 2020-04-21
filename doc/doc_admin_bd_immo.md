@@ -63,14 +63,36 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma `m_econ
 |src_date|Année du référentiel de saisi|integer| |
 |insee|Code Insee de la ou des communes d'assises|character varying(11)| |
 |commune|Libellé de la ou des communes d'assises|character varying(160)| |
-|geom|Attribut de géométrie|USER-DEFINED| |
+|geom|Attribut de géométrie|Multipolygon,2154| |
 
 
 Particularité(s) à noter :
-* ...
+* (à venir)
 
 ---
+   `an_immo_bien` : table des attributs métiers permettant de gérer l'ensemble des éléments décrivant le bien (terrain ou local)
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idbien|Identifiant unique du bien|text|('B'::text nextval('m_economie.an_immo_bien_seq'::regclass))|
+|idimmo|Identifiant unique de l'objet bien|text| |
+|tbien|Type de bien|character varying(4)| |
+|libelle|Libellé du bien|character varying(254)| |
+|bdesc|Description du bien|character varying(100)| |
+|pdp|Bien en pas-de-porte|boolean|false|
+|lib_occup|Libellé de l'occupant ou détail sur le type d'occupation (si pas un établissement lié)|character varying(150)| |
+|bal|Identifiant de la base adresse|integer| |
+|adr|Adresse litérale (si différente de la BAL)|character varying(254)| |
+|adrcomp|Complément d'adresse|character varying(100)| |
+|surf|Surface en hectare|double precision| |
+|surf_m|Surface en m²|integer| |
+|source|Source de la mise à jour|character varying(254)| |
+|refext|Lien vers un site présentant le terrain|character varying(254)| |
+|observ|Observations|character varying(1000)| |
 
+
+Particularité(s) à noter :
+* (à venir)
 ---
 
 ### classes d'objets applicatives :
