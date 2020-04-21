@@ -173,20 +173,29 @@ Particularité(s) à noter :
 Particularité(s) à noter :
 * (à venir)
 
-### classes d'objets applicatives :
+### classes d'objets applicatives métiers sont classés dans le schéma x_apps :
+ 
+`x_apps.xapps_geo_v_immo` : Vue d'exploitation permettant de lister les biens mis en disponibilité (vente, location ou les deux) et afficher au niveau de la cartographie de l'application WebSIG.
 
-(à venir)
+### classes d'objets applicatives grands publics sont classés dans le schéma x_apps_public :
+
+Sans objet
+
+
+### classes d'objets opendata sont classés dans le schéma x_opendata :
+
+Sans objet
 
 ---
 
 ## Liste de valeurs
 
-`...` : Liste des 
+`lt_immo_ityp` : Liste des types de biens immobilier saisis
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|Code interne des ... |character(2)| |
-|valeur|Libellé des ... |character varying(80)| |
+|code|Code interne des types de bien saisi |character(2)| |
+|valeur|Libellé des types de bien saisi |character varying(80)| |
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ code 
@@ -195,12 +204,112 @@ Valeurs possibles :
 
 |Code|Valeur|
 |:---|:---|
-|00|Non renseigné|
-|..|..|
-|..|..|
+|10|Terrain|
+|21|Local (Bâtiment non divisé)|
+|22|Local indépendant divisé|
+|23|Local non identifié dans un bâtiment divisible|
 
 ---
 
+`lt_immo_tbien` : Liste des usages des biens immobilier propre aux types saisis
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code interne des usages des biens|character(2)| |
+|valeur|Libellé des usages des biens |character varying(80)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ code 
+* Afin d'effectuer des filtres diversifiés dans l'application WebSIG, les types de biens pour les locaux ont été dupliqués mais reste unique. A l'exploitation, bien intégrer l'ensemble des codes pour les valeurs communes.
+
+Valeurs possibles :
+
+|Code|Valeur|
+|:---|:---|
+|1010|Terrain vierge|
+|1110|Parking|
+|1210|Surface de dépôt ou de stockage|
+|1310|Surface agricole|
+|2021|Bureau|
+|2121|Commerce|
+|2221|Activité|
+|2022|Bureau|
+|2122|Commerce|
+|2222|Activité|
+|2023|Bureau|
+|2123|Commerce|
+|2223|Activité|
+
+---
+
+`lt_immo_dbien` : Liste des valeurs décrivant un bien
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code interne des descriptifs des biens|character(2)| |
+|valeur|Libellé des descriptifs des biens |character varying(80)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ code 
+
+Valeurs possibles :
+
+|Code|Valeur|
+|:---|:---|
+|1|Vitrine|
+|2|Présence d'une remise|
+|3|Autre|
+
+---
+
+`lt_immo_dbati` : Liste des valeurs décrivant un bâtiment
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code interne des descriptifs des bâtiments|character(2)| |
+|valeur|Libellé des descriptifs des bâtiments |character varying(80)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ code 
+
+Valeurs possibles :
+
+|Code|Valeur|
+|:---|:---|
+|1|Double vitrage|
+|2|Site clôturé|
+|3|Places de parking|
+|4|Murs périphériques (bardage métallique…)|
+|5|Ossature (couverture bac acier…)|
+|6|Menuiserie aluminium|
+|7|Accès sécurisé|
+|8|Système d'alarme|
+|9|Parties communes|
+|10|Portes de plain-pied|
+|11|Charge au sol|
+|12|Terrain attenant|
+
+---
+
+`lt_immo_etat` : Liste des valeurs décrivant l'état de disponibilité d'un bien
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code interne des disponibilités du bien|character(2)| |
+|valeur|Libellé des disponibilités du bien |character varying(80)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ code 
+
+Valeurs possibles :
+
+|Code|Valeur|
+|:---|:---|
+|10|Disponible à la vente (vacant)|
+|20|Disponible à la vente (occupé)|
+|30|Disponible à la location|
+|40|Disponible à la vente ou à la location|
+|ZZ|Non concerné (occupé)|
 
 ## Projet QGIS pour la gestion
 
