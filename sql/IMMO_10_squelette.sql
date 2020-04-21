@@ -25,7 +25,7 @@ SOMMAIRE :
 
 -- VUES 
 
--- (à venir)
+DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_etat;
 
 -- CLASSES
 
