@@ -216,7 +216,8 @@ INSERT INTO m_economie.lt_immo_dbati(code, valeur)
 	('8','Système d''alarme'),
 	('9','Parties communes'),
 	('10','Portes de plain-pied'),
-	('11','Charge au sol');
+	('11','Charge au sol'),
+	('12','Terrain attenant');
 
 COMMENT ON TABLE m_economie.lt_immo_dbati
   IS 'Code permettant de décrire la description du bâtiment';
@@ -296,12 +297,11 @@ WITH (
 
 INSERT INTO m_economie.lt_immo_etat(code, valeur)
     VALUES
-        ('00','Non renseigné'),
 	('10','Disponible à la vente (vacant)'),
 	('20','Disponible à la vente (occupé)'),
 	('30','Disponible à la location'),
-	('40','Indisponible (occupé)'),
-	('ZZ','Non concerné');
+	('40','Disponible à la vente ou à la location'),
+	('ZZ','Non concerné (occupé)');
 
 COMMENT ON TABLE m_economie.lt_immo_etat
   IS 'Code permettant de décrire l''état du bien pour la vente';
@@ -368,7 +368,6 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	adrcomp	    character varying (100),------------------------------------------------------ Complément d'adresse
 	surf	    double precision,------------------------------------------------------------- Surface en hectare
 	surf_m	    integer,---------------------------------------------------------------------- Surface en m²
-	mprop	    boolean default false,-------------------------------------------------------- Même propriétaire que le bâtiment
 	source	    character varying (254),------------------------------------------------------ Source de la mise à jour
 	refext	    character varying (254),------------------------------------------------------ Lien vers un site présentant le terrain
 	observ      character varying (1000) ----------------------------------------------------- Observations
@@ -390,7 +389,6 @@ COMMENT ON COLUMN m_economie.an_immo_bien.adr IS 'Adresse litérale (si différe
 COMMENT ON COLUMN m_economie.an_immo_bien.adrcomp IS 'Complément d''adresse';
 COMMENT ON COLUMN m_economie.an_immo_bien.surf IS 'Surface en hectare';
 COMMENT ON COLUMN m_economie.an_immo_bien.surf_m IS 'Surface en m²';
-COMMENT ON COLUMN m_economie.an_immo_bien.mprop IS 'Même propriétaire que le bâtiment';
 COMMENT ON COLUMN m_economie.an_immo_bien.source IS 'Source de la mise à jour';
 COMMENT ON COLUMN m_economie.an_immo_bien.refext IS 'Lien vers un site présentant le terrain';
 COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
@@ -436,6 +434,7 @@ CREATE TABLE m_economie.an_immo_bati -------------------------------------------
 	hauteur     integer,---------------------------------------------------------------------- Hauteur em mètre
 	nbloc       integer,---------------------------------------------------------------------- Nombre de local dans le bâtiment
 	bdesc       character varying(100),------------------------------------------------------- Description du bâtiment
+	mprop	    boolean default false,-------------------------------------------------------- Même propriétaire que le bâtiment	
 	observ      character varying(1000)------------------------------------------------------- Observations
 );
 
@@ -451,6 +450,7 @@ COMMENT ON COLUMN m_economie.an_immo_bati.shon IS 'Surface de plancher en m²';
 COMMENT ON COLUMN m_economie.an_immo_bati.hauteur IS 'Hauteur em mètre';
 COMMENT ON COLUMN m_economie.an_immo_bati.nbloc IS 'Nombre de local dans le bâtiment';
 COMMENT ON COLUMN m_economie.an_immo_bati.bdesc IS 'Description du bâtiment';
+COMMENT ON COLUMN m_economie.an_immo_bati.mprop IS 'Même propriétaire que le local';
 COMMENT ON COLUMN m_economie.an_immo_bati.observ IS 'Observations';
 
 --################################################################# an_immo_comm #######################################################
