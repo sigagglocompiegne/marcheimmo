@@ -51,7 +51,7 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma `m_econ
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idimmo|Identifiant unique de l'objet|text|('O'::text || nextval('m_economie.geo_immo_bien_seq'::regclass))|
+|idimmo|Identifiant unique de l'objet|text|('O'::text '||' nextval('m_economie.geo_immo_bien_seq'::regclass))|
 |idsite|Identifiant du site d'activité d'appartenance|character varying(7)| |
 |sup_m2|Superficie de l'objet en m²|integer| |
 |ityp|Type d'occupation|character varying(2)| |
