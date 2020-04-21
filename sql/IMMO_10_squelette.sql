@@ -460,6 +460,11 @@ CREATE TABLE m_economie.an_immo_comm -------------------------------------------
 	idcomm      text DEFAULT 'C' || nextval('m_economie.an_immo_comm_seq') NOT NULL,---------- Identifiant unique de la commercialisation
 	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
 	idbien      text,------------------------------------------------------------------------- Identifiant du bien
+	prix_a	    integer,---------------------------------------------------------------------- Prix d'acquisition du bien occupé
+	prix_am     integer,---------------------------------------------------------------------- Prix d'acquisition au m² du bien occupé
+	loyer_a     integer,---------------------------------------------------------------------- Loyer actuel du bien
+	loyer_am    integer,---------------------------------------------------------------------- Loyer actuel du bien au m²
+	bail_a	    integer,---------------------------------------------------------------------- Montant du bail actuel du bien
 	prix        integer,---------------------------------------------------------------------- Prix total
 	prix_m      integer,---------------------------------------------------------------------- Prix au m²
 	loyer       integer,---------------------------------------------------------------------- Loyer total
@@ -482,6 +487,11 @@ COMMENT ON TABLE m_economie.an_immo_comm IS 'Table des objets graphiques corresp
 COMMENT ON COLUMN m_economie.an_immo_comm.idcomm IS 'Identifiant unique de la commercialisation';
 COMMENT ON COLUMN m_economie.an_immo_comm.idimmo IS 'Identifiant de l''objet bien';
 COMMENT ON COLUMN m_economie.an_immo_comm.idbien IS 'Identifiant du bien';
+COMMENT ON COLUMN m_economie.an_immo_comm.prix_a IS 'Prix d''acquisition du bien occupé';
+COMMENT ON COLUMN m_economie.an_immo_comm.prix_am IS 'Prix d''acquisition au m² du bien occupé';
+COMMENT ON COLUMN m_economie.an_immo_comm.loyer_a IS 'Loyer actuel du bien';
+COMMENT ON COLUMN m_economie.an_immo_comm.loyer_am IS 'Loyer actuel du bien au m²';
+COMMENT ON COLUMN m_economie.an_immo_comm.bail_a IS 'Montant du bail actuel du bien';
 COMMENT ON COLUMN m_economie.an_immo_comm.prix IS 'Prix total';
 COMMENT ON COLUMN m_economie.an_immo_comm.prix_m IS 'Prix au m²';
 COMMENT ON COLUMN m_economie.an_immo_comm.loyer IS 'Loyer total';
