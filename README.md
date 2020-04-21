@@ -2,7 +2,7 @@
 
 # Suivi du marché de l'immobilier d'entreprises
 
-Ensemble des éléments constituant la mise en oeuvre de la base de données sur le marché immobilier des terrains privés et locaux d'activités :
+Ensemble des éléments constituant la mise en oeuvre de la base de données et de l'application Web dédiée au marché de l'immobilier d'entreprises (terrains privés et locaux d'activités) :
 
 - Script d'initialisation de la base de données
   * [Suivi des modifications](sql/IMMO_00_trace.sql)
