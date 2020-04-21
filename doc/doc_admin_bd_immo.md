@@ -32,11 +32,13 @@ Cette orientation pourrait également déboucher sur un observatoire des commerc
 
 ## Dépendances
 
-La base de données des contrôles de conformité s'appuie sur des référentiels préexistants constituant autant de dépendances nécessaires pour l'implémentatation de cette base.
+La base de données du suivi du marché de l'immobilier d'entreprises ne s'appuie sur aucun référentiel préexistant majeurs pour être implémentée. Néanmoins, son usage repose sur des relations avec des listes de valeurs communes ou des référentiels géographiques pouvant perturber son bon fonctionnement au travers de l'application WebSIG développée.
 
 |Schéma | Table/Vue | Description | Usage |
 |:---|:---|:---|:---|
-|[schema] | [table, vue] | ... | ... |
+|r_objet| lt_src_geom | Liste de valeurs | Valeurs décrivant le référentiel géographique utilisé pour la saisie des objets graphiques|
+|x_apps| xapps_geo_vmr_adresse | Liste des adresses disponibles dans la BAL |Permet d'affecter l'identifiant de l'adresse BAL au bien|
+
 
 ## Classes d'objets
 
@@ -45,11 +47,23 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma `m_econ
 
  ### classes d'objets de gestion :
   
-   `...` : table des attributs métiers permettant de gérer l'ensemble des éléments d'un contrôle de conformité.
+   `geo_immo_bien` : table des attributs métiers permettant de gérer l'ensemble des éléments de la primitive graphique (terrain, local ou bâtiment contenant un ou des locaux).
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idcc|Identifiant interne unique du contrôle|integer|nextval('m_reseau_humide.an_euep_cc_idcc_seq'::regclass)|
+|idimmo|Identifiant unique de l'objet|text|('O'::text || nextval('m_economie.geo_immo_bien_seq'::regclass))|
+|idsite|Identifiant du site d'activité d'appartenance|character varying(7)| |
+|sup_m2|Superficie de l'objet en m²|integer| |
+|ityp|Type d'occupation|character varying(2)| |
+|observ|Observations|character varying(1000)| |
+|op_sai|Opérateur de saisie|character varying(25)| |
+|date_sai|Date de saisie|timestamp without time zone|now()|
+|date_maj|Date de mise à jour|timestamp without time zone| |
+|src_geom|Source du référentiel géographique pour le positionnement du nœud|character varying(2)|'00'::character varying|
+|src_date|Année du référentiel de saisi|integer| |
+|insee|Code Insee de la ou des communes d'assises|character varying(11)| |
+|commune|Libellé de la ou des communes d'assises|character varying(160)| |
+|geom|Attribut de géométrie|USER-DEFINED| |
 
 
 Particularité(s) à noter :
