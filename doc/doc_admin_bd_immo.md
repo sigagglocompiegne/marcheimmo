@@ -173,6 +173,49 @@ Particularité(s) à noter :
 Particularité(s) à noter :
 * (à venir)
 
+---
+
+ `an_immo_comm` : table des attributs métiers permettant de gérer l'ensemble des éléments liés à la commercialisation et aux conditions financières de l'occupation actuelle
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idcomm|Identifiant unique de la commercialisation|text|('C'::text nextval('m_economie.an_immo_comm_seq'::regclass))|
+|idimmo|Identifiant de l'objet bien|text| |
+|idbien|Identifiant du bien|text| |
+|prix_a|Prix d'acquisition du bien occupé|integer| |
+|prix_am|Prix d'acquisition au m² du bien occupé|integer| |
+|loyer_a|Loyer actuel du bien|integer| |
+|loyer_am|Loyer actuel du bien au m²|integer| |
+|bail_a|Montant du bail actuel du bien|integer| |
+|prix|Prix total|integer| |
+|prix_m|Prix au m²|integer| |
+|loyer|Loyer total|integer| |
+|loyer_m|Loyer au m²|integer| |
+|bail|Montant du Bail|integer| |
+|comm|Nom du commercialisateur|character varying(150)| |
+|commtel|Téléphone du commercialisateur|character varying(14)| |
+|commtelp|Téléphone portable du commercialisateur|character varying(14)| |
+|commmail|Email du commercialisateur|character varying(80)| |
+|etat|Etat de la commercialisation|character varying(2)| |
+|source|Source|character varying(254)| |
+|refext|Référence externe d'un site internet présentant une fiche de commercialisation|character varying(254)| |
+|observ|Observations|character varying(1000)| |
+
+Particularité(s) à noter :
+* (à venir)---
+
+ `lk_immo_occup` : table de liens permettant l'affectation d'un ou plusieurs établissements à un local ou un terrain
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|id|Identifiant unique de l'occupation|integer|nextval('m_economie.lk_immo_occup_seq'::regclass)|
+|idbien|Identifiant du bien occupé|text| |
+|idimmo|Identifiant de l'objet bien|text| |
+|siret|N° SIRET de l'établissement occupant|character varying(14)| |
+
+Particularité(s) à noter :
+* (à venir)
+
 ### classes d'objets applicatives métiers sont classés dans le schéma x_apps :
  
 `x_apps.xapps_geo_v_immo` : Vue d'exploitation permettant de lister les biens mis en disponibilité (vente, location ou les deux) et afficher au niveau de la cartographie de l'application WebSIG.
