@@ -93,7 +93,78 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * (à venir)
+
 ---
+
+ `an_immo_bati` : table des attributs métiers permettant de gérer l'ensemble des éléments décrivant le bâtiment
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idbati|Identifiant du bâtiment|text|('BA'::text nextval('m_economie.an_immo_bati_seq'::regclass))|
+|idimmo|Identifiant de l'objet|text| |
+|libelle|Libellé du bâtiment|character varying(254)| |
+|surf_m|Surface en m²|integer| |
+|shon|Surface de plancher en m²|integer| |
+|hauteur|Hauteur em mètre|integer| |
+|nbloc|Nombre de local dans le bâtiment|integer| |
+|bdesc|Description du bâtiment|character varying(100)| |
+|mprop|Même propriétaire que le local|boolean|false|
+|observ|Observations|character varying(1000)| |
+
+
+Particularité(s) à noter :
+* (à venir)
+
+---
+
+ `an_immo_prop` : table des attributs métiers permettant de gérer l'ensemble des éléments décrivant le propriétaire du bâtiment, du local ou du terrain
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idprop|Identifiant du propriétaire|text|('P'::text nextval('m_economie.an_immo_prop_seq'::regclass))|
+|idbati|Identifiant du bâtiment|text| |
+|idimmo|Identifiant de l'objet|text| |
+|idbien|Identifiant du bien|text| |
+|propnom|Nom du propriétaire|character varying(100)| |
+|proptel|Téléphone du propriétaire|character varying(14)| |
+|proptelp|Téléphone portable du propriétaire|character varying(14)| |
+|propmail|Email du propriétaire|character varying(80)| |
+|observ|Observations|character varying(1000)| |
+
+
+Particularité(s) à noter :
+* (à venir)
+
+---
+
+ `an_immo_comm` : table des attributs métiers permettant de gérer l'ensemble des éléments liés à la commercialisation et aux conditions financières de l'occupation actuelle
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idcomm|Identifiant unique de la commercialisation|text|('C'::text nextval('m_economie.an_immo_comm_seq'::regclass))|
+|idimmo|Identifiant de l'objet bien|text| |
+|idbien|Identifiant du bien|text| |
+|prix_a|Prix d'acquisition du bien occupé|integer| |
+|prix_am|Prix d'acquisition au m² du bien occupé|integer| |
+|loyer_a|Loyer actuel du bien|integer| |
+|loyer_am|Loyer actuel du bien au m²|integer| |
+|bail_a|Montant du bail actuel du bien|integer| |
+|prix|Prix total|integer| |
+|prix_m|Prix au m²|integer| |
+|loyer|Loyer total|integer| |
+|loyer_m|Loyer au m²|integer| |
+|bail|Montant du Bail|integer| |
+|comm|Nom du commercialisateur|character varying(150)| |
+|commtel|Téléphone du commercialisateur|character varying(14)| |
+|commtelp|Téléphone portable du commercialisateur|character varying(14)| |
+|commmail|Email du commercialisateur|character varying(80)| |
+|etat|Etat de la commercialisation|character varying(2)| |
+|source|Source|character varying(254)| |
+|refext|Référence externe d'un site internet présentant une fiche de commercialisation|character varying(254)| |
+|observ|Observations|character varying(1000)| |
+
+Particularité(s) à noter :
+* (à venir)
 
 ### classes d'objets applicatives :
 
