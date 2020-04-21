@@ -40,6 +40,13 @@ La base de données du suivi du marché de l'immobilier d'entreprises ne s'appui
 |x_apps| xapps_geo_vmr_adresse | Liste des adresses disponibles dans la BAL |Permet d'affecter l'identifiant de l'adresse BAL au bien|
 
 
+## Séquences 
+
+Il y a 7 séquences. Cinq sont dédiées aux classes métiers et composées d'une lettre et d'un serial afin de mieux les distinguer dans la structure interne des données. La gestion de la base imliquant des écritures d'identifiant métiers dans plusieurs tables, cette structuration de séquences est une aide à l'administration.
+
+Les 2 autres séquences sont uniquement de type serial pour la gestion d'identifiant unique interne à la gestion des classes correspondantes.
+
+
 ## Classes d'objets
 
 L'ensemble des classes d'objets de gestion sont stockés dans le schéma `m_economie` et celles applicatives dans le schéma 
