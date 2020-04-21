@@ -1,6 +1,6 @@
 ![picto](/img/geocompiegnois20.png)
 
-# L'immobilier d'entreprises
+# Suivi du marché de l'immobilier d'entreprises
 
 Ensemble des éléments constituant la mise en oeuvre de la base de données sur le marché immobilier des terrains privés et locaux d'activités :
 
