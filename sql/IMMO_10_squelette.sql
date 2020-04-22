@@ -374,7 +374,7 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 );
 
 ALTER TABLE m_economie.an_immo_bien
-  ADD CONSTRAINT an_immo_bien_pkey PRIMARY KEY(idimmo);
+  ADD CONSTRAINT an_immo_bien_pkey PRIMARY KEY(idbien);
 
 COMMENT ON TABLE m_economie.an_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 COMMENT ON COLUMN m_economie.an_immo_bien.idbien IS 'Identifiant unique du bien';
