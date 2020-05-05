@@ -55,7 +55,6 @@ DROP SEQUENCE m_economie.an_immo_bati_seq;
 DROP SEQUENCE m_economie.an_immo_prop_seq;
 DROP SEQUENCE m_economie.an_immo_media_seq;
 DROP SEQUENCE m_economie.lk_immo_occup_seq;
-DROP SEQUENCE m_economie.lk_bati_bien_seq;
 */
 --TRIGGERS
 
