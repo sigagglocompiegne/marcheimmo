@@ -386,7 +386,6 @@ COMMENT ON COLUMN m_economie.an_immo_bien.pdp IS 'Bien en pas-de-porte';
 COMMENT ON COLUMN m_economie.an_immo_bien.bal IS 'Identifiant de la base adresse';
 COMMENT ON COLUMN m_economie.an_immo_bien.adr IS 'Adresse litérale (si différente de la BAL)';
 COMMENT ON COLUMN m_economie.an_immo_bien.adrcomp IS 'Complément d''adresse';
-COMMENT ON COLUMN m_economie.an_immo_bien.surf IS 'Surface en hectare';
 COMMENT ON COLUMN m_economie.an_immo_bien.surf_m IS 'Surface en m²';
 COMMENT ON COLUMN m_economie.an_immo_bien.source IS 'Source de la mise à jour';
 COMMENT ON COLUMN m_economie.an_immo_bien.refext IS 'Lien vers un site présentant le terrain';
