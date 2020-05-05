@@ -546,16 +546,16 @@ CREATE TABLE m_economie.lk_bati_bien
 	(
 	id          integer DEFAULT nextval('m_economie.lk_bati_bien_seq') NOT NULL,------------ Identifiant unique de l'appartenance
 	idbati      text,------------------------------------------------------------------------ Identifiant du bâti
-	idbien	    text------------------------------------------------------------------------ Identifiant du bien
+	idimmo	    text------------------------------------------------------------------------ Identifiant du bien ici objet)
 	);
 
 ALTER TABLE m_economie.lk_bati_bien
   ADD CONSTRAINT lk_bati_bien_pkey PRIMARY KEY(id);
 
-COMMENT ON TABLE m_economie.lk_bati_bien IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
+COMMENT ON TABLE m_economie.lk_bati_bien IS 'Table de relation entre les biens identifiés (local) et le bâtiment de référence';
 COMMENT ON COLUMN m_economie.lk_bati_bien.id IS 'Identifiant unique de l''appartenance';
 COMMENT ON COLUMN m_economie.lk_bati_bien.idbati IS 'Identifiant du bâti';
-COMMENT ON COLUMN m_economie.lk_bati_bien.idbati IS 'Identifiant du bien';
+COMMENT ON COLUMN m_economie.lk_bati_bien.idimmo IS 'Identifiant du bien (ici objet)';
 
 
 -- ###############################################################################################################################
