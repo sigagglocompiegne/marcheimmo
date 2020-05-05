@@ -546,7 +546,7 @@ CREATE TABLE m_economie.lk_bati_bien
 	(
 	id          integer DEFAULT nextval('m_economie.lk_bati_bien_seq') NOT NULL,------------ Identifiant unique de l'appartenance
 	idbati      text,------------------------------------------------------------------------ Identifiant du bâti
-	idbien	    text,------------------------------------------------------------------------ Identifiant du bien
+	idbien	    text------------------------------------------------------------------------ Identifiant du bien
 	);
 
 ALTER TABLE m_economie.lk_bati_bien
