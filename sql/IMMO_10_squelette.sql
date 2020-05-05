@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_comm CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_media CASCADE;
 DROP TABLE IF EXISTS m_economie.lk_immo_occup CASCADE;
+DROP TABLE IF EXISTS m_economie.lk_bati_bien CASCADE;
 
 -- DOMAINES DE VALEUR
 
@@ -159,6 +160,20 @@ CREATE SEQUENCE m_economie.lk_immo_occup_seq
   
 COMMENT ON SEQUENCE m_economie.lk_immo_occup_seq
   IS 'Séquence unique pour la relation bien et occupant(s)';
+  */
+  
+  --############################################################ lk_bati_bien_seq ##################################################
+--DROP SEQUENCE m_economie.lk_bati_bien_seq;
+/*
+CREATE SEQUENCE m_economie.lk_bati_bien_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1 
+  CACHE 1;
+  
+COMMENT ON SEQUENCE m_economie.lk_bati_bien_seq
+  IS 'Séquence unique pour la relation bâti et bien';
   */
 
 -- ###############################################################################################################################
@@ -506,7 +521,7 @@ COMMENT ON COLUMN m_economie.an_immo_comm.observ IS 'Observations';
 
 --################################################################# lk_immo_occup #######################################################
 
-CREATE TABLE m_economie.lk_immo_occup --------------------------------------------- Attribut métier de la commercialisation
+CREATE TABLE m_economie.lk_immo_occup
 	(
 	id          integer DEFAULT nextval('m_economie.lk_immo_occup_seq') NOT NULL,------------ Identifiant unique de l'occupation
 	idbien      text,------------------------------------------------------------------------ Identifiant du bien occupé
@@ -522,6 +537,25 @@ COMMENT ON COLUMN m_economie.lk_immo_occup.id IS 'Identifiant unique de l''occup
 COMMENT ON COLUMN m_economie.lk_immo_occup.idbien IS 'Identifiant du bien occupé';
 COMMENT ON COLUMN m_economie.lk_immo_occup.idimmo IS 'Identifiant de l''objet bien';
 COMMENT ON COLUMN m_economie.lk_immo_occup.siret IS 'N° SIRET de l''établissement occupant';
+
+
+--################################################################# lk_bati_bien #######################################################
+
+CREATE TABLE m_economie.lk_bati_bien
+	(
+	id          integer DEFAULT nextval('m_economie.lk_bati_bien_seq') NOT NULL,------------ Identifiant unique de l'appartenance
+	idbati      text,------------------------------------------------------------------------ Identifiant du bâti
+	idbien	    text,------------------------------------------------------------------------ Identifiant du bien
+	);
+
+ALTER TABLE m_economie.lk_bati_bien
+  ADD CONSTRAINT lk_bati_bien_pkey PRIMARY KEY(id);
+
+COMMENT ON TABLE m_economie.lk_bati_bien IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
+COMMENT ON COLUMN m_economie.lk_bati_bien.id IS 'Identifiant unique de l''appartenance';
+COMMENT ON COLUMN m_economie.lk_bati_bien.idbati IS 'Identifiant du bâti';
+COMMENT ON COLUMN m_economie.lk_bati_bien.idbati IS 'Identifiant du bien';
+
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
