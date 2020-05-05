@@ -36,7 +36,6 @@ DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_comm CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_media CASCADE;
 DROP TABLE IF EXISTS m_economie.lk_immo_occup CASCADE;
-DROP TABLE IF EXISTS m_economie.lk_bati_bien CASCADE;
 
 -- DOMAINES DE VALEUR
 
@@ -162,20 +161,7 @@ CREATE SEQUENCE m_economie.lk_immo_occup_seq
 COMMENT ON SEQUENCE m_economie.lk_immo_occup_seq
   IS 'Séquence unique pour la relation bien et occupant(s)';
   */
-  
-  --############################################################ lk_bati_bien_seq ##################################################
---DROP SEQUENCE m_economie.lk_bati_bien_seq;
-/*
-CREATE SEQUENCE m_economie.lk_bati_bien_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1 
-  CACHE 1;
-  
-COMMENT ON SEQUENCE m_economie.lk_bati_bien_seq
-  IS 'Séquence unique pour la relation bâti et bien';
-  */
+
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
@@ -374,6 +360,7 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	(
 	idbien      text DEFAULT 'B' || nextval('m_economie.an_immo_bien_seq') NOT NULL,---------- Identifiant unique du bien
 	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
+	idbati	    text,------------------------------------------------------------------------- Identifiant du bâti
 	tbien       character varying (4),-------------------------------------------------------- Type de bien
 	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
 	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
@@ -394,6 +381,7 @@ ALTER TABLE m_economie.an_immo_bien
 COMMENT ON TABLE m_economie.an_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 COMMENT ON COLUMN m_economie.an_immo_bien.idbien IS 'Identifiant unique du bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.idimmo IS 'Identifiant unique de l''objet bien';
+COMMENT ON COLUMN m_economie.an_immo_bien.idbati IS 'Identifiant unique bu bâtiment';
 COMMENT ON COLUMN m_economie.an_immo_bien.tbien IS 'Type de bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.libelle IS 'Libellé du bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.lib_occup IS 'Libellé de l''occupant ou détail sur le type d''occupation (si pas un établissement lié)';
@@ -540,22 +528,7 @@ COMMENT ON COLUMN m_economie.lk_immo_occup.idimmo IS 'Identifiant de l''objet bi
 COMMENT ON COLUMN m_economie.lk_immo_occup.siret IS 'N° SIRET de l''établissement occupant';
 
 
---################################################################# lk_bati_bien #######################################################
 
-CREATE TABLE m_economie.lk_bati_bien
-	(
-	id          integer DEFAULT nextval('m_economie.lk_bati_bien_seq') NOT NULL,------------ Identifiant unique de l'appartenance
-	idbati      text,------------------------------------------------------------------------ Identifiant du bâti
-	idimmo	    text------------------------------------------------------------------------ Identifiant du bien ici objet)
-	);
-
-ALTER TABLE m_economie.lk_bati_bien
-  ADD CONSTRAINT lk_bati_bien_pkey PRIMARY KEY(id);
-
-COMMENT ON TABLE m_economie.lk_bati_bien IS 'Table de relation entre les biens identifiés (local) et le bâtiment de référence';
-COMMENT ON COLUMN m_economie.lk_bati_bien.id IS 'Identifiant unique de l''appartenance';
-COMMENT ON COLUMN m_economie.lk_bati_bien.idbati IS 'Identifiant du bâti';
-COMMENT ON COLUMN m_economie.lk_bati_bien.idimmo IS 'Identifiant du bien (ici objet)';
 
 
 -- ###############################################################################################################################
