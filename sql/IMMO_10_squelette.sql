@@ -366,7 +366,6 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	bal	    integer,---------------------------------------------------------------------- Identifiant de la base adresse
 	adr	    character varying (254),------------------------------------------------------ Adresse litérale (si différente de la BAL)
 	adrcomp	    character varying (100),------------------------------------------------------ Complément d'adresse
-	surf	    double precision,------------------------------------------------------------- Surface en hectare
 	surf_m	    integer,---------------------------------------------------------------------- Surface en m²
 	source	    character varying (254),------------------------------------------------------ Source de la mise à jour
 	refext	    character varying (254),------------------------------------------------------ Lien vers un site présentant le terrain
