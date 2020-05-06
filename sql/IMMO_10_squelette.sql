@@ -495,7 +495,7 @@ COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
 
 -- FONCTION : suppression des occupants à la suppression d'un bien (et en cascade si supprime l'objet saisi)
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_delete_occup_immo_bien()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_delete_immo_bien()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -506,35 +506,37 @@ AS $BODY$
 BEGIN
 
      DELETE FROM m_economie.lk_immo_occup WHERE idbien = old.idbien;
+     DELETE FROM m_economie.an_immo_prop WHERE idbien = old.idbien;
+     DELETE FROM m_economie.an_immo_comm WHERE idbien = old.idbien;
      return new ;
 
 END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_delete_occup_immo_bien()
+ALTER FUNCTION m_economie.ft_m_delete_immo_bien()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bien() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bien() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bien() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bien() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bien() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bien() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bien() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bien() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_delete_occup_immo_bien()
-    IS 'Fonction gérant la suppression de la relation bien immobiliser occupant lorsque le bien est supprimé';
+COMMENT ON FUNCTION m_economie.ft_m_delete_immo_bien()
+    IS 'Fonction gérant la suppression de la relation bien immobiliser occupant, des propriétaires et commercialisation lorsque le bien est supprimé';
 	
 
 -- Trigger: t_t4_delete_occup_immo_bien
--- DROP TRIGGER t_t4_delete_occup_immo_bien ON m_economie.geo_immo_bien;
+-- DROP TRIGGER t_t4_delete_immo_bien ON m_economie.geo_immo_bien;
 
-CREATE TRIGGER t_t4_delete_occup_immo_bien
+CREATE TRIGGER t_t4_delete_immo_bien
     AFTER DELETE
     ON m_economie.an_immo_bien
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_delete_occup_immo_bien();
+    EXECUTE PROCEDURE m_economie.ft_m_delete_immo_bien();
 
 --################################################################# an_immo_prop #######################################################
 
@@ -564,6 +566,8 @@ COMMENT ON COLUMN m_economie.an_immo_prop.proptel IS 'Téléphone du propriétai
 COMMENT ON COLUMN m_economie.an_immo_prop.proptelp IS 'Téléphone portable du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.propmail IS 'Email du propriétaire';
 COMMENT ON COLUMN m_economie.an_immo_prop.observ IS 'Observations';
+
+
 
 --################################################################# an_immo_bati #######################################################
 
