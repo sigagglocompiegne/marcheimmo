@@ -451,7 +451,7 @@ CREATE TRIGGER t_t4_delete_occup_immo_bien
     BEFORE DELETE
     ON m_economie.geo_immo_bien
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_r_commune_s();
+    EXECUTE PROCEDURE m_economie.ft_m_delete_occup_immo_bati();
 
 --################################################################# an_immo_bien #######################################################
 
