@@ -147,6 +147,19 @@ COMMENT ON SEQUENCE m_economie.an_immo_prop_seq
 
 --############################################################ an_immo_media_seq ##################################################
 
+--DROP SEQUENCE m_economie.an_immo_media_seq;
+/*
+CREATE SEQUENCE m_economie.an_immo_media_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1 
+  CACHE 1;
+  
+COMMENT ON SEQUENCE m_economie.an_immo_media_seq
+  IS 'Séquence unique pour l''identifiant media';
+  */
+
 --############################################################ lk_immo_occup_seq ##################################################
 --DROP SEQUENCE m_economie.lk_immo_occup_seq;
 /*
@@ -618,7 +631,70 @@ COMMENT ON COLUMN m_economie.lk_immo_occup.idimmo IS 'Identifiant de l''objet bi
 COMMENT ON COLUMN m_economie.lk_immo_occup.siret IS 'N° SIRET de l''établissement occupant';
 
 
+--################################################################# an_immo_media #######################################################
+					 
+					 
+-- Table: m_economie.an_immo_media
 
+-- DROP TABLE m_economie.an_immo_media;
+
+CREATE TABLE m_economie.an_immo_media
+(
+    id text,
+    media text COLLATE pg_catalog."default",
+    miniature bytea,
+    n_fichier text COLLATE pg_catalog."default",
+    t_fichier text COLLATE pg_catalog."default",
+    op_sai character varying(20) COLLATE pg_catalog."default",
+    date_sai timestamp without time zone,
+	observ character varying(254),
+    gid integer NOT NULL DEFAULT nextval('m_economie.an_immo_media_seq'::regclass),
+    CONSTRAINT an_immo_media_pkey PRIMARY KEY (gid)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_economie.an_immo_media
+    OWNER to sig_create;
+
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.an_immo_media TO edit_sig;
+
+GRANT ALL ON TABLE m_economie.an_immo_media TO sig_create;
+
+GRANT ALL ON TABLE m_economie.an_immo_media TO create_sig;
+
+GRANT SELECT ON TABLE m_economie.an_immo_media TO read_sig;
+
+COMMENT ON TABLE m_economie.an_immo_media
+    IS 'Table gérant les documents intégrés pour la gestion des données du marché immobilier d''entreprises';
+
+COMMENT ON COLUMN m_economie.an_immo_media.id
+    IS 'Identifiant de l''objet saisi';
+
+COMMENT ON COLUMN m_economie.an_immo_media.media
+    IS 'Champ Média de GEO';
+
+COMMENT ON COLUMN m_economie.an_immo_media.miniature
+    IS 'Champ miniature de GEO';
+
+COMMENT ON COLUMN m_economie.an_immo_media.n_fichier
+    IS 'Nom du fichier';
+
+COMMENT ON COLUMN m_economie.an_immo_media.t_fichier
+    IS 'Type de média dans GEO';
+
+COMMENT ON COLUMN m_economie.an_immo_media.op_sai
+    IS 'Opérateur de saisie (par défaut login de connexion à GEO)';
+
+COMMENT ON COLUMN m_economie.an_immo_media.date_sai
+    IS 'Date de la saisie du document';
+	COMMENT ON COLUMN m_economie.an_immo_media.observ
+    IS 'Commentaires ou type de document';
+
+COMMENT ON COLUMN m_economie.an_immo_media.gid
+    IS 'Compteur (identifiant interne)';
 
 
 -- ###############################################################################################################################
