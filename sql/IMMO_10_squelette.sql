@@ -379,6 +379,17 @@ CREATE TRIGGER t_t2_insert_update_datemaj_immo_bien
     FOR EACH ROW
     EXECUTE PROCEDURE public.ft_r_timestamp_maj();
 
+-- INSERTION DU OU DES CODES INSEE ET DU LIBELLE DE LA OU DES COMMUNNES correspondant à la commnune d'appartenance de l'objet saisie
+
+-- Trigger: t_t3_insert_update_commune_immo_bien
+-- DROP TRIGGER t_t3_insert_update_commune_immo_bien ON m_economie.geo_immo_bien;
+
+CREATE TRIGGER t_t3_insert_update_commune_immo_bien
+    BEFORE INSERT OR UPDATE
+    ON m_economie.geo_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_commune_s();
+
 --################################################################# an_immo_bien #######################################################
 
 CREATE TABLE m_economie.an_immo_bien--------------------------------------------- Attribut métier du bien immobilier
