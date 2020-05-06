@@ -448,7 +448,7 @@ COMMENT ON FUNCTION m_economie.ft_m_insert_immo_bati()
 -- DROP TRIGGER t_t4_delete_occup_immo_bien ON m_economie.geo_immo_bien;
 
 CREATE TRIGGER t_t4_delete_occup_immo_bien
-    BEFORE DELETE
+    AFTER DELETE
     ON m_economie.geo_immo_bien
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_delete_occup_immo_bati();
