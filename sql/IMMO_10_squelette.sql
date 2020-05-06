@@ -454,6 +454,62 @@ COMMENT ON COLUMN m_economie.an_immo_bati.bdesc IS 'Description du bâtiment';
 COMMENT ON COLUMN m_economie.an_immo_bati.mprop IS 'Même propriétaire que le local';
 COMMENT ON COLUMN m_economie.an_immo_bati.observ IS 'Observations';
 
+
+-- FONCTION : génère l'identifiant idbati avant insertion : permet de gérer le cas d'un ajout direct d'un bâtiment inexistant 
+-- comprenant n locaux identifiable (dans liste de valeurs GEO)
+
+-- FUNCTION: m_economie.ft_m_insert_immo_bati()
+-- DROP FUNCTION m_economie.ft_m_insert_immo_bati();
+
+CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_immo_bati()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+
+DECLARE v_idbati text;
+
+
+BEGIN
+
+     v_idbati := 'BA' || (SELECT nextval('m_economie.an_immo_bati_seq'::regclass));
+
+     new.idbati := v_idbati;
+    
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_insert_immo_bati()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_bati() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_bati() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_bati() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_bati() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_insert_immo_bati()
+    IS 'Fonction gérant l''insertion d''nouvel identifiant du bâtiment (cas d''ajout de valeur depuis GEO)';
+	
+	
+	-- Trigger: t_t1_insert_immo_bati
+
+-- DROP TRIGGER t_t1_insert_immo_bati ON m_economie.an_immo_bati;
+
+CREATE TRIGGER t_t1_insert_immo_bati
+    BEFORE INSERT
+    ON m_economie.an_immo_bati
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_insert_immo_bati();
+
+
 --################################################################# an_immo_comm #######################################################
 
 CREATE TABLE m_economie.an_immo_comm --------------------------------------------- Attribut métier de la commercialisation
