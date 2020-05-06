@@ -402,6 +402,56 @@ CREATE TRIGGER t_t3_insert_update_commune_immo_bien
     ON m_economie.geo_immo_bien
     FOR EACH ROW
     EXECUTE PROCEDURE public.ft_r_commune_s();
+    
+    
+    
+-- FONCTIONN : SUPPRESSION DES OCCUPANTS LORSQUE SUPRESSION DE L'OBJET SAISI (les autres suppressions ont été définies dans GEO
+-- au niveau des relations)
+
+
+-- FUNCTION: m_economie.ft_m_delete_occup_immo_bati()
+-- DROP FUNCTION m_economie.ft_m_delete_occup_immo_bati();
+
+CREATE OR REPLACE FUNCTION m_economie.ft_m_delete_occup_immo_bati()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+
+BEGIN
+
+     DELETE FROM m_economie.lk_immo_occup WHERE idimmo = old.idimmo;
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_delete_occup_immo_bati()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bati() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bati() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bati() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bati() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_insert_immo_bati()
+    IS 'Fonction gérant la suppression de la relation bien immobiliser occupant lorsque l''objet saisi est supprimé';
+	
+
+-- Trigger: t_t4_delete_occup_immo_bien
+-- DROP TRIGGER t_t4_delete_occup_immo_bien ON m_economie.geo_immo_bien;
+
+CREATE TRIGGER t_t4_delete_occup_immo_bien
+    BEFORE DELETE
+    ON m_economie.geo_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_r_commune_s();
 
 --################################################################# an_immo_bien #######################################################
 
