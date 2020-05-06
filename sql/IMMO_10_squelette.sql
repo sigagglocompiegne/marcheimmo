@@ -355,6 +355,30 @@ COMMENT ON COLUMN m_economie.geo_immo_bien.insee IS 'Code Insee de la ou des com
 COMMENT ON COLUMN m_economie.geo_immo_bien.commune IS 'Libellé de la ou des communes d''assises';
 COMMENT ON COLUMN m_economie.geo_immo_bien.geom IS 'Attribut de géométrie';
 
+-- FONCTIONS
+
+-- CALCUL SURFACE SIG DE l'OBJET SAISI (à l'insertioin et à la mise à jour)
+
+-- Trigger: t_t1_insert_update_surf_immo_bien
+-- DROP TRIGGER t_t1_insert_update_surf_immo_bien ON m_economie.geo_immo_bien;
+
+CREATE TRIGGER t_t1_insert_update_surf_immo_bien
+    BEFORE INSERT OR UPDATE 
+    ON m_economie.geo_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_sup_m2_maj()
+
+-- INSERTION DATE DU JOUR UNIQUEMENT DANS LE CADRE D'UNE MISE A JOUR (date de mise à jour)
+
+-- Trigger: t_t2_insert_update_datemaj_immo_bien
+-- DROP TRIGGER t_t2_insert_update_datemaj_immo_bien ON m_economie.geo_immo_bien;
+
+CREATE TRIGGER t_t2_insert_update_datemaj_immo_bien
+    BEFORE UPDATE 
+    ON m_economie.geo_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_timestamp_maj();
+
 --################################################################# an_immo_bien #######################################################
 
 CREATE TABLE m_economie.an_immo_bien--------------------------------------------- Attribut métier du bien immobilier
