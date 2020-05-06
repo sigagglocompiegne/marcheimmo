@@ -32,7 +32,20 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat AS
 SELECT
 o.idimmo,
 CASE WHEN c1.etat IS NULL THEN c2.etat ELSE c1.etat END as etat,
-CASE WHEN e1.valeur IS NULL THEN e2.valeur ELSE e1.valeur END as dispo,
+CASE 
+WHEN c1.etat IS NULL THEN 
+	CASE
+		WHEN c2.etat = '10' or c2.etat = '20' THEN 'En vente'
+		WHEN c2.etat = '30' THEN 'En location'
+		WHEN c2.etat = '40' THEN 'En vente et/ou en location'
+	END
+ELSE
+	CASE
+		WHEN c1.etat = '10' or c1.etat = '20' THEN 'En vente'
+		WHEN c1.etat = '30' THEN 'En location'
+		WHEN c1.etat = '40' THEN 'En vente et/ou en location'
+	END
+END as dispo,
 st_pointonsurface(geom) as geom
 FROM 
 m_economie.geo_immo_bien o
@@ -41,14 +54,7 @@ LEFT JOIN m_economie.an_immo_bien b ON b.idimmo = o.idimmo
 LEFT JOIN m_economie.an_immo_comm c2 ON c2.idbien = b.idbien
 LEFT JOIN m_economie.lt_immo_etat e1 ON c1.etat = e1.code 
 LEFT JOIN m_economie.lt_immo_etat e2 ON c2.etat = e2.code 
-WHERE (c1.etat <> 'ZZ' or c2.etat <> 'ZZ' or c1.etat <> '40' or c2.etat <> '40');
-
-ALTER TABLE x_apps.xapps_geo_v_immo_etat
-    OWNER TO sig_create;
-COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
-    IS 'Vue d''exploitation des disponibilités des biens sur le marché immobilier d''entreprises (affichage CARTE GEO)';
-
-
+WHERE (c1.etat <> 'ZZ' or c2.etat <> 'ZZ');
 
 														
 
