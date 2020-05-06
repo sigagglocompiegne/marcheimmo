@@ -379,7 +379,7 @@ CREATE TRIGGER t_t1_insert_update_surf_immo_bien
     BEFORE INSERT OR UPDATE 
     ON m_economie.geo_immo_bien
     FOR EACH ROW
-    EXECUTE PROCEDURE public.ft_r_sup_m2_maj()
+    EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
 
 -- INSERTION DATE DU JOUR UNIQUEMENT DANS LE CADRE D'UNE MISE A JOUR (date de mise à jour)
 
