@@ -492,6 +492,50 @@ COMMENT ON COLUMN m_economie.an_immo_bien.source IS 'Source de la mise à jour';
 COMMENT ON COLUMN m_economie.an_immo_bien.refext IS 'Lien vers un site présentant le terrain';
 COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
 
+
+-- FONCTION : suppression des occupants à la suppression d'un bien (et en cascade si supprime l'objet saisi)
+
+CREATE OR REPLACE FUNCTION m_economie.ft_m_delete_occup_immo_bien()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+
+BEGIN
+
+     DELETE FROM m_economie.lk_immo_occup WHERE idbien = old.idbien;
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_delete_occup_immo_bien()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bien() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bien() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bien() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bien() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_delete_occup_immo_bien()
+    IS 'Fonction gérant la suppression de la relation bien immobiliser occupant lorsque le bien est supprimé';
+	
+
+-- Trigger: t_t4_delete_occup_immo_bien
+-- DROP TRIGGER t_t4_delete_occup_immo_bien ON m_economie.geo_immo_bien;
+
+CREATE TRIGGER t_t4_delete_occup_immo_bien
+    AFTER DELETE
+    ON m_economie.an_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_delete_occup_immo_bien();
+
 --################################################################# an_immo_prop #######################################################
 
 CREATE TABLE m_economie.an_immo_prop --------------------------------------------- Attribut métier du propriétaire
