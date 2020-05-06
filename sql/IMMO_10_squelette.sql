@@ -641,13 +641,13 @@ COMMENT ON COLUMN m_economie.lk_immo_occup.siret IS 'N° SIRET de l''établissem
 CREATE TABLE m_economie.an_immo_media
 (
     id text,
-    media text COLLATE pg_catalog."default",
+    media text,
     miniature bytea,
-    n_fichier text COLLATE pg_catalog."default",
-    t_fichier text COLLATE pg_catalog."default",
-    op_sai character varying(20) COLLATE pg_catalog."default",
+    n_fichier text,
+    t_fichier text,
+    op_sai character varying(20),
     date_sai timestamp without time zone,
-	observ character varying(254),
+	l_doc character varying(100),
     gid integer NOT NULL DEFAULT nextval('m_economie.an_immo_media_seq'::regclass),
     CONSTRAINT an_immo_media_pkey PRIMARY KEY (gid)
 )
@@ -690,8 +690,8 @@ COMMENT ON COLUMN m_economie.an_immo_media.op_sai
 
 COMMENT ON COLUMN m_economie.an_immo_media.date_sai
     IS 'Date de la saisie du document';
-	COMMENT ON COLUMN m_economie.an_immo_media.observ
-    IS 'Commentaires ou type de document';
+	COMMENT ON COLUMN m_economie.an_immo_media.l_doc
+    IS 'Titre du document ou légère description';
 
 COMMENT ON COLUMN m_economie.an_immo_media.gid
     IS 'Compteur (identifiant interne)';
