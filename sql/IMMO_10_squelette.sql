@@ -708,6 +708,7 @@ CREATE TRIGGER t_t2_insert_update_occup_immo_bati
     EXECUTE PROCEDURE m_economie.ft_m_insert_update_immo_bati();
 					 
 
+					 
 --################################################################# an_immo_comm #######################################################
 
 CREATE TABLE m_economie.an_immo_comm --------------------------------------------- Attribut métier de la commercialisation
