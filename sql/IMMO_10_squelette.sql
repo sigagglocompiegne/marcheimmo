@@ -625,16 +625,10 @@ BEGIN
 
      v_idbati := 'BA' || (SELECT nextval('m_economie.an_immo_bati_seq'::regclass));
 
-     new.idbati := v_idbati;
-	 -- condition pour gérer ityp selon les objets biens saisis
-	 IF new.ityp = '22' THEN
 	 
      new.ityp := '22'; -- force le type d''occupation à local divisé dans un bâtiment pour gérer l'affichage du bâtiment dans la liste de choix
 		       -- à l'enregistrement le bâtiment prendra la valeur définitf de l'occupation de l'objet saisi avec le trigger after
-     ELSE
-	 new.ityp := null;
-	 
-	 END IF;
+
      return new ;
 
 END;
@@ -671,7 +665,7 @@ CREATE TRIGGER t_t1_insert_immo_bati
 -- FUNCTION: m_economie.ft_m_update_immo_bati()
 
 -- DROP FUNCTION m_economie.ft_m_update_immo_bati();
-/*
+
 CREATE FUNCTION m_economie.ft_m_update_immo_bati()
     RETURNS trigger
     LANGUAGE 'plpgsql'
@@ -708,13 +702,13 @@ COMMENT ON FUNCTION m_economie.ft_m_update_immo_bati()
 -- t_t4_update_occup_immo_bati ON m_economie.an_immo_bati;
 
 CREATE TRIGGER t_t2_update_occup_immo_bati
-    AFTER INSERT OR UPDATE 
-    ON m_economie.an_immo_bat
+    AFTER INSERT 
+    ON m_economie.an_immo_bati
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_update_immo_bati();
 
 					 
-*/
+
 					 
 --################################################################# an_immo_comm #######################################################
 
