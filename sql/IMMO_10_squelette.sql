@@ -459,6 +459,7 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	(
 	idbien      text DEFAULT 'B' || nextval('m_economie.an_immo_bien_seq') NOT NULL,---------- Identifiant unique du bien
 	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
+	ityp        character varying (2) ,------------------------------------------------------- Type d''occupation
 	tbien       character varying (4),-------------------------------------------------------- Type de bien
 	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
 	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
@@ -479,7 +480,8 @@ ALTER TABLE m_economie.an_immo_bien
 COMMENT ON TABLE m_economie.an_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 COMMENT ON COLUMN m_economie.an_immo_bien.idbien IS 'Identifiant unique du bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.idimmo IS 'Identifiant unique de l''objet bien';
-COMMENT ON COLUMN m_economie.an_immo_bien.tbien IS 'Type de bien';
+COMMENT ON COLUMN m_economie.geo_immo_bien.ityp IS 'Type d''occupation';
+COMMENT ON COLUMN m_economie.an_immo_bien.tbien IS 'Type de bien (incrémentation automatique par la table geo_immo_bien pour la gestion de la liste des domaines des bâtiments pour un type local non identifié)';
 COMMENT ON COLUMN m_economie.an_immo_bien.libelle IS 'Libellé du bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.lib_occup IS 'Libellé de l''occupant ou détail sur le type d''occupation (si pas un établissement lié)';
 COMMENT ON COLUMN m_economie.an_immo_bien.bdesc IS 'Description du bien';
@@ -492,6 +494,49 @@ COMMENT ON COLUMN m_economie.an_immo_bien.source IS 'Source de la mise à jour';
 COMMENT ON COLUMN m_economie.an_immo_bien.refext IS 'Lien vers un site présentant le terrain';
 COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
 
+-- FONCTION : incrémentation automatique de l'attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d'une ocupation d'un local non divisé (contournement pour GEO)
+
+CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_update_immo_bien()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+
+BEGIN
+
+     UPDATE m_economie.an_immo_bien SET ityp = NEW.ityp WHERE idimmo = NEW.idimmo;
+
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_insert_update_immo_bien()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bien() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bien() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bien() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bien() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_insert_update_immo_bien()
+    IS 'Fonction incrémentant automatiquement l''attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d''une ocupation d''un local non divisé (contournement pour GEO)';
+	
+
+-- Trigger: t_t1_insert_update_occup_immo_bien
+-- DROP TRIGGER t_t1_insert_update_occup_immo_bien ON m_economie.an_immo_bien;
+
+CREATE TRIGGER t_t1_insert_update_occup_immo_bien
+    AFTER INSERT OR UPDATE
+    ON m_economie.an_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_insert_update_immo_bien();
 
 -- FONCTION : suppression des occupants à la suppression d'un bien (et en cascade si supprime l'objet saisi)
 
@@ -818,7 +863,12 @@ ALTER TABLE m_economie.an_immo_bien
   ADD CONSTRAINT an_immo_bien_tbien_fkey FOREIGN KEY (tbien)
       REFERENCES m_economie.lt_immo_tbien(code) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE SET DEFAULT;
-
+					 
+ALTER TABLE m_economie.an_immo_bati
+  ADD CONSTRAINT an_immo_bati_ityp_fkey FOREIGN KEY (ityp)
+      REFERENCES m_economie.lt_immo_ityp(code) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE SET DEFAULT;
+					 
 /*
 -- pas de clé étrangère ici car plusieurs valeurs possibles depuis GEO
 ALTER TABLE m_economie.an_immo_bati
