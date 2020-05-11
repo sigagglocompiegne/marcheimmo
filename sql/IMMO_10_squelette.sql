@@ -402,7 +402,54 @@ CREATE TRIGGER t_t3_insert_update_commune_immo_bien
     ON m_economie.geo_immo_bien
     FOR EACH ROW
     EXECUTE PROCEDURE public.ft_r_commune_s();
-    
+
+
+-- FONCTION : incrémentation automatique de l'attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d'une ocupation d'un local non divisé (contournement pour GEO)
+
+-- FUNCTION: m_economie.ft_m_update_immo_bati()
+
+-- DROP FUNCTION m_economie.ft_m_update_immo_bati();
+
+CREATE FUNCTION m_economie.ft_m_update_immo_bati()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+BEGIN
+
+     UPDATE m_economie.an_immo_bati SET ityp = (SELECT ityp FROM m_economie.geo_immo_bien WHERE idimmo = OLD.idimmo) WHERE idimmo = OLD.idimmo;
+
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_update_immo_bati()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_update_immo_bati()
+    IS 'Fonction incrémentant automatiquement l''attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d''une ocupation d''un local non divisé (contournement pour GEO)';
+
+
+-- Trigger: t_t4_update_occup_immo_bati
+-- t_t4_update_occup_immo_bati ON m_economie.an_immo_bati;
+
+CREATE TRIGGER t_t4_update_occup_immo_bati
+    AFTER INSERT OR UPDATE 
+    ON m_economie.geo_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_update_immo_bati();
     
     
 -- FONCTIONN : SUPPRESSION DES OCCUPANTS LORSQUE SUPRESSION DE L'OBJET SAISI (les autres suppressions ont été définies dans GEO
@@ -444,10 +491,10 @@ COMMENT ON FUNCTION m_economie.ft_m_insert_immo_bati()
     IS 'Fonction gérant la suppression de la relation bien immobiliser occupant lorsque l''objet saisi est supprimé';
 	
 
--- Trigger: t_t4_delete_occup_immo_bien
--- DROP TRIGGER t_t4_delete_occup_immo_bien ON m_economie.geo_immo_bien;
+-- Trigger: t_t5_delete_occup_immo_bien
+-- DROP TRIGGER t_t5_delete_occup_immo_bien ON m_economie.geo_immo_bien;
 
-CREATE TRIGGER t_t4_delete_occup_immo_bien
+CREATE TRIGGER t_t5_delete_occup_immo_bien
     AFTER DELETE
     ON m_economie.geo_immo_bien
     FOR EACH ROW
@@ -660,52 +707,7 @@ CREATE TRIGGER t_t1_insert_immo_bati
     EXECUTE PROCEDURE m_economie.ft_m_insert_immo_bati();
 
 
--- FONCTION : incrémentation automatique de l'attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d'une ocupation d'un local non divisé (contournement pour GEO)
 
--- FUNCTION: m_economie.ft_m_insert_update_immo_bati()
--- DROP FUNCTION m_economie.ft_m_insert_update_immo_bati();					 
-					 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_update_immo_bati()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-
-
-BEGIN
-
-     UPDATE m_economie.an_immo_bati SET ityp = NEW.ityp WHERE idimmo = NEW.idimmo;
-
-     return new ;
-
-END;
-
-$BODY$;
-
-ALTER FUNCTION m_economie.ft_m_insert_update_immo_bati()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bati() TO edit_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bati() TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bati() TO create_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bati() TO PUBLIC;
-
-COMMENT ON FUNCTION m_economie.ft_m_insert_update_immo_bati()
-    IS 'Fonction incrémentant automatiquement l''attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d''une ocupation d''un local non divisé (contournement pour GEO)';
-	
-
--- Trigger: t_t2_insert_update_occup_immo_bati
--- DROP TRIGGER t_t2_insert_update_occup_immo_bati ON m_economie.an_immo_bati;
-
-CREATE TRIGGER t_t2_insert_update_occup_immo_bati
-    AFTER INSERT OR UPDATE
-    ON m_economie.an_immo_bati
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_insert_update_immo_bati();
 					 
 
 					 
