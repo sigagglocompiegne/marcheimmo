@@ -459,7 +459,6 @@ CREATE TABLE m_economie.an_immo_bien--------------------------------------------
 	(
 	idbien      text DEFAULT 'B' || nextval('m_economie.an_immo_bien_seq') NOT NULL,---------- Identifiant unique du bien
 	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
-	ityp        character varying (2) ,------------------------------------------------------- Type d''occupation
 	tbien       character varying (4),-------------------------------------------------------- Type de bien
 	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
 	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
@@ -480,8 +479,7 @@ ALTER TABLE m_economie.an_immo_bien
 COMMENT ON TABLE m_economie.an_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 COMMENT ON COLUMN m_economie.an_immo_bien.idbien IS 'Identifiant unique du bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.idimmo IS 'Identifiant unique de l''objet bien';
-COMMENT ON COLUMN m_economie.geo_immo_bien.ityp IS 'Type d''occupation';
-COMMENT ON COLUMN m_economie.an_immo_bien.tbien IS 'Type de bien (incrémentation automatique par la table geo_immo_bien pour la gestion de la liste des domaines des bâtiments pour un type local non identifié)';
+COMMENT ON COLUMN m_economie.an_immo_bien.tbien IS 'Type de bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.libelle IS 'Libellé du bien';
 COMMENT ON COLUMN m_economie.an_immo_bien.lib_occup IS 'Libellé de l''occupant ou détail sur le type d''occupation (si pas un établissement lié)';
 COMMENT ON COLUMN m_economie.an_immo_bien.bdesc IS 'Description du bien';
@@ -494,49 +492,6 @@ COMMENT ON COLUMN m_economie.an_immo_bien.source IS 'Source de la mise à jour';
 COMMENT ON COLUMN m_economie.an_immo_bien.refext IS 'Lien vers un site présentant le terrain';
 COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
 
--- FONCTION : incrémentation automatique de l'attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d'une ocupation d'un local non divisé (contournement pour GEO)
-
-CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_update_immo_bien()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-
-
-BEGIN
-
-     UPDATE m_economie.an_immo_bien SET ityp = NEW.ityp WHERE idimmo = NEW.idimmo;
-
-     return new ;
-
-END;
-
-$BODY$;
-
-ALTER FUNCTION m_economie.ft_m_insert_update_immo_bien()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bien() TO edit_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bien() TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bien() TO create_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bien() TO PUBLIC;
-
-COMMENT ON FUNCTION m_economie.ft_m_insert_update_immo_bien()
-    IS 'Fonction incrémentant automatiquement l''attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d''une ocupation d''un local non divisé (contournement pour GEO)';
-	
-
--- Trigger: t_t1_insert_update_occup_immo_bien
--- DROP TRIGGER t_t1_insert_update_occup_immo_bien ON m_economie.an_immo_bien;
-
-CREATE TRIGGER t_t1_insert_update_occup_immo_bien
-    AFTER INSERT OR UPDATE
-    ON m_economie.an_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_insert_update_immo_bien();
 
 -- FONCTION : suppression des occupants à la suppression d'un bien (et en cascade si supprime l'objet saisi)
 
@@ -620,6 +575,7 @@ CREATE TABLE m_economie.an_immo_bati -------------------------------------------
 	(
 	idbati      text DEFAULT 'BA' || nextval('m_economie.an_immo_bati_seq') NOT NULL,--------- Identifiant unique du bâtiment
 	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet
+	ityp        character varying (2) ,------------------------------------------------------- Type d''occupation
 	libelle     character varying (254),------------------------------------------------------ Libellé du bâtiment
 	surf_m      integer,---------------------------------------------------------------------- Surface en m²	
 	shon        integer,---------------------------------------------------------------------- Surface de plancher en m²
@@ -636,6 +592,7 @@ ALTER TABLE m_economie.an_immo_bati
 COMMENT ON TABLE m_economie.an_immo_bati IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
 COMMENT ON COLUMN m_economie.an_immo_bati.idbati IS 'Identifiant du bâtiment';
 COMMENT ON COLUMN m_economie.an_immo_bati.idimmo IS 'Identifiant de l''objet';
+COMMENT ON COLUMN m_economie.an_immo_bati.ityp IS 'Type d''occupation (incrémentation automatique par la table geo_immo_bien pour la gestion de la liste des domaines des bâtiments pour un type local non identifié)';
 COMMENT ON COLUMN m_economie.an_immo_bati.libelle IS 'Libellé du bâtiment';
 COMMENT ON COLUMN m_economie.an_immo_bati.surf_m IS 'Surface en m²';
 COMMENT ON COLUMN m_economie.an_immo_bati.shon IS 'Surface de plancher en m²';
@@ -668,6 +625,8 @@ BEGIN
      v_idbati := 'BA' || (SELECT nextval('m_economie.an_immo_bati_seq'::regclass));
 
      new.idbati := v_idbati;
+     new.ityp := '22'; -- force le type d''occupation à local divisé dans un bâtiment pour gérer l'affichage du bâtiment dans la liste de choix
+		       -- à l'enregistrement le bâtiment prendra la valeur définitf de l'occupation de l'objet saisi avec le trigger after
     
      return new ;
 
@@ -690,7 +649,7 @@ COMMENT ON FUNCTION m_economie.ft_m_insert_immo_bati()
     IS 'Fonction gérant l''insertion d''nouvel identifiant du bâtiment (cas d''ajout de valeur depuis GEO)';
 	
 	
-	-- Trigger: t_t1_insert_immo_bati
+-- Trigger: t_t1_insert_immo_bati
 
 -- DROP TRIGGER t_t1_insert_immo_bati ON m_economie.an_immo_bati;
 
@@ -700,6 +659,54 @@ CREATE TRIGGER t_t1_insert_immo_bati
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_insert_immo_bati();
 
+
+-- FONCTION : incrémentation automatique de l'attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d'une ocupation d'un local non divisé (contournement pour GEO)
+
+-- FUNCTION: m_economie.ft_m_insert_update_immo_bati()
+-- DROP FUNCTION m_economie.ft_m_insert_update_immo_bati();					 
+					 
+CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_update_immo_bati()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+
+BEGIN
+
+     UPDATE m_economie.an_immo_bati SET ityp = NEW.ityp WHERE idimmo = NEW.idimmo;
+
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_insert_update_immo_bati()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bati() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bati() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bati() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_update_immo_bati() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_insert_update_immo_bati()
+    IS 'Fonction incrémentant automatiquement l''attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d''une ocupation d''un local non divisé (contournement pour GEO)';
+	
+
+-- Trigger: t_t2_insert_update_occup_immo_bati
+-- DROP TRIGGER t_t2_insert_update_occup_immo_bati ON m_economie.an_immo_bati;
+
+CREATE TRIGGER t_t2_insert_update_occup_immo_bati
+    AFTER INSERT OR UPDATE
+    ON m_economie.an_immo_bati
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_insert_update_immo_bati();
+					 
 
 --################################################################# an_immo_comm #######################################################
 
