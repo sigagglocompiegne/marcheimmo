@@ -664,7 +664,7 @@ CREATE TRIGGER t_t1_insert_immo_bati
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_insert_immo_bati();
 
--- FONCTION : Fonction refraichissant la vue matérialisée an_vmr_immo_ityp pour la mise à jour de l'attribut ityp
+-- FONCTION : Fonction supprimant les valeurs de cette table et intègrant les nouvelles valeurs pour la mise à jour de la table an_immo_bati déclenchée sur la table lk_immo_ityp après cette insertion
 
 -- FUNCTION: m_economie.ft_m_insert_occup_immo_bati()
 
@@ -700,19 +700,19 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_update_immo_bati()
+ALTER FUNCTION m_economie.ft_m_insert_occup_immo_bati()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_occup_immo_bati() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_occup_immo_bati() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_occup_immo_bati() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_occup_immo_bati() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_update_immo_bati()
-    IS 'Fonction refraichissant la vue matérialisée an_vmr_immo_ityp pour la mise à jour de l''attribut ityp';
+COMMENT ON FUNCTION m_economie.ft_m_insert_occup_immo_bati()
+    IS 'Fonction supprimant les valeurs de cette table et intègrant les nouvelles valeurs pour la mise à jour de la table an_immo_bati déclenchée sur la table lk_immo_ityp après cette insertion';
 
 
 -- Trigger: t_t2_insert_occup_immo_bati
@@ -938,7 +938,7 @@ COMMENT ON TABLE m_economie.lk_immo_ityp
 COMMENT ON COLUMN m_economie.lk_immo_ityp.id
     IS 'Identifiant unique';
 
-COMMENT ON COLUMN m_economie.an_vlk_immo_itypmr_immo_ityp.idimmo
+COMMENT ON COLUMN m_economie.lk_immo_ityp.idimmo
     IS 'Identifiant de l''objet saisi';
 
 COMMENT ON COLUMN m_economie.lk_immo_ityp.ityp_objet
