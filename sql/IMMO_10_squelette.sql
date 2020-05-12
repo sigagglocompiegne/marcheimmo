@@ -670,7 +670,7 @@ CREATE TRIGGER t_t1_insert_immo_bati
 
 -- DROP FUNCTION m_economie.ft_m_insert_occup_immo_bati();
 
-CREATE FUNCTION m_economie.ft_m_insert_occup_immo_bati()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_occup_immo_bati()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -729,7 +729,7 @@ CREATE TRIGGER t_t2_insert_occup_immo_bati
 -- FUNCTION: m_economie.ft_m_delete_immo_bati_null()
 -- DROP FUNCTION m_economie.ft_m_delete_immo_bati_null();
 
-CREATE FUNCTION m_economie.ft_m_delete_immo_bati_null()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_delete_immo_bati_null()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -956,7 +956,7 @@ COMMENT ON TABLE m_economie.lk_immo_ityp
 -- FUNCTION: m_economie.ft_m_delete_immo_ityp()
 -- DROP FUNCTION m_economie.ft_m_delete_immo_ityp();
 					 
-CREATE FUNCTION m_economie.ft_m_insert_immo_ityp()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_immo_ityp()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
