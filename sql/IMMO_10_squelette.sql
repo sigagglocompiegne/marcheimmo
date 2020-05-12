@@ -679,8 +679,8 @@ AS $BODY$
 
 BEGIN
 
-     DELETE FROM m_economie.an_vmr_immo_ityp;
-     INSERT INTO m_economie.an_vmr_immo_ityp (id,idimmo, ityp_objet,ityp_bati)
+     DELETE FROM m_economie.lk_immo_ityp;
+     INSERT INTO m_economie.lk_immo_ityp (id,idimmo, ityp_objet,ityp_bati)
      SELECT 
      	row_number() over() as id,
     	bi.idimmo,
@@ -861,12 +861,12 @@ COMMENT ON COLUMN m_economie.an_immo_media.date_sai
 COMMENT ON COLUMN m_economie.an_immo_media.gid
     IS 'Compteur (identifiant interne)';
 
---################################################################# an_vmr_immo_ityp #######################################################
+--################################################################# lk_immo_ityp #######################################################
 
 					 
--- View: m_economie.an_vmr_immo_ityp
+-- View: m_economie.lk_immo_ityp
 
-CREATE TABLE m_economie.an_vmr_immo_ityp
+CREATE TABLE m_economie.lk_immo_ityp
 	(
 	id          integer NOT NULL,------------------------------------------------------------ Identifiant unique
 	idimmo      text,------------------------------------------------------------------------ Identifiant de l''objet saisi
@@ -874,30 +874,30 @@ CREATE TABLE m_economie.an_vmr_immo_ityp
 	ityp_bati   character varying(2)--------------------------------------------------------- Occupation du bâti
 	);
 
-ALTER TABLE m_economie.an_vmr_immo_ityp
-  ADD CONSTRAINT an_vmr_immo_ityp_pkey PRIMARY KEY(id);
+ALTER TABLE m_economie.lk_immo_ityp
+  ADD CONSTRAINT lk_immo_ityp_pkey PRIMARY KEY(id);
 
-ALTER TABLE m_economie.an_vmr_immo_ityp
+ALTER TABLE m_economie.lk_immo_ityp
     OWNER to sig_create;
 
 
 
-COMMENT ON TABLE m_economie.an_vmr_immo_ityp
+COMMENT ON TABLE m_economie.lk_immo_ityp
     IS 'Table non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié. Table incrémenté automatiquement à l''insertion d''une valeur dans la table an_immo_bati';
 
-COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.id
+COMMENT ON COLUMN m_economie.lk_immo_ityp.id
     IS 'Identifiant unique';
 
-COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.idimmo
+COMMENT ON COLUMN m_economie.an_vlk_immo_itypmr_immo_ityp.idimmo
     IS 'Identifiant de l''objet saisi';
 
-COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.ityp_objet
+COMMENT ON COLUMN m_economie.lk_immo_ityp.ityp_objet
     IS 'Occupation de l''objet saisi';
 
-COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.ityp_bati
+COMMENT ON COLUMN m_economie.lk_immo_ityp.ityp_bati
     IS 'Occupation du bâti';
 					 
-COMMENT ON TABLE m_economie.an_vmr_immo_ityp
+COMMENT ON TABLE m_economie.lk_immo_ityp
     IS 'Table non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié. Table incrémenté automatiquement à l''insertion d''une valeur dans la table an_immo_bati';
 
 
