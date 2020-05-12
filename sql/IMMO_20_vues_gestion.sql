@@ -5,6 +5,13 @@
 /* GeoCompiegnois - http://geo.compiegnois.fr/ */
 /* Auteur : Grégory Bodet*/
 
+/* PARTICULARTITE */
+
+-- aucune vue de gestion proprement dite n'a été créée ici pour gérer les données directement en base depuis une vue. Le fonctionnel
+-- applicatif a été entièrement géré dans l'application GEO. Seuls sont ici présentes des vues pour des particularités fonctionnelles non
+-- gérées par une fonctionnalité GEO.
+
+
 /*
 SOMMAIRE :
  - DROP
@@ -38,6 +45,7 @@ SOMMAIRE :
 
 CREATE MATERIALIZED VIEW m_economie.an_vmr_immo_ityp AS
 SELECT
+row_number() over() as id,
 bi.idimmo,
 bi.ityp as ityp_objet,
 ba.ityp as ityp_bati
