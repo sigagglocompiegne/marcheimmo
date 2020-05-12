@@ -660,13 +660,13 @@ CREATE TRIGGER t_t1_insert_immo_bati
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_insert_immo_bati();
 
--- FONCTION : incrémentation automatique de l'attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d'une ocupation d'un local non divisé (contournement pour GEO)
+-- FONCTION : Fonction refraichissant la vue matérialisée an_vmr_immo_ityp pour la mise à jour de l'attribut ityp
 
--- FUNCTION: m_economie.ft_m_update_immo_bati()
+-- FUNCTION: m_economie.ft_m_insert_occup_immo_bati()
 
--- DROP FUNCTION m_economie.ft_m_update_immo_bati();
+-- DROP FUNCTION m_economie.ft_m_insert_occup_immo_bati();
 
-CREATE FUNCTION m_economie.ft_m_update_immo_bati()
+CREATE FUNCTION m_economie.ft_m_insert_occup_immo_bati()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -675,7 +675,7 @@ AS $BODY$
 
 BEGIN
 
-     UPDATE m_economie.an_immo_bati SET ityp = (SELECT ityp FROM m_economie.geo_immo_bien WHERE idimmo = OLD.idimmo) WHERE idimmo = OLD.idimmo;
+     REFRESH MATERIALIZED VIEW m_economie.an_vmr_immo_ityp;   
 
      return new ;
 
@@ -695,17 +695,17 @@ GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO create_sig;
 GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_immo_bati() TO PUBLIC;
 
 COMMENT ON FUNCTION m_economie.ft_m_update_immo_bati()
-    IS 'Fonction incrémentant automatiquement l''attribut ityp depuis la table geo_immo_bien (uniquement pour gérer une liste de bâtiment à choisir dans le cas d''une ocupation d''un local non divisé (contournement pour GEO)';
+    IS 'Fonction refraichissant la vue matérialisée an_vmr_immo_ityp pour la mise à jour de l''attribut ityp';
 
 
--- Trigger: t_t4_update_occup_immo_bati
--- t_t4_update_occup_immo_bati ON m_economie.an_immo_bati;
+-- Trigger: t_t2_insert_occup_immo_bati
+-- t_t2_insert_occup_immo_bati ON m_economie.an_immo_bati;
 
-CREATE TRIGGER t_t2_update_occup_immo_bati
+CREATE TRIGGER t_t2_insert_occup_immo_bati
     AFTER INSERT 
     ON m_economie.an_immo_bati
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_update_immo_bati();
+    EXECUTE PROCEDURE m_economie.ft_m_insert_occup_immo_bati();
 
 					 
 
