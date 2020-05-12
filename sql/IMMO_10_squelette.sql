@@ -679,7 +679,10 @@ AS $BODY$
 
 BEGIN
 
+
+	 -- je supprime le contenu de la table lk_immo_ityp permettant de mettre à jour l'attribut ityp de la table an_immo_bati
      DELETE FROM m_economie.lk_immo_ityp;
+	 -- j'intègre les nouvelles valeurs dans la table pour la mise à jour de la table an_immo_bati déclenchée sur la table lk_immo_ityp après cette insertion
      INSERT INTO m_economie.lk_immo_ityp (id,idimmo, ityp_objet,ityp_bati)
      SELECT 
      	row_number() over() as id,
@@ -689,6 +692,9 @@ BEGIN
    	FROM m_economie.geo_immo_bien bi,
     	m_economie.an_immo_bati ba
   	WHERE bi.idimmo = ba.idimmo AND bi.ityp::text <> '22'::text;
+
+    -- je supprime uniquement pour les locaux divisés d'un même bâtiment, la valeur null qui s'est créée à l'enregistrement du bien saisi
+	DELETE FROM m_economie.an_immo_bati WHERE idtyp = '22' AND libelle IS NULL;
 
      return new ;
 
