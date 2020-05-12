@@ -693,8 +693,6 @@ BEGIN
     	m_economie.an_immo_bati ba
   	WHERE bi.idimmo = ba.idimmo AND bi.ityp::text <> '22'::text;
 
-    -- je supprime uniquement pour les locaux divisés d'un même bâtiment, la valeur null qui s'est créée à l'enregistrement du bien saisi
-	DELETE FROM m_economie.an_immo_bati WHERE idtyp = '22' AND libelle IS NULL;
 
      return new ;
 
@@ -725,6 +723,52 @@ CREATE TRIGGER t_t2_insert_occup_immo_bati
     ON m_economie.an_immo_bati
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_insert_occup_immo_bati();
+					 
+-- FONCTION : Fonction permettant de supprimer la ligne null créée après l'insertion d'un bâtiment dans le cas d'un ajout d'un bâtiment avec biens identifiés dans la table an_immo_bati
+
+-- FUNCTION: m_economie.ft_m_delete_immo_bati_null()
+-- DROP FUNCTION m_economie.ft_m_delete_immo_bati_null();
+
+CREATE FUNCTION m_economie.ft_m_delete_immo_bati_null()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+BEGIN
+
+      -- je supprime uniquement pour les locaux divisés d'un même bâtiment, la valeur null qui s'est créée à l'enregistrement du bien saisi
+      DELETE FROM m_economie.an_immo_bati WHERE ityp = '22' AND libelle IS NULL;
+	  
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_delete_immo_bati_null()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bati_null() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bati_null() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bati_null() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bati_null() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_delete_immo_bati_null()
+    IS 'Fonction gérant la suppression des bâtiments après insertion d''une occupation de type 22 (bâtiment avec n locaux identifiés)';				 
+					 
+-- Trigger: t_t3_delete_immo_bati_null
+-- DROP TRIGGER t_t3_delete_immo_bati_null ON m_economie.an_immo_bati;
+
+CREATE TRIGGER t_t3_delete_immo_bati_null
+    AFTER INSERT
+    ON m_economie.an_immo_bati
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_delete_immo_bati_null();
 
 					 
 
