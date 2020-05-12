@@ -679,7 +679,16 @@ AS $BODY$
 
 BEGIN
 
-     REFRESH MATERIALIZED VIEW m_economie.an_vmr_immo_ityp;   
+     DELETE FROM m_economie.an_vmr_immo_ityp;
+     INSERT INTO m_economie.an_vmr_immo_ityp (id,idimmo, ityp_objet,ityp_bati)
+     SELECT 
+     	row_number() over() as id,
+    	bi.idimmo,
+    	bi.ityp AS ityp_objet,
+    	ba.ityp AS ityp_bati
+   	FROM m_economie.geo_immo_bien bi,
+    	m_economie.an_immo_bati ba
+  	WHERE bi.idimmo = ba.idimmo AND bi.ityp::text <> '22'::text;
 
      return new ;
 
