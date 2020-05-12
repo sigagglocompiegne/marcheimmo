@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_comm CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_media CASCADE;
 DROP TABLE IF EXISTS m_economie.lk_immo_occup CASCADE;
-DROP TABLE IF EXISTS m_economie.an_vmr_immo_ityp CASCADE;
+DROP TABLE IF EXISTS m_economie.lk_immo_ityp CASCADE;
 
 
 -- DOMAINES DE VALEUR
