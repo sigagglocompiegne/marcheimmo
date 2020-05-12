@@ -7,7 +7,7 @@ Ensemble des éléments constituant la mise en oeuvre de la base de données et 
 - Script d'initialisation de la base de données
   * [Suivi des modifications](sql/IMMO_00_trace.sql)
   * [Création  de la structure initiale](sql/IMMO_10_squelette.sql)
-  * Création des vues de gestion
+  * [Création des vues de gestion](sql/IMMO_20_vues_gestion.sql)
   * [Création des vues applicatives](sql/IMMO_21_vues_xapps.sql)
   * [Création des privilèges](sql/IMMO_99_grant.sql)
 - [Documentation d'administration de la base](doc/doc_admin_bd_immo.md)
