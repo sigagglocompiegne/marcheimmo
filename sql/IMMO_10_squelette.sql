@@ -803,7 +803,7 @@ CREATE TABLE m_economie.an_immo_media
     t_fichier text,
     op_sai character varying(20),
     date_sai timestamp without time zone,
-	l_doc character varying(100),
+    l_doc character varying(100),
     gid integer NOT NULL DEFAULT nextval('m_economie.an_immo_media_seq'::regclass),
     CONSTRAINT an_immo_media_pkey PRIMARY KEY (gid)
 )
@@ -858,17 +858,15 @@ COMMENT ON COLUMN m_economie.an_immo_media.gid
 -- View: m_economie.an_vmr_immo_ityp
 
 CREATE TABLE m_economie.an_vmr_immo_ityp
-(
-    id text,
+	(
+	id          integer NOT NULL,------------------------------------------------------------ Identifiant unique
+	idimmo      text,------------------------------------------------------------------------ Identifiant de l''objet saisi
+	ityp_objet  character varying(2),-------------------------------------------------------- Occupation de l''objet saisi
+	ityp_bati   character varying(2)--------------------------------------------------------- Occupation du bâti
+	);
 
-
-
-    CONSTRAINT an_vmr_immo_ityp_pkey PRIMARY KEY (gid)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
+ALTER TABLE m_economie.an_vmr_immo_ityp
+  ADD CONSTRAINT an_vmr_immo_ityp_pkey PRIMARY KEY(id);
 
 ALTER TABLE m_economie.an_vmr_immo_ityp
     OWNER to sig_create;
@@ -881,13 +879,15 @@ COMMENT ON TABLE m_economie.an_vmr_immo_ityp
 COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.id
     IS 'Identifiant unique';
 
-COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.media
-    IS 'Champ Média de GEO';
+COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.idimmo
+    IS 'Identifiant de l''objet saisi';
 
-COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.miniature
-    IS 'Champ miniature de GEO';
+COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.ityp_objet
+    IS 'Occupation de l''objet saisi';
 
-
+COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.ityp_bati
+    IS 'Occupation du bâti';
+					 
 COMMENT ON TABLE m_economie.an_vmr_immo_ityp
     IS 'Table non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié. Table incrémenté automatiquement à l''insertion d''une valeur dans la table an_immo_bati';
 
