@@ -99,6 +99,13 @@ GRANT ALL ON TABLE m_economie.lk_immo_occup TO create_sig;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lk_immo_occup TO edit_sig;
 GRANT SELECT ON TABLE m_economie.lk_immo_occup TO read_sig;
 
+ALTER TABLE m_economie.an_vmr_immo_ityp
+  OWNER TO sig_create;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.an_vmr_immo_ityp TO edit_sig;
+GRANT ALL ON TABLE m_economie.an_vmr_immo_ityp TO sig_create;
+GRANT ALL ON TABLE m_economie.an_vmr_immo_ityp TO create_sig;
+GRANT SELECT ON TABLE m_economie.an_vmr_immo_ityp TO read_sig;
+
 
 -- ########################################################### VUE APPLICATIVE  ####################################################################
 
@@ -108,10 +115,4 @@ GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_etat TO read_sig;
 GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_etat TO edit_sig;
 GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_etat TO create_sig;
 
--- ########################################################### VUE DE GESTION  ####################################################################
 
-
-GRANT DELETE, UPDATE, SELECT, INSERT ON TABLE m_economie.an_vmr_immo_ityp TO edit_sig;
-GRANT ALL ON TABLE m_economie.an_vmr_immo_ityp TO sig_create;
-GRANT ALL ON TABLE m_economie.an_vmr_immo_ityp TO create_sig;
-GRANT SELECT ON TABLE m_economie.an_vmr_immo_ityp TO read_sig;
