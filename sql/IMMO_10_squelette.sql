@@ -36,6 +36,8 @@ DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_comm CASCADE;
 DROP TABLE IF EXISTS m_economie.an_immo_media CASCADE;
 DROP TABLE IF EXISTS m_economie.lk_immo_occup CASCADE;
+DROP TABLE IF EXISTS m_economie.an_vmr_immo_ityp CASCADE;
+
 
 -- DOMAINES DE VALEUR
 
@@ -173,6 +175,8 @@ CREATE SEQUENCE m_economie.lk_immo_occup_seq
 COMMENT ON SEQUENCE m_economie.lk_immo_occup_seq
   IS 'Séquence unique pour la relation bien et occupant(s)';
   */
+
+
 
 
 -- ###############################################################################################################################
@@ -851,30 +855,43 @@ COMMENT ON COLUMN m_economie.an_immo_media.gid
 --################################################################# an_vmr_immo_ityp #######################################################
 
 					 
-CREATE MATERIALIZED VIEW m_economie.an_vmr_immo_ityp AS
-SELECT
-bi.idimmo,
-bi.ityp as ityp_objet,
-ba.ityp as ityp_bati
-FROM
-m_economie.geo_immo_bien bi,
-m_economie.an_immo_bati ba
-WHERE
-bi.idimmo = ba.idimmo
-AND
-bi.ityp <> '22'
-WITH DATA;
+-- View: m_economie.an_vmr_immo_ityp
+
+CREATE TABLE m_economie.an_vmr_immo_ityp
+(
+    id text,
+
+
+
+    CONSTRAINT an_vmr_immo_ityp_pkey PRIMARY KEY (gid)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
 ALTER TABLE m_economie.an_vmr_immo_ityp
-    OWNER TO sig_create;
+    OWNER to sig_create;
 
-COMMENT ON MATERIALIZED VIEW m_economie.an_vmr_immo_ityp
-    IS 'Vue non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié';
 
-GRANT DELETE, UPDATE, SELECT, INSERT ON TABLE m_economie.an_vmr_immo_ityp TO edit_sig;
-GRANT ALL ON TABLE m_economie.an_vmr_immo_ityp TO sig_create;
-GRANT ALL ON TABLE m_economie.an_vmr_immo_ityp TO create_sig;
-GRANT SELECT ON TABLE m_economie.an_vmr_immo_ityp TO read_sig;
+
+COMMENT ON TABLE m_economie.an_vmr_immo_ityp
+    IS 'Table non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié. Table incrémenté automatiquement à l''insertion d''une valeur dans la table an_immo_bati';
+
+COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.id
+    IS 'Identifiant unique';
+
+COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.media
+    IS 'Champ Média de GEO';
+
+COMMENT ON COLUMN m_economie.an_vmr_immo_ityp.miniature
+    IS 'Champ miniature de GEO';
+
+
+COMMENT ON TABLE m_economie.an_vmr_immo_ityp
+    IS 'Table non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié. Table incrémenté automatiquement à l''insertion d''une valeur dans la table an_immo_bati';
+
+
 					 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
