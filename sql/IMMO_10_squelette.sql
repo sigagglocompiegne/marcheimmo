@@ -906,7 +906,7 @@ COMMENT ON TABLE m_economie.lk_immo_ityp
 -- FUNCTION: m_economie.ft_m_delete_immo_ityp()
 -- DROP FUNCTION m_economie.ft_m_delete_immo_ityp();
 					 
-CREATE FUNCTION m_economie.ft_m_delete_immo_ityp()
+CREATE FUNCTION m_economie.ft_m_insert_immo_ityp()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -924,27 +924,27 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_delete_immo_ityp()
+ALTER FUNCTION m_economie.ft_m_insert_immo_ityp()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_ityp() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_ityp() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_ityp() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_ityp() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_ityp() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_ityp() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_ityp() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_ityp() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_delete_immo_ityp()
+COMMENT ON FUNCTION m_economie.ft_m_insert_immo_ityp()
     IS 'Fonction permettant de mettre à jour l''attribut ityp dans la table an_immo_bati via cette table de lien incrémentée après insertion dans cette même table an_immo_bati';
 
 
--- DROP TRIGGER t_t1_delete_immo_ityp ON m_economie.lk_immo_ityp;
-CREATE TRIGGER t_t1_delete_immo_ityp
-    AFTER DELETE
+-- DROP TRIGGER t_t1_insert_immo_ityp ON m_economie.lk_immo_ityp;
+CREATE TRIGGER t_t1_insert_immo_ityp
+    AFTER INSERT
     ON m_economie.lk_immo_ityp
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_delete_immo_ityp();
+    EXECUTE PROCEDURE m_economie.ft_m_insert_immo_ityp();
 					 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
