@@ -107,3 +107,11 @@ GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_etat TO sig_create;
 GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_etat TO read_sig;
 GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_etat TO edit_sig;
 GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_etat TO create_sig;
+
+-- ########################################################### VUE DE GESTION  ####################################################################
+
+
+GRANT DELETE, UPDATE, SELECT, INSERT ON TABLE m_economie.an_vmr_immo_ityp TO edit_sig;
+GRANT ALL ON TABLE m_economie.an_vmr_immo_ityp TO sig_create;
+GRANT ALL ON TABLE m_economie.an_vmr_immo_ityp TO create_sig;
+GRANT SELECT ON TABLE m_economie.an_vmr_immo_ityp TO read_sig;
