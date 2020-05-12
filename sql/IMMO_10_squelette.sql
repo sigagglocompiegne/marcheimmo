@@ -622,12 +622,11 @@ CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_immo_bati()
 AS $BODY$
 
 
-DECLARE v_idbati text;
-
 
 BEGIN
 
-     v_idbati := 'BA' || (SELECT nextval('m_economie.an_immo_bati_seq'::regclass));
+    
+     new.idbati := 'BA' || (SELECT nextval('m_economie.an_immo_bati_seq'::regclass));
 
 	 
      new.ityp := '22'; -- force le type d''occupation à local divisé dans un bâtiment pour gérer l'affichage du bâtiment dans la liste de choix
