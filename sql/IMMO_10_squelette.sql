@@ -900,7 +900,51 @@ COMMENT ON COLUMN m_economie.lk_immo_ityp.ityp_bati
 COMMENT ON TABLE m_economie.lk_immo_ityp
     IS 'Table non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié. Table incrémenté automatiquement à l''insertion d''une valeur dans la table an_immo_bati';
 
+					 
+-- FONCTION : Fonction permettant de mettre à jour l''attribut ityp dans la table an_immo_bati
 
+-- FUNCTION: m_economie.ft_m_delete_immo_ityp()
+-- DROP FUNCTION m_economie.ft_m_delete_immo_ityp();
+					 
+CREATE FUNCTION m_economie.ft_m_delete_immo_ityp()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+BEGIN
+
+     -- mise à jour de l'attribut ityp dans la table an_immo_bati (permet de filtrer correctement ityp = '22' dans la liste des bâtiments avec locaux identifiés dans GEO)
+     UPDATE m_economie.an_immo_bati SET ityp = ityp_objet FROM m_economie.lk_immo_ityp WHERE idimmo = an_immo_bati.idimmp ;  
+
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_delete_immo_ityp()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_ityp() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_ityp() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_ityp() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_ityp() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_delete_immo_ityp()
+    IS 'Fonction permettant de mettre à jour l''attribut ityp dans la table an_immo_bati via cette table de lien incrémentée après insertion dans cette même table an_immo_bati';
+
+
+-- DROP TRIGGER t_t1_delete_immo_ityp ON m_economie.lk_immo_ityp;
+CREATE TRIGGER t_t1_delete_immo_ityp
+    AFTER DELETE
+    ON m_economie.lk_immo_ityp
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_delete_immo_ityp();
 					 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
