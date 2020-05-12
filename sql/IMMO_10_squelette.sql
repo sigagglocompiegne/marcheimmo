@@ -916,7 +916,7 @@ AS $BODY$
 BEGIN
 
      -- mise à jour de l'attribut ityp dans la table an_immo_bati (permet de filtrer correctement ityp = '22' dans la liste des bâtiments avec locaux identifiés dans GEO)
-     UPDATE m_economie.an_immo_bati SET ityp = ityp_objet FROM m_economie.lk_immo_ityp WHERE idimmo = an_immo_bati.idimmp ;  
+     UPDATE m_economie.an_immo_bati SET ityp = lk_immo_ityp.ityp_objet FROM m_economie.lk_immo_ityp WHERE lk_immo_ityp.idimmo = an_immo_bati.idimmo ;  
 
      return new ;
 
