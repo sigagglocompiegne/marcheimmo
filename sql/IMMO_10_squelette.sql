@@ -457,6 +457,54 @@ CREATE TRIGGER t_t4_delete_occup_immo_bien
     ON m_economie.geo_immo_bien
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_delete_occup_immo_bati();
+    
+    
+-- FONCTION : incrémentation par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d'occupation
+
+-- FUNCTION: m_economie.ft_m_insert_surf_immo_bati()
+-- DROP FUNCTION m_economie.ft_m_insert_surf_immo_bati();
+
+CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_surf_immo()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+
+BEGIN
+
+    -- en cours
+     return new ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_insert_surf_immo()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_surf_immo() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_surf_immo() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_surf_immo() TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_surf_immo() TO PUBLIC;
+
+COMMENT ON FUNCTION m_economie.ft_m_insert_surf_immo()
+    IS 'Fonction incrémentant par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d''occupation';
+	
+
+-- Trigger: t_t5_insert_surf_immo
+
+-- DROP TRIGGER t_t5_insert_surf_immo ON m_economie.geo_immo_bien;
+
+CREATE TRIGGER t_t5_insert_surf_immo
+    AFTER INSERT OR UPDATE OF surf_m
+    ON m_economie.geo_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_insert_surf_immo();
 
 --################################################################# an_immo_bien #######################################################
 
