@@ -794,7 +794,6 @@ CREATE TABLE m_economie.an_immo_comm -------------------------------------------
 	commtelp    character varying(14),-------------------------------------------------------- Téléphone portable du commercialisateur
 	commmail    character varying(80),-------------------------------------------------------- Email du commercialisateur
 	etat        character varying(2),--------------------------------------------------------- Etat de la commercialisation
-	source      character varying(254),------------------------------------------------------- Source
 	refext      character varying(254),------------------------------------------------------- Référence externe d'un site internet présentant une fiche de commercialisation
 	observ      character varying(1000)------------------------------------------------------- Observations
 );
@@ -821,7 +820,6 @@ COMMENT ON COLUMN m_economie.an_immo_comm.commtel IS 'Téléphone du commerciali
 COMMENT ON COLUMN m_economie.an_immo_comm.commtelp IS 'Téléphone portable du commercialisateur';
 COMMENT ON COLUMN m_economie.an_immo_comm.commmail IS 'Email du commercialisateur';
 COMMENT ON COLUMN m_economie.an_immo_comm.etat IS 'Etat de la commercialisation';
-COMMENT ON COLUMN m_economie.an_immo_comm.source IS 'Source';
 COMMENT ON COLUMN m_economie.an_immo_comm.refext IS 'Référence externe d''un site internet présentant une fiche de commercialisation';
 COMMENT ON COLUMN m_economie.an_immo_comm.observ IS 'Observations';
 
