@@ -458,53 +458,70 @@ CREATE TRIGGER t_t4_delete_occup_immo_bien
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_delete_occup_immo_bati();
     
-    
+
+
 -- FONCTION : incrémentation par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d'occupation
 
--- FUNCTION: m_economie.ft_m_insert_surf_immo_bati()
--- DROP FUNCTION m_economie.ft_m_insert_surf_immo_bati();
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_surf_immo()
+-- FUNCTION: m_economie.ft_m_update_surf_immo()
+-- DROP FUNCTION m_economie.ft_m_update_surf_immo();
+
+CREATE FUNCTION m_economie.ft_m_update_surf_immo()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE NOT LEAKPROOF
 AS $BODY$
 
+DECLARE v_surf integer;
 
 BEGIN
+	 
+	 IF OLD.ityp = '10' THEN
+	 -- TERRAIN
+	 	-- mise à jour de la surface du bien si géométrie modifiée
+	 	UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND geo_immo_bien.ityp = '10' AND sup_m2 <> OLD.sup_m2;  
+     END IF;
+	 -- BATI = local
+	    -- mise à jour de la surface du bien si géométrie modifiée
+	 IF OLD.ityp = '21' THEN
+	    v_surf := (SELECT geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien, m_economie.an_immo_bati WHERE geo_immo_bien.idimmo = an_immo_bati.idimmo AND geo_immo_bien.ityp = '21' AND sup_m2 <> OLD.sup_m2 AND geo_immo_bien.idimmo = OLD.idimmo);  
+	    
+		IF v_surf > 0 THEN
+			UPDATE m_economie.an_immo_bati SET surf_m = v_surf WHERE idimmo = OLD.idimmo;  
+			UPDATE m_economie.an_immo_bien SET surf_m = v_surf WHERE idimmo = OLD.idimmo;  
+        END IF;
+	 END IF;
 
-    -- en cours
-     return new ;
+	return new ;
 
 END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_insert_surf_immo()
+ALTER FUNCTION m_economie.ft_m_update_surf_immo()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_surf_immo() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_immo() TO PUBLIC;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_surf_immo() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_immo() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_surf_immo() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_immo() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_surf_immo() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_immo() TO create_sig;
 
-COMMENT ON FUNCTION m_economie.ft_m_insert_surf_immo()
+COMMENT ON FUNCTION m_economie.ft_m_update_surf_immo()
     IS 'Fonction incrémentant par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d''occupation';
-	
 
--- Trigger: t_t5_insert_surf_immo
+-- Trigger: t_t5_update_surf_immo
 
--- DROP TRIGGER t_t5_insert_surf_immo ON m_economie.geo_immo_bien;
+-- DROP TRIGGER t_t5_update_surf_immo ON m_economie.geo_immo_bien;
 
-CREATE TRIGGER t_t5_insert_surf_immo
-    AFTER INSERT OR UPDATE OF surf_m
+CREATE TRIGGER t_t5_update_surf_immo
+    AFTER UPDATE OF geom
     ON m_economie.geo_immo_bien
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_insert_surf_immo();
+    EXECUTE PROCEDURE m_economie.ft_m_update_surf_immo();
 
 --################################################################# an_immo_bien #######################################################
 
@@ -590,6 +607,52 @@ CREATE TRIGGER t_t4_delete_immo_bien
     ON m_economie.an_immo_bien
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_delete_immo_bien();
+    
+
+-- FONCTION CI-APRES EN COURS DE DEV MARCHE PAS
+
+-- FUNCTION: m_economie.ft_m_update_surf_bien()
+
+-- DROP FUNCTION m_economie.ft_m_update_surf_bien();
+
+CREATE FUNCTION m_economie.ft_m_update_surf_bien()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+BEGIN
+
+	 
+	 IF (TG_OP = 'UPDATE') THEN
+	  -- BATI = LOCAL
+	    -- mise à jour de la surface du bien si modification manuelle de la surface du bâtiment
+	    UPDATE m_economie.an_immo_bien SET surf_m = an_immo_bati.surf_m FROM m_economie.geo_immo_bien,m_economie.an_immo_bati WHERE geo_immo_bien.idimmo = an_immo_bati.idimmo AND an_immo_bati.idimmo = an_immo_bien.idimmo AND geo_immo_bien.ityp = '21';  
+	 
+
+	 END IF;
+	 
+	return NEW ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_update_surf_bien()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_bien() TO PUBLIC;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_bien() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_bien() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_bien() TO create_sig;
+
+COMMENT ON FUNCTION m_economie.ft_m_update_surf_bien()
+    IS 'Fonction gérant la mise à jour de la surface du bien selon l''occupation';
+
 
 --################################################################# an_immo_prop #######################################################
 
