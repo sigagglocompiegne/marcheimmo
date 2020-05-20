@@ -414,10 +414,10 @@ CREATE TRIGGER t_t3_insert_update_commune_immo_bien
 -- au niveau des relations)
 
 
--- FUNCTION: m_economie.ft_m_delete_occup_immo_bati()
--- DROP FUNCTION m_economie.ft_m_delete_occup_immo_bati();
+-- FUNCTION: m_economie.ft_m_immo_delete_occup_bati()
+-- DROP FUNCTION m_economie.ft_m_immo_delete_occup_bati();
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_delete_occup_immo_bati()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_delete_occup_bati()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -434,18 +434,18 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_delete_occup_immo_bati()
+ALTER FUNCTION m_economie.ft_m_immo_delete_occup_bati()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bati() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_occup_bati() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bati() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_occup_bati() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bati() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_occup_bati() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_occup_immo_bati() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_occup_bati() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_insert_immo_bati()
+COMMENT ON FUNCTION m_economie.ft_m_immo_delete_occup_bati()
     IS 'Fonction gérant la suppression de la relation bien immobiliser occupant lorsque l''objet saisi est supprimé';
 	
 
@@ -456,17 +456,17 @@ CREATE TRIGGER t_t4_delete_occup_immo_bien
     AFTER DELETE
     ON m_economie.geo_immo_bien
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_delete_occup_immo_bati();
+    EXECUTE PROCEDURE m_economie.ft_m_immo_delete_occup_bati();
     
 
 
 -- FONCTION : incrémentation par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d'occupation
 
 
--- FUNCTION: m_economie.ft_m_update_surf_immo()
--- DROP FUNCTION m_economie.ft_m_update_surf_immo();
+-- FUNCTION: m_economie.ft_m_immo_update_surf_immo()
+-- DROP FUNCTION m_economie.ft_m_immo_update_surf_immo();
 
-CREATE FUNCTION m_economie.ft_m_update_surf_immo()
+CREATE FUNCTION m_economie.ft_m_immo_update_surf_immo()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -499,18 +499,18 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_update_surf_immo()
+ALTER FUNCTION m_economie.ft_m_immo_update_surf_immo()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_immo() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_immo() TO PUBLIC;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_immo() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_immo() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_immo() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_immo() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_immo() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_immo() TO create_sig;
 
-COMMENT ON FUNCTION m_economie.ft_m_update_surf_immo()
+COMMENT ON FUNCTION m_economie.ft_m_immo_update_surf_immo()
     IS 'Fonction incrémentant par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d''occupation';
 
 -- Trigger: t_t5_update_surf_immo
@@ -521,7 +521,7 @@ CREATE TRIGGER t_t5_update_surf_immo
     AFTER UPDATE OF geom
     ON m_economie.geo_immo_bien
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_update_surf_immo();
+    EXECUTE PROCEDURE m_economie.ft_m_immo_update_surf_immo();
 
 --################################################################# an_immo_bien #######################################################
 
@@ -565,7 +565,11 @@ COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
 
 -- FONCTION : suppression des occupants à la suppression d'un bien (et en cascade si supprime l'objet saisi)
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_delete_immo_bien()
+-- FUNCTION: m_economie.ft_m_immo_delete_bien()
+
+-- DROP FUNCTION m_economie.ft_m_immo_delete_bien();
+
+CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_delete_bien()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -584,18 +588,18 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_delete_immo_bien()
+ALTER FUNCTION m_economie.ft_m_immo_delete_bien()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bien() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bien() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bien() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bien() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bien() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bien() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bien() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bien() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_delete_immo_bien()
+COMMENT ON FUNCTION m_economie.ft_m_immo_delete_bien()
     IS 'Fonction gérant la suppression de la relation bien immobiliser occupant, des propriétaires et commercialisation lorsque le bien est supprimé';
 	
 
@@ -606,16 +610,16 @@ CREATE TRIGGER t_t4_delete_immo_bien
     AFTER DELETE
     ON m_economie.an_immo_bien
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_delete_immo_bien();
+    EXECUTE PROCEDURE m_economie.ft_m_immo_delete_bien();
     
 
 -- FONCTION CI-APRES EN COURS DE DEV MARCHE PAS
 
--- FUNCTION: m_economie.ft_m_update_surf_bien()
+-- FUNCTION: m_economie.ft_m_immo_update_surf_bien()
 
--- DROP FUNCTION m_economie.ft_m_update_surf_bien();
+-- DROP FUNCTION m_economie.ft_m_immo_update_surf_bien();
 
-CREATE FUNCTION m_economie.ft_m_update_surf_bien()
+CREATE FUNCTION m_economie.ft_m_immo_update_surf_bien()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -639,18 +643,18 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_update_surf_bien()
+ALTER FUNCTION m_economie.ft_m_immo_update_surf_bien()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_bien() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bien() TO PUBLIC;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_bien() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bien() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_bien() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bien() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_update_surf_bien() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bien() TO create_sig;
 
-COMMENT ON FUNCTION m_economie.ft_m_update_surf_bien()
+COMMENT ON FUNCTION m_economie.ft_m_immo_update_surf_bien()
     IS 'Fonction gérant la mise à jour de la surface du bien selon l''occupation';
 
 
@@ -722,10 +726,10 @@ COMMENT ON COLUMN m_economie.an_immo_bati.observ IS 'Observations';
 -- FONCTION : génère l'identifiant idbati avant insertion : permet de gérer le cas d'un ajout direct d'un bâtiment inexistant 
 -- comprenant n locaux identifiable (dans liste de valeurs GEO)
 
--- FUNCTION: m_economie.ft_m_insert_immo_bati()
--- DROP FUNCTION m_economie.ft_m_insert_immo_bati();
+-- FUNCTION: m_economie.ft_m_immo_insert_bati()
+-- DROP FUNCTION m_economie.ft_m_immo_insert_bati();
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_immo_bati()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_bati()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -749,18 +753,18 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_insert_immo_bati()
+ALTER FUNCTION m_economie.ft_m_immo_insert_bati()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_bati() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_bati() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_bati() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_bati() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_bati() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_bati() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_bati() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_bati() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_insert_immo_bati()
+COMMENT ON FUNCTION m_economie.ft_m_immo_insert_bati()
     IS 'Fonction gérant l''insertion d''nouvel identifiant du bâtiment (cas d''ajout de valeur depuis GEO)';
 	
 	
@@ -772,15 +776,15 @@ CREATE TRIGGER t_t1_insert_immo_bati
     BEFORE INSERT
     ON m_economie.an_immo_bati
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_insert_immo_bati();
+    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_bati();
 
 -- FONCTION : Fonction supprimant les valeurs de cette table et intègrant les nouvelles valeurs pour la mise à jour de la table an_immo_bati déclenchée sur la table lk_immo_ityp après cette insertion
 
--- FUNCTION: m_economie.ft_m_insert_occup_immo_bati()
+-- FUNCTION: m_economie.ft_m_immo_insert_occup_bati()
 
--- DROP FUNCTION m_economie.ft_m_insert_occup_immo_bati();
+-- DROP FUNCTION m_economie.ft_m_immo_insert_occup_bati();
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_occup_immo_bati()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_occup_bati()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -810,18 +814,18 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_insert_occup_immo_bati()
+ALTER FUNCTION m_economie.ft_m_immo_insert_occup_bati()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_occup_immo_bati() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_occup_bati() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_occup_immo_bati() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_occup_bati() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_occup_immo_bati() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_occup_bati() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_occup_immo_bati() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_occup_bati() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_insert_occup_immo_bati()
+COMMENT ON FUNCTION m_economie.ft_m_immo_insert_occup_bati()
     IS 'Fonction supprimant les valeurs de cette table et intègrant les nouvelles valeurs pour la mise à jour de la table an_immo_bati déclenchée sur la table lk_immo_ityp après cette insertion';
 
 
@@ -832,14 +836,14 @@ CREATE TRIGGER t_t2_insert_occup_immo_bati
     AFTER INSERT 
     ON m_economie.an_immo_bati
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_insert_occup_immo_bati();
+    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_occup_bati();
 					 
 -- FONCTION : Fonction permettant de supprimer la ligne null créée après l'insertion d'un bâtiment dans le cas d'un ajout d'un bâtiment avec biens identifiés dans la table an_immo_bati
 
--- FUNCTION: m_economie.ft_m_delete_immo_bati_null()
--- DROP FUNCTION m_economie.ft_m_delete_immo_bati_null();
+-- FUNCTION: m_economie.ft_m_immo_delete_bati_null()
+-- DROP FUNCTION m_economie.ft_m_immo_delete_bati_null();
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_delete_immo_bati_null()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_delete_bati_null()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -857,18 +861,18 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_delete_immo_bati_null()
+ALTER FUNCTION m_economie.ft_m_immo_delete_bati_null()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bati_null() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bati_null() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bati_null() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bati_null() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bati_null() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bati_null() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_delete_immo_bati_null() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bati_null() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_delete_immo_bati_null()
+COMMENT ON FUNCTION m_economie.ft_m_immo_delete_bati_null()
     IS 'Fonction gérant la suppression des bâtiments après insertion d''une occupation de type 22 (bâtiment avec n locaux identifiés)';				 
 					 
 -- Trigger: t_t3_delete_immo_bati_null
@@ -878,7 +882,7 @@ CREATE TRIGGER t_t3_delete_immo_bati_null
     AFTER INSERT
     ON m_economie.an_immo_bati
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_delete_immo_bati_null();
+    EXECUTE PROCEDURE m_economie.ft_m_immo_delete_bati_null();
 
 					 
 
@@ -1061,10 +1065,10 @@ COMMENT ON TABLE m_economie.lk_immo_ityp
 					 
 -- FONCTION : Fonction permettant de mettre à jour l''attribut ityp dans la table an_immo_bati
 
--- FUNCTION: m_economie.ft_m_delete_immo_ityp()
--- DROP FUNCTION m_economie.ft_m_delete_immo_ityp();
+-- FUNCTION: m_economie.ft_m_immo_insert_ityp()
+-- DROP FUNCTION m_economie.ft_m_immo_insert_ityp();
 					 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_insert_immo_ityp()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_ityp()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -1082,18 +1086,18 @@ END;
 
 $BODY$;
 
-ALTER FUNCTION m_economie.ft_m_insert_immo_ityp()
+ALTER FUNCTION m_economie.ft_m_immo_insert_ityp()
     OWNER TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_ityp() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_ityp() TO edit_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_ityp() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_ityp() TO sig_create;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_ityp() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_ityp() TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_insert_immo_ityp() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_ityp() TO PUBLIC;
 
-COMMENT ON FUNCTION m_economie.ft_m_insert_immo_ityp()
+COMMENT ON FUNCTION m_economie.ft_m_immo_insert_ityp()
     IS 'Fonction permettant de mettre à jour l''attribut ityp dans la table an_immo_bati via cette table de lien incrémentée après insertion dans cette même table an_immo_bati';
 
 
@@ -1102,7 +1106,7 @@ CREATE TRIGGER t_t1_insert_immo_ityp
     AFTER INSERT
     ON m_economie.lk_immo_ityp
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_insert_immo_ityp();
+    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_ityp();
 					 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
