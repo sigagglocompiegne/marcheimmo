@@ -885,7 +885,55 @@ CREATE TRIGGER t_t3_delete_immo_bati_null
     EXECUTE PROCEDURE m_economie.ft_m_immo_delete_bati_null();
 
 					 
+-- FUNCTION: m_economie.ft_m_immo_update_surf_bati()
 
+-- DROP FUNCTION m_economie.ft_m_immo_update_surf_bati();
+
+CREATE FUNCTION m_economie.ft_m_immo_update_surf_bati()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+BEGIN
+
+	-- SI LOCAL = BATI uniquement ici car surf bpati = surg local
+	--IF (SELECT ityp FROM m_economie.geo_immo_bien WHERE idimmo = 'O140') = '21' THEN
+	   UPDATE m_economie.an_immo_bien SET surf_m = 5 WHERE idimmo = 'O140';
+	--END IF;
+	
+	 
+	return NEW ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_immo_update_surf_bati()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bati() TO PUBLIC;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bati() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bati() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bati() TO create_sig;
+
+COMMENT ON FUNCTION m_economie.ft_m_immo_update_surf_bati()
+    IS 'Fonction gérant la mise à jour de la surface du bâti selon l''occupation';
+
+					   
+					   -- Trigger: t_t4_insert_surf_bati
+
+-- DROP TRIGGER t_t4_insert_surf_bati ON m_economie.an_immo_bati;
+
+CREATE TRIGGER t_t4_insert_surf_bati
+    AFTER INSERT
+    ON m_economie.an_immo_bati
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_surf_bati();
 					 
 --################################################################# an_immo_comm #######################################################
 
