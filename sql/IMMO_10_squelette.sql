@@ -563,6 +563,72 @@ COMMENT ON COLUMN m_economie.an_immo_bien.refext IS 'Lien vers un site présenta
 COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
 
 
+-- FONCTION : APRES INSERT OU UPDATE, gestion surface SIG dans la table des biens
+
+-- FUNCTION: m_economie.ft_m_immo_insert_surf_bien()
+
+-- DROP FUNCTION m_economie.ft_m_immo_insert_surf_bien();
+
+CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_surf_bien()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+DECLARE v_ityp character varying(2);
+
+BEGIN
+
+    
+	 IF (TG_OP = 'INSERT') THEN
+	 -- TERRAIN ou BATI = local
+	 	-- insertion de la surface SIG par défaut pour la surface du bien
+		UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND (geo_immo_bien.ityp = '10' OR geo_immo_bien.ityp = '21' OR geo_immo_bien.ityp = '22');  
+     END IF;
+	 
+	 IF (TG_OP = 'UPDATE') THEN
+	  v_ityp := (SELECT ityp FROM m_economie.geo_immo_bien WHERE idimmo = OLD.idimmo);
+	
+		-- TERRAIN ou BATI = local
+	 	-- mise à jour de la surface SIG par défaut par la surface du bien si surf_m est supprimée
+	    IF v_ityp = '10' THEN
+			UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND geo_immo_bien.ityp = '10' AND an_immo_bien.surf_m IS NULL;  
+	    END IF;
+	 
+	 END IF;
+	 
+	return NEW ;
+
+END;
+
+$BODY$;
+
+ALTER FUNCTION m_economie.ft_m_immo_insert_surf_bien()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO PUBLIC;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO edit_sig;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO create_sig;
+
+COMMENT ON FUNCTION m_economie.ft_m_immo_insert_surf_bien()
+    IS 'Fonction gérant la surface du bien selon l''occupation et si une insertion ou une mise à jour';
+
+
+-- Trigger: t_t1_insert_surf_bien
+
+-- DROP TRIGGER t_t1_insert_surf_bien ON m_economie.an_immo_bien;
+
+CREATE TRIGGER t_t1_insert_surf_bien
+    AFTER INSERT OR UPDATE 
+    ON m_economie.an_immo_bien
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_surf_bien();
+
 -- FONCTION : suppression des occupants à la suppression d'un bien (et en cascade si supprime l'objet saisi)
 
 -- FUNCTION: m_economie.ft_m_immo_delete_bien()
@@ -613,7 +679,6 @@ CREATE TRIGGER t_t4_delete_immo_bien
     EXECUTE PROCEDURE m_economie.ft_m_immo_delete_bien();
     
 
--- FONCTION CI-APRES EN COURS DE DEV MARCHE PAS
 
 -- FUNCTION: m_economie.ft_m_immo_update_surf_bien()
 
