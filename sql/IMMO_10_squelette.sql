@@ -569,6 +569,8 @@ COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
 
 -- DROP FUNCTION m_economie.ft_m_immo_insert_surf_bien();
 
+
+
 CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_surf_bien()
     RETURNS trigger
     LANGUAGE 'plpgsql'
@@ -592,10 +594,10 @@ BEGIN
 	
 		-- TERRAIN ou BATI = local
 	 	-- mise à jour de la surface SIG par défaut par la surface du bien si surf_m est supprimée
-	    IF v_ityp = '10' THEN
-			UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND geo_immo_bien.ityp = '10' AND an_immo_bien.surf_m IS NULL;  
+	    IF v_ityp = '10' or v_ityp='22' THEN
+			UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND (geo_immo_bien.ityp = '10' OR geo_immo_bien.ityp = '22') AND an_immo_bien.surf_m IS NULL;  
 	    END IF;
-	 
+
 	 END IF;
 	 
 	return NEW ;
@@ -617,6 +619,7 @@ GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO create_sig;
 
 COMMENT ON FUNCTION m_economie.ft_m_immo_insert_surf_bien()
     IS 'Fonction gérant la surface du bien selon l''occupation et si une insertion ou une mise à jour';
+
 
 
 -- Trigger: t_t1_insert_surf_bien
