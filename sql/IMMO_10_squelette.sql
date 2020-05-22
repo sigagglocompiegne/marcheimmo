@@ -462,11 +462,11 @@ CREATE TRIGGER t_t4_delete_occup_immo_bien
 
 -- FONCTION : incrémentation par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d'occupation
 
-
 -- FUNCTION: m_economie.ft_m_immo_update_surf_immo()
+
 -- DROP FUNCTION m_economie.ft_m_immo_update_surf_immo();
 
-CREATE FUNCTION m_economie.ft_m_immo_update_surf_immo()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_update_surf_immo()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -492,6 +492,12 @@ BEGIN
 			UPDATE m_economie.an_immo_bien SET surf_m = v_surf WHERE idimmo = OLD.idimmo;  
         END IF;
 	 END IF;
+	 
+	 	 IF OLD.ityp = '22' THEN
+	 -- LOCAL INDEPENDEMMENT DIVISE
+	 	-- mise à jour de la surface du bien si géométrie modifiée
+	 	UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND an_immo_bien.idimmo = OLD.idimmo;  
+     END IF;
 
 	return new ;
 
