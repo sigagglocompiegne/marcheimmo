@@ -70,6 +70,7 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_bati
  o.idbati,
  st_union(o.geom)::geometry(multipolygon,2154) as geom      
  FROM m_economie.geo_immo_bien o
+  WHERE o.ityp <> '10'
  GROUP BY o.idbati;     
 
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_bati
