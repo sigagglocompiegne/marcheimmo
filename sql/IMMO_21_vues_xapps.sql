@@ -68,7 +68,7 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_bati
  AS
  SELECT 
  o.idbati,
- st_union(o.geom)::geometry(polygon,2154) as geom      
+ st_union(o.geom)::geometry(multipolygon,2154) as geom      
  FROM m_economie.geo_immo_bien o
  GROUP BY o.idbati;     
 
