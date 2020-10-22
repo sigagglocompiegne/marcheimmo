@@ -56,7 +56,9 @@ LEFT JOIN m_economie.lt_immo_etat e1 ON c1.etat = e1.code
 LEFT JOIN m_economie.lt_immo_etat e2 ON c2.etat = e2.code 
 WHERE (c1.etat <> 'ZZ' or c2.etat <> 'ZZ');
 
-														
+COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
+    IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO ';
+													
 
 
 
