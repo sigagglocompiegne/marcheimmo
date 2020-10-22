@@ -67,14 +67,17 @@ COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
 CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_bati
  AS
  SELECT 
- o.idbati,
- st_union(o.geom)::geometry(multipolygon,2154) as geom      
+ row_number() over () as gid,
+ st_multi(st_union(o.geom))::geometry(multipolygon,2154) as geom      
  FROM m_economie.geo_immo_bien o
-  WHERE o.ityp <> '10'
+ WHERE o.ityp <> '10'
  GROUP BY o.idbati;     
+
 
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_bati
     IS 'Vue géographique présentant le bâtiment reconstitué à partir des locaux indépendant divisés d''un même bâtiment (pour la cartographie GEO de l''application)';
+
+
 
 
 
