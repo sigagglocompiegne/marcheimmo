@@ -11,6 +11,30 @@
 -- ###                                                                                                                                              ###
 -- ####################################################################################################################################################
 
+
+-- #################################################################### SEQUENCE  ####################################################################
+
+ALTER SEQUENCE m_economie.geo_immo_bien_seq
+    OWNER TO sig_create;
+    
+ALTER SEQUENCE m_economie.lk_immo_occup_seq
+    OWNER TO sig_create;
+    
+ALTER SEQUENCE m_economie.an_immo_bati_seq
+    OWNER TO sig_create;
+
+ALTER SEQUENCE m_economie.an_immo_bien_seq
+    OWNER TO sig_create;
+    
+ALTER SEQUENCE m_economie.an_immo_comm_seq
+    OWNER TO sig_create;
+    
+ALTER SEQUENCE m_economie.an_immo_media_seq
+    OWNER TO sig_create;
+    
+ALTER SEQUENCE m_economie.an_immo_prop_seq
+    OWNER TO sig_create;
+    
 -- #################################################################### DOMAINE DE VALEUR  ####################################################################
 
 ALTER TABLE m_economie.lt_immo_ityp
