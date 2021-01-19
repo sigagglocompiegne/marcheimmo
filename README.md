@@ -4,7 +4,7 @@
 
 Spécification du fichier d’échange relatif aux données concernant l'inventaire cartographique des objets constituant la mise en oeuvre de la base de données et de l'application Web dédiée au marché de l'immobilier d'entreprises (terrains privés et locaux d'activités) sur le territoire de l'Agglomération de la Région de Compiègne.
 
-- Lire la documentation du standard (gabarit/livrables.md)
+- [Lire la documentation du standard](gabarit/livrables.md)
 - Script d'initialisation de la base de données
   * [Suivi des modifications](sql/IMMO_00_trace.sql)
   * [Création  de la structure initiale](sql/IMMO_10_squelette.sql)
