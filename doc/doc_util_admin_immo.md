@@ -1,3 +1,5 @@
+![picto](https://github.com/sigagglocompiegne/orga_gest_igeo/blob/master/doc/img/geocompiegnois_2020_reduit_v2.png)
+
 ### Etape 1 - A la saisie d'un objet (terrain ou local), il faut choisir le bien saisi
 
 ![picto](../img/choix_1.png)
