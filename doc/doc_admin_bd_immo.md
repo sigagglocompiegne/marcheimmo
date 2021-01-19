@@ -293,55 +293,6 @@ Valeurs possibles :
 
 ---
 
-`lt_immo_dbien` : Liste des valeurs décrivant un bien
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|    
-|code|Code interne des descriptifs des biens|character(2)| |
-|valeur|Libellé des descriptifs des biens |character varying(80)| |
-
-Particularité(s) à noter :
-* Une clé primaire existe sur le champ code 
-
-Valeurs possibles :
-
-|Code|Valeur|
-|:---|:---|
-|1|Vitrine|
-|2|Présence d'une remise|
-|3|Autre|
-
----
-
-`lt_immo_dbati` : Liste des valeurs décrivant un bâtiment
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|    
-|code|Code interne des descriptifs des bâtiments|character(2)| |
-|valeur|Libellé des descriptifs des bâtiments |character varying(80)| |
-
-Particularité(s) à noter :
-* Une clé primaire existe sur le champ code 
-
-Valeurs possibles :
-
-|Code|Valeur|
-|:---|:---|
-|1|Double vitrage|
-|2|Site clôturé|
-|3|Places de parking|
-|4|Murs périphériques (bardage métallique…)|
-|5|Ossature (couverture bac acier…)|
-|6|Menuiserie aluminium|
-|7|Accès sécurisé|
-|8|Système d'alarme|
-|9|Parties communes|
-|10|Portes de plain-pied|
-|11|Charge au sol|
-|12|Terrain attenant|
-
----
-
 `lt_immo_etat` : Liste des valeurs décrivant l'état de disponibilité d'un bien
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
