@@ -24,8 +24,66 @@ DROP VIEW IF EXISTS x_apps.xapps_an_vmr_immo_bati;
 -- ###                                                                                                                           ###
 -- #################################################################################################################################
 
+--################################################## xapps_geo_v_immo_etat ###############################################
 
+-- View: x_apps.xapps_geo_v_immo_etat
+
+-- DROP VIEW x_apps.xapps_geo_v_immo_etat;
+
+CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
+ AS
+ SELECT o.idimmo,
+        CASE
+            WHEN c1.etat IS NULL THEN c2.etat
+            ELSE c1.etat
+        END AS etat,
+        CASE
+            WHEN c1.etat IS NULL THEN
+            CASE
+                WHEN c2.etat::text = '10'::text OR c2.etat::text = '20'::text THEN 'En vente'::text
+                WHEN c2.etat::text = '30'::text THEN 'En location'::text
+                WHEN c2.etat::text = '40'::text THEN 'En vente et/ou en location'::text
+                ELSE NULL::text
+            END
+            ELSE
+            CASE
+                WHEN c1.etat::text = '10'::text OR c1.etat::text = '20'::text THEN 'En vente'::text
+                WHEN c1.etat::text = '30'::text THEN 'En location'::text
+                WHEN c1.etat::text = '40'::text THEN 'En vente et/ou en location'::text
+                ELSE NULL::text
+            END
+        END AS dispo,
+    st_pointonsurface(o.geom) AS geom
+   FROM m_economie.geo_immo_bien o
+     LEFT JOIN m_economie.an_immo_comm c1 ON c1.idimmo = o.idimmo
+     LEFT JOIN m_economie.an_immo_bien b ON b.idimmo = o.idimmo
+     LEFT JOIN m_economie.an_immo_comm c2 ON c2.idbien = b.idbien
+     LEFT JOIN m_economie.lt_immo_etat e1 ON c1.etat::text = e1.code::text
+     LEFT JOIN m_economie.lt_immo_etat e2 ON c2.etat::text = e2.code::text
+  WHERE c1.etat::text <> 'ZZ'::text OR c2.etat::text <> 'ZZ'::text;
+
+
+COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
+    IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO ';
+
+--################################################## xapps_geo_v_immo_bati ###############################################
     
+-- View: x_apps.xapps_geo_v_immo_bati
+
+-- DROP VIEW x_apps.xapps_geo_v_immo_bati;
+
+CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_bati
+ AS
+ SELECT row_number() OVER () AS gid,
+    st_multi(st_union(o.geom))::geometry(MultiPolygon,2154) AS geom
+   FROM m_economie.geo_immo_bien o
+  WHERE o.ityp::text <> '10'::text
+  GROUP BY o.idbati;
+
+COMMENT ON VIEW x_apps.xapps_geo_v_immo_bati
+    IS 'Vue géographique présentant le bâtiment reconstitué à partir des locaux indépendant divisés d''un même bâtiment (pour la cartographie GEO de l''application)';
+    
+  
 --################################################## xapps_an_vmr_immo_bati ###############################################
 
 -- View: x_apps.xapps_an_vmr_immo_bati
