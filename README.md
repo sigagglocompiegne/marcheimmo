@@ -13,7 +13,7 @@ Spécification du fichier d’échange relatif aux données concernant l'inventa
   * [Création des privilèges](sql/IMMO_99_grant.sql)
 - [Documentation d'administration de la base](doc/doc_admin_bd_immo.md)
 - [Documentation d'administration de l'application Activité Economique](../../../amt_fon_eco/blob/master/doc/doc_admin_app_eco.md)
-- Documentation utilisateur de l'application
+- [Documentation utilisateur de l'application](doc/doc_util_admin_immo.md)
 
 ## Contexte
 
