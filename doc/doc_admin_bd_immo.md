@@ -16,11 +16,11 @@ Cette orientation pourrait également déboucher sur un observatoire des commerc
  
  **Résumé fonctionnel** :
  
- * une seule géométrie est créé pour : un terrain (non bâti), un local d'activité correspondant à un bâtiment, un local dans un bâtiment comprenant x locaux (locaux divisés), un local (non identifié) dans un bâtiment (dans ce cas la géométrie du local est égale à la géométrie du bâtiment)
- * une classe `biens` permet de décrire le type de biens (terrain ou local) avec la possibilité d'intégrer des informations sur le bâtiment et le propriétaire
- * un `bien` est complété par son occupant (si existe) à savoir un établissement. Par défaut un local sans occupant est concidéré comme vacant (fonctionnel de la vacance à confirmer ici)
- * une classe `commercialisation` gère les périodes de mise en location ou vente
- * toutes les classes peuvent indépendemment intégrer de la documentation
+La donnée a été construite de façon à pouvoir réaliser un inventaire cartographique selon la composition des bâtiments. 3 scénarii de construction ont été établis en dehors de la gestion des terrains qui se réalise indépendemment.
+
+- le local et le bâtiment en font qu'une seule entité : Local (Bâtiment non divisé)
+- le bâtiment contient au moins 2 locaux mais ils ne sont identifiables (localisation ou numérisation impossible) : Local non identifié dans un bâtiment divisible
+- le bâtiment est composé d'au moins 2 locaux identifiables (dans ce cas le bâtiment est reconstruit virtuellement par l'association des locaus qui le composent) : Local indépendant divisé
 
 ## Modèle conceptuel simplifié
 
