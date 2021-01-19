@@ -226,6 +226,10 @@ Particularité(s) à noter : aucune
 
 ### classes d'objets applicatives métiers sont classés dans le schéma x_apps :
  
+`x_apps.xapps_geo_v_immo_bati` : Vue géographique présentant le bâtiment reconstitué à partir des locaux indépendant divisés d'un même bâtiment (pour la cartographie GEO de l'application) 
+
+`x_apps.xapps_geo_v_immo_etat` : Vue géographique présentant l'état de disponibilités d'un local/terrain (en vente, en location) et intégrée à la cartographie de l'application GEO 
+
 `x_apps.xapps_an_vmr_immo_bati` : vue matérialisée rafraichie à chaque insertion ou modification pour le calcul de statistiques remontées aux bâtiments (nb de locaux saisis et surface de plancher total saisie pour chaque local appartenant aux bâtiments)
 
 ### classes d'objets applicatives grands publics sont classés dans le schéma x_apps_public :
