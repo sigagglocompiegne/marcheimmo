@@ -88,106 +88,43 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 ### Patrimoine
 
-Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts. 
+Ensemble des données décrivant les objets composant l'inventaire cartographique du marché de l'immobilier d'entreprises. 
 
-`geo_v_ev_point` : fichier contenant les objets "espace vert" de type ponctuel
-
-|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
-|:---|:---|:---|:---|:---|:---|
-|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
-|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
-|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
-|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
-|dat_sai|Date de saisie |Date|now()|NOT NULL|Valeur calculée automatiquement à la saisie|
-|observ|Commentaires divers |character varying(254)||||
-|surf_e|Surface d'emprise au sol en m²|integer|||(en fonction des choix de modélisation retenue)|
-
-
-`geo_v_ev_polygon` : fichier contenant les objets "espace vert" de type surfacique
+`geo_v_immo_bien_terrain` : fichier contenant les objets "terrain" de type surfacique. Même si ces objets ne rentrent pas dans l'inventaire du patrimoine des bâtiments d'activités, celui-ci est présenté pour information.
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
-|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
-|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
-|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
-|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
-|dat_sai|Date de saisie |Date|now()|NOT NULL||
-|observ|Commentaires divers |character varying(254)||||
-|sup_m²|Surface du polygone saisie en mètre carré|integer|$area|NOT NULL|Valeur calculée automatiquement à la saisie|
-|perimetre|Périmètre du polygone saisie en mètre|integer|$perimetre|NOT NULL|Valeur calculée automatiquement à la saisie|
 
-`geo_v_ev_line` : fichier contenant les objets "espace vert" de type linéaire
+
+
+`geo_v_immo_bien_locunique` : fichier contenant les objets "locaux" correspondant au bâtiment de type surfacique.
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
-|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
-|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
-|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
-|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
-|dat_sai|Date de saisie |Date|now()|NOT NULL||
-|observ|Commentaires divers |character varying(254)||||
-|long_m|Longueur du tracé saisie en mètre|integer|$length|NOT NULL|Valeur calculée automatiquement à la saisie|
-|larg_cm|Largeur du tracé saisie en centimètre|integer||NOT NULL||
+
+
+`geo_v_immo_bien_locnonident` : fichier contenant les objets "bâtiment" contenant n locaux non identifiés de type surfacique
+
+|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
+|:---|:---|:---|:---|:---|:---|
+
+`an_v_immo_bien_locnonident` : fichier contenant les attributs spécifiques des "locaux" non identifiés dans un même bâtiment utilisant la géométrie précédente de type surfacique (jointure n..m dans le projet QGIS)
+
+|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
+|:---|:---|:---|:---|:---|:---|
+
+`geo_v_immo_bien_locident` : fichier contenant les objets "locaux" identifiés de type surfacique reconstruisant dynamiquement les bâtiments.
+
+|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
+|:---|:---|:---|:---|:---|:---|
 
 ### Liste de valeurs
 
 Le contenu des listes de valeurs est disponible dans la documentation complète de la base de données en cliquant [ici](/bdd/doc_admin_bd_ev.md) dans la rubrique `Liste de valeurs`.
 
-Cependant, pour des questions de compréhension, la nomenclature définissant le type des objets "espace vert" est présentée ci-dessous. Pour l'inventaire cartographique, seuls les 2 premiers niveaux de nomenclature sont imposés.
-
-
-`lt_ev_typev1` : liste des valeurs de la nomenclature de niveau 1 permettant de décrire les objets de l'inventaire cartographique des espaces verts
-
-|Code|Valeur|
-|:---|:---|
-|1|Végétal|
-|2|Minéral|
-|3|Hydrographie|
-|9|Référence non classée|
-
-`lt_ev_typev2` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
-
-|Code|Valeur|
-|:---|:---|
-|101|Arbre|
-|102|Espace enherbé|
-|103|Espace planté|
-|104|Ponctuel fleuri|
-|105|Haie, mur|
-|106|Friche|
-|201|Allée|
-|202|Clôture|
-|203|Zone de rencontre|
-|204|Accès|
-|205|Equipement|
-|301|Bassin|
-|302|Points d'eau|
-|303|Cours d'eau|
-|999|Référence non classée|
-
-`lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
-|Code|Valeur|
-|:---|:---|
-|00|Non renseigné|
-|20|Ortho-images|
-|22|Orthophotoplan partenaire|
-|50|Lever|
-|51|Plan topographique|
-|53|Trace GPS|
-|99|Autre|
-
 ### Les identifiants
 
-Les identifiants des objets des espaces verts sont des identifiants non signifiants (un simple numéro incrémenté de 1 à chaque insertion).
+Les identifiants des objets des espaces verts sont des identifiants non signifiants (un simple numéro incrémenté de 1 à chaque insertion précédé d'une lettre indiquant le type d'objets).
 
 
 
