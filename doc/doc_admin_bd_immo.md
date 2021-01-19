@@ -37,8 +37,7 @@ La base de données du suivi du marché de l'immobilier d'entreprises ne s'appui
 |Schéma | Table/Vue | Description | Usage |
 |:---|:---|:---|:---|
 |r_objet| lt_src_geom | Liste de valeurs | Valeurs décrivant le référentiel géographique utilisé pour la saisie des objets graphiques|
-|x_apps| xapps_geo_vmr_adresse | Liste des adresses disponibles dans la BAL |Permet d'affecter l'identifiant de l'adresse BAL au bien|
-
+|s_sirene| an_etablissement_api | classe d'objets | données de la base de données SIRENE de l'Insee|
 
 ## Séquences 
 
