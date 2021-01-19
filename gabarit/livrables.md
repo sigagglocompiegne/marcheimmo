@@ -36,81 +36,27 @@ Schéma 1 : une représentation des objets d'un inventaire cartographique
 
 ### Règles générales
 
-Les objets constituant l'inventaire cartographique initial sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points. **La saisie des objets de type multi n'est pas autorisée.**
+Les objets constituant l'inventaire cartographique initial sont organisés autour d'une seule primitive graphique de type polygone. 
+**La saisie des objets de type multi est autorisée.**
 
 La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
-Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des référentiels utilisés.
+Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des bâtiments du PCI Vecteur.
 
-L'invetaire cartographique se fera préférentiellement :
-- soit par numérisation sur des référentiels cartographiques,
-- soit par un levé de terrain.
 
 ### La modélisation
 
 Les règles de modélisation consiste à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
 
-2 options se présentent en terme de modélisation, après l'analyse d'autres standards ou de productions cartographiques (Cannes, GéoVendée, Dunkerque).
-
-* **OPTION 1 : réaliser un inventaire cartographique en respectant l'emprise exacte de chaque objet** en terme d'occupation du sol à l'exception des objets ponctuels (arbre, pot, suspension...).
-
-Cette solution consiste à détourer chaque emprise des objets "espace vert" au sol et à respecter les ruptures. Ces ruptures peuvent être d'usages variées et appartenir ou non à la thématique "espace vert" : mode doux aménagé, allée, haie, bassin...
-Dans un site cohérent, tel un parc urbain par exemple, tous les objets doivent être intégrés à l'inventaire pour une meilleure compréhension et analyse. Ainsi les objets de ruptures sont également détourés. Cette modélisation, sous forme de polygone, revient à réaliser une mini-occupation du sol.
-En dehors de ces sites, seuls les objets spécifiques "espace vert" doivent être intégrés. Il sont toujours représentés sous forme polygone.
-
-Des règles de modélisation peuvent ainsi être édictées pour ce scénario (exemple ici ) :
-
-- aucun objet n'est représenté sous forme linéaire,
-- les objets ponctuels représentant un arbre, correspondent à une localisation isolée ou en alignement. Tous les autres objets pontuels représentent leur implantation exacte au sol,
-- les espaces boisés denses, avec un sous-bois sans autre usage "espace vert" sont représentés sous forme surfaciques,
-- les objets surfaciques sont représentés si leur emprise au sol est supérieure à x m².
-
-
-**Conclusion** : cette option a l'avantage de présenter les espaces verts dans une réalité certaine et de produire des plans d'occupation réaliste. Cependant, dans une optique de gestion ou de mise à jour interne, cette solution semble moins "abordable" du fait de multiplicité d'objets détourés se prêtant moins à l'usage recherché de gestion et d'intervention.
-
-* **OPTION 2 : réaliser un inventaire cartographique représentant des entités cohérentes surfaciques** d'objets "espace vert". 
-
-La différence avec l'option 1, est la non prise en compte des ruptures sous forme surfacique pour conserver l'homogénéisation d'usages des objets.
-Ces ruptures, dans un site cohérent ou non, venant interrompres cette homogénéisation sont représentées sous forme linéaires avec des attributs les qualifiants (longueur, largeur...). 
-Ces attributs complémentaires permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...)
-
-Des règles de modélisation peuvent ainsi être édictées pour ce scénario (exemple ici ) :
-
-- les objets ponctuels de compositions (arbre, pot, suspension, bac, fontaine...) sont représentés sous forme de point sans limite d'emprise au sol,
-- un objet représenté par un polygone, pour une surface identifiée sur le terrain, celle-ci doit être supérieure à x m² et d’une largeur supérieure à x1 m.
-- un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à x1 m. Un linéaire saisit est un ensemble homogène dans sa nomenclature et sa largeur. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet. Une information de largeur est obligatoirement saisie.
-
-**Conclusion** : cette option est plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surfaces.
-Pour rappel, c'est cette approche qui a été utilisée pour un premier inventaire réalisé en 2018 mais sans intégrer cette notion d'attributs complémentaires. Celui-ci devant être ré-intégré à la nouvelle base de données, cette option est la moins impactante. Seuls les attributs qualitatifs de longueurs ou de largeurs devront être complétés, ce qui pourra être réalisés par le service métier.
-
-
-**Synthèses**
-
-**Dans un site cohérent :** 
-
-![picto](options_sites.png)
-
-
-**En dehors d'un site cohérent :** 
-
-![picto](options_diffus.png)
-
-**Quelque soit l'option retenue, des choix de numérisation devront être opérés concernant des emprises minimums d'objets à prendre en compte, en surface ou en largeur.**
-
-
-Les objets de cet inventaire cartographique doivent répondre aux conditions de saisies présent ci-après.
-(à rédiger après l'option retenue).
+Ici ils sont simples, un polygone représente au moins un local, qu'il correspond à un bâtiment ou constitue un bâtiment par regroupement. Un bâtiment regroupant n locaux non identifiés sera représenté par un polygone. Il n'y a pas de limites de surfaces pour la représentation d'un objet. Ils doivent simplement représenter une activité économique.
 
 
 ### Topologie
 
 La cohérence topologique impose le partage de géométrie et donc l’utilisation des outils « d’accroches ».
 
-- Tous les objets sont nécessairement inclu dans une emprise communale, 
-- Ils sont également inclus dans un site (équipement public, une voie...),
-- Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
-
-Ces deux derniers éléments seront intégrés dans une phase ultérieure à l'inventaire cartographique initial.
+- les objets peuvent être à cheval sur plusieurs communes,
+- les objets peuvent appartenir à une site d'activités.
 
 - Tous les objets de type "surface" sont des polygones fermés, et si ils sont adjacents, ils devront être topologique (absence de chevauchements et de micro-trous). 
 
@@ -119,12 +65,6 @@ Ces deux derniers éléments seront intégrés dans une phase ultérieure à l'i
 - Un polygone contenant un autre polygone devra être découpé avec celui-ci.
 
 ![picto](topo_poly_2.png)
-
-- Les linéraires doivent être connectés entre eux si ils sont contiguës dans la réalité du dessin saisi.
-
-![picto](topo_line_1.png)
-
-- Les arcs de cercle ou ellipse devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire la forme.
 
 ### Système de coordonnées
 
