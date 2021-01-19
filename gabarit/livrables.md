@@ -44,10 +44,11 @@ Les objets produits dans le cadre de cet inventaire devront être en cohérence 
 
 ### La modélisation
 
-Les règles de modélisation consiste à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
+Les règles de modélisation consistent à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
 
 Ici ils sont simples, un polygone représente au moins un local, qu'il correspond à un bâtiment ou constitue un bâtiment par regroupement. Un bâtiment regroupant n locaux non identifiés sera représenté par un polygone. Il n'y a pas de limites de surfaces pour la représentation d'un objet. Ils doivent simplement représenter une activité économique.
 
+Les locaux identifiés permettant la reconstruction virtuel du bâtiment d'activités devront être obligatoirement adjacents.
 
 ### Topologie
 
