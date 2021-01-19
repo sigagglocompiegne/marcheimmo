@@ -27,7 +27,7 @@ Cet inventaire sera ainsi intégré à la base de données de la collectivité e
 
 (texte)
 
-![picto](../img/principe_fonctionnel_bien_immo.png)
+![picto](../amt_fon_eco/img/principe_fonctionnel_bien_immo.png)
 
 Schéma 1 : une représentation des objets d'un inventaire cartographique
 
