@@ -1,40 +1,33 @@
 ![picto](https://github.com/sigagglocompiegne/orga_gest_igeo/blob/master/doc/img/geocompiegnois_2020_reduit_v2.png)
 
-# Prescriptions spécifiques (locales) pour la gestion des espaces verts
+# Prescriptions spécifiques (locales) pour le suivi du marché de l'immobilier d'entreprises
 
 # Documentation du standard
 
 # Changelog
 
-- 16/11/2020 : description initiale du gabarit de production des espaces verts
+- 19/01/2021 : description initiale du gabarit de production des bâtiments d'activités et des locaux les composant.
 
 # Livrables
 
-Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts géré par la collectivité. 
+Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des bâtiments d'activités et des locaux les composant dans les zones d'activités en priorité pour un déploiement progressif à moyen ou long terme en centre-ville. 
 L'objectif principal est bien de recenser l'ensemble des objets participant à la structuration 
-des espaces verts. En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être
+des locaux d'activité. En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être
 produit par un nom spécialiste.
-Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a été pensé pour deux autres usages : l'un permettant
-de détailler ces objets d'un point de vue métier et un autre dans une optique d'engagement de gestion des espaces verts (tableau de bord, intervention....).
+Néanmoins pour les besoins d'un service gérant les locaux d'activité, ce gabarit a été pensé pour deux autres usages : l'un permettant
+de détailler ces objets d'un point de vue métier et un autre dans une optique de connaissance du marché immobilier et proposer des biens à des entreprises.
 Cet inventaire sera ainsi intégré à la base de données de la collectivité et pourra être également complété et mis à jour par le service métier à moyen et long terme.
 
 
 ## Gabarits
 
-- Fichier hors gabarit des espaces verts à télécharger au format shape (géographique)
-- Fichier gabarit Qgis 3.x (vierge) complet à télécharger
+- Fichier gabarit Qgis 3.x (vierge) complet à télécharger (en cours de réalisation)
 
 ## Principe fonctionnel
 
-Le principe de fonctionnement de la base de données devant intégrer l'inventaire des espaces verts s'appuie sur la production cartographique
-d'objets métiers définit comme un espace d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné. 
-Il peut être, dans certains cas, complété par des parties minérales ou hydrographiques. Il doit être ouvert au public et facilement accessible par des modes doux. 
+(texte)
 
-Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté...), linéaire (haie...) ou ponctuel (arbre...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
-
-Tous les objets saisis sont typés à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
-
-![picto](objets_pro_carto.png)
+![picto](.png)
 
 Schéma 1 : une représentation des objets d'un inventaire cartographique
 
