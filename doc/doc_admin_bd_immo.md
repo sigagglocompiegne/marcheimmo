@@ -57,23 +57,10 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma `m_econ
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idimmo|Identifiant unique de l'objet|text|('O'::text nextval('m_economie.geo_immo_bien_seq'::regclass))|
-|idsite|Identifiant du site d'activité d'appartenance|character varying(7)| |
-|sup_m2|Superficie de l'objet en m²|integer| |
-|ityp|Type d'occupation|character varying(2)| |
-|observ|Observations|character varying(1000)| |
-|op_sai|Opérateur de saisie|character varying(25)| |
-|date_sai|Date de saisie|timestamp without time zone|now()|
-|date_maj|Date de mise à jour|timestamp without time zone| |
-|src_geom|Source du référentiel géographique pour le positionnement du nœud|character varying(2)|'00'::character varying|
-|src_date|Année du référentiel de saisi|integer| |
-|insee|Code Insee de la ou des communes d'assises|character varying(11)| |
-|commune|Libellé de la ou des communes d'assises|character varying(160)| |
-|geom|Attribut de géométrie|Multipolygon,2154| |
 
 
-Particularité(s) à noter :
-* (à venir)
+
+Particularité(s) à noter : aucune
 
 ---
    `an_immo_bien` : table des attributs métiers permettant de gérer l'ensemble des éléments décrivant le bien (terrain ou local)
