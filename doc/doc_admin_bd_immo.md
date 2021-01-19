@@ -24,7 +24,7 @@ La donnée a été construite de façon à pouvoir réaliser un inventaire carto
 
 ## Modèle conceptuel simplifié
 
-[Cliquez ici pour accéder au MCD](https://dbdiagram.io/d/5e9552f139d18f5553fd8d0c)
+[Cliquez ici pour accéder au MCD](/img/geocompiegnois20.png)
 
 ## Schéma fonctionnel
 
