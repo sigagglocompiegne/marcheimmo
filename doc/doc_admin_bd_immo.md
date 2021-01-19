@@ -57,7 +57,20 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma `m_econ
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-
+|idimmo|Identifiant unique de l'objet|text| |
+|idbati|Identifiant unique bu bâtiment|text| |
+|idsite|Identifiant du site d'activité d'appartenance|character varying(7)| |
+|sup_m2|Superficie de l'objet en m²|integer| |
+|ityp|Type d'occupation|character varying(2)| |
+|observ|Observations|character varying(1000)| |
+|op_sai|Opérateur de saisie|character varying(25)| |
+|date_sai|Date de saisie|timestamp without time zone|now()|
+|date_maj|Date de mise à jour|timestamp without time zone| |
+|src_geom|Source du référentiel géographique pour le positionnement du nœud|character varying(2)|'00'::character varying|
+|src_date|Année du référentiel de saisi|integer| |
+|insee|Code Insee de la ou des communes d'assises|character varying(25)| |
+|commune|Libellé de la ou des communes d'assises|character varying(160)| |
+|geom|Attribut de géométrie|USER-DEFINED| |
 
 
 Particularité(s) à noter : aucune
@@ -67,25 +80,27 @@ Particularité(s) à noter : aucune
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idbien|Identifiant unique du bien|text|('B'::text nextval('m_economie.an_immo_bien_seq'::regclass))|
+|idbien|Identifiant unique du bien|text| |
 |idimmo|Identifiant unique de l'objet bien|text| |
 |tbien|Type de bien|character varying(4)| |
 |libelle|Libellé du bien|character varying(254)| |
-|bdesc|Description du bien|character varying(100)| |
 |pdp|Bien en pas-de-porte|boolean|false|
 |lib_occup|Libellé de l'occupant ou détail sur le type d'occupation (si pas un établissement lié)|character varying(150)| |
 |bal|Identifiant de la base adresse|integer| |
 |adr|Adresse litérale (si différente de la BAL)|character varying(254)| |
 |adrcomp|Complément d'adresse|character varying(100)| |
-|surf|Surface en hectare|double precision| |
-|surf_m|Surface en m²|integer| |
+|surf_p|Surface totale de plancher totale en m²|integer| |
 |source|Source de la mise à jour|character varying(254)| |
 |refext|Lien vers un site présentant le terrain|character varying(254)| |
 |observ|Observations|character varying(1000)| |
+|surf_rdc|Surface en rez-de-chaussée|integer|0|
+|surf_etag|Surface à l'étage|integer|0|
+|surf_mezza|Surface en mezzanine|integer|0|
+|surf_acti|Surface  en activité (atelier)|integer|0|
+|surf_bur|Surface en bureau|integer|0|
 
 
-Particularité(s) à noter :
-* (à venir)
+Particularité(s) à noter : aucune
 
 ---
 
@@ -93,31 +108,25 @@ Particularité(s) à noter :
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idbati|Identifiant du bâtiment|text|('BA'::text nextval('m_economie.an_immo_bati_seq'::regclass))|
+|idbati|Identifiant du bâtiment|text| |
 |idimmo|Identifiant de l'objet|text| |
+|ityp|Type d'occupation (incrémentation automatique par la table geo_immo_bien pour la gestion de la liste des domaines des bâtiments pour un type local non identifié)|character varying(2)| |
 |libelle|Libellé du bâtiment|character varying(254)| |
-|surf_m|Surface en m²|integer| |
-|shon|Surface de plancher en m²|integer| |
-|hauteur|Hauteur em mètre|integer| |
-|nbloc|Nombre de local dans le bâtiment|integer| |
-|bdesc|Description du bâtiment|character varying(100)| |
-|mprop|Même propriétaire que le local|boolean|false|
+|surf_p|Surface de plancher total du bâtiment renseigné par l'utilisateur|integer| |
+|mprop|Type de propriétaire (unique ou en copropriété). La valeur true indique qu'il s'agit d'une copropriété|boolean|false|
 |observ|Observations|character varying(1000)| |
 
 
-Particularité(s) à noter :
-* (à venir)
+Particularité(s) à noter : cette classe d'objets peut être alimentée indépendemment lorsqu'il s'agit d'un bâtiment reconstruit virtuellement par les locaux qui le composent. Les locaux sont affectés alors à un bâtiment listé comme appartemant au type 22.
 
 ---
 
- `an_immo_prop` : table des attributs métiers permettant de gérer l'ensemble des éléments décrivant le propriétaire du bâtiment, du local ou du terrain
+ `an_immo_propbati` : table des attributs métiers permettant de gérer l'ensemble des éléments décrivant le propriétaire du bâtiment
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idprop|Identifiant du propriétaire|text|('P'::text nextval('m_economie.an_immo_prop_seq'::regclass))|
+|idprop|Identifiant du propriétaire|text| |
 |idbati|Identifiant du bâtiment|text| |
-|idimmo|Identifiant de l'objet|text| |
-|idbien|Identifiant du bien|text| |
 |propnom|Nom du propriétaire|character varying(100)| |
 |proptel|Téléphone du propriétaire|character varying(14)| |
 |proptelp|Téléphone portable du propriétaire|character varying(14)| |
@@ -125,8 +134,24 @@ Particularité(s) à noter :
 |observ|Observations|character varying(1000)| |
 
 
-Particularité(s) à noter :
-* (à venir)
+Particularité(s) à noter : aucune
+
+---
+
+ `an_immo_propbien` : table des attributs métiers permettant de gérer l'ensemble des éléments décrivant le propriétaire du local ou du terrain
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idprop|Identifiant du propriétaire|text| |
+|idbien|Identifiant du bien immobilier ou local|text| |
+|propnom|Nom du propriétaire|character varying(100)| |
+|proptel|Téléphone du propriétaire|character varying(14)| |
+|proptelp|Téléphone portable du propriétaire|character varying(14)| |
+|propmail|Email du propriétaire|character varying(80)| |
+|observ|Observations|character varying(1000)| |
+
+
+Particularité(s) à noter : aucune
 
 ---
 
@@ -134,7 +159,7 @@ Particularité(s) à noter :
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idcomm|Identifiant unique de la commercialisation|text|('C'::text nextval('m_economie.an_immo_comm_seq'::regclass))|
+|idcomm|Identifiant unique de la commercialisation|text| |
 |idimmo|Identifiant de l'objet bien|text| |
 |idbien|Identifiant du bien|text| |
 |prix_a|Prix d'acquisition du bien occupé|integer| |
@@ -152,59 +177,56 @@ Particularité(s) à noter :
 |commtelp|Téléphone portable du commercialisateur|character varying(14)| |
 |commmail|Email du commercialisateur|character varying(80)| |
 |etat|Etat de la commercialisation|character varying(2)| |
-|source|Source|character varying(254)| |
 |refext|Référence externe d'un site internet présentant une fiche de commercialisation|character varying(254)| |
 |observ|Observations|character varying(1000)| |
 
-Particularité(s) à noter :
-* (à venir)
+Particularité(s) à noter : aucune
 
 ---
 
- `an_immo_comm` : table des attributs métiers permettant de gérer l'ensemble des éléments liés à la commercialisation et aux conditions financières de l'occupation actuelle
-   
-|Nom attribut | Définition | Type | Valeurs par défaut |
-|:---|:---|:---|:---|
-|idcomm|Identifiant unique de la commercialisation|text|('C'::text nextval('m_economie.an_immo_comm_seq'::regclass))|
-|idimmo|Identifiant de l'objet bien|text| |
-|idbien|Identifiant du bien|text| |
-|prix_a|Prix d'acquisition du bien occupé|integer| |
-|prix_am|Prix d'acquisition au m² du bien occupé|integer| |
-|loyer_a|Loyer actuel du bien|integer| |
-|loyer_am|Loyer actuel du bien au m²|integer| |
-|bail_a|Montant du bail actuel du bien|integer| |
-|prix|Prix total|integer| |
-|prix_m|Prix au m²|integer| |
-|loyer|Loyer total|integer| |
-|loyer_m|Loyer au m²|integer| |
-|bail|Montant du Bail|integer| |
-|comm|Nom du commercialisateur|character varying(150)| |
-|commtel|Téléphone du commercialisateur|character varying(14)| |
-|commtelp|Téléphone portable du commercialisateur|character varying(14)| |
-|commmail|Email du commercialisateur|character varying(80)| |
-|etat|Etat de la commercialisation|character varying(2)| |
-|source|Source|character varying(254)| |
-|refext|Référence externe d'un site internet présentant une fiche de commercialisation|character varying(254)| |
-|observ|Observations|character varying(1000)| |
-
-Particularité(s) à noter :
-* (à venir)---
-
- `lk_immo_occup` : table de liens permettant l'affectation d'un ou plusieurs établissements à un local ou un terrain
+`lk_immo_occup` : table de liens permettant l'affectation d'un ou plusieurs établissements à un local ou un terrain
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
 |id|Identifiant unique de l'occupation|integer|nextval('m_economie.lk_immo_occup_seq'::regclass)|
 |idbien|Identifiant du bien occupé|text| |
-|idimmo|Identifiant de l'objet bien|text| |
 |siret|N° SIRET de l'établissement occupant|character varying(14)| |
 
-Particularité(s) à noter :
-* (à venir)
+Particularité(s) à noter : aucune
+
+---
+
+`an_immo_media` : table permettant de gérer les documents joints aux locaux et aux bâtiments
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|id|Identifiant de l'objet saisi|text| |
+|media|Champ Média de GEO|text| |
+|miniature|Champ miniature de GEO|bytea| |
+|n_fichier|Nom du fichier|text| |
+|t_fichier|Type de média dans GEO|text| |
+|op_sai|Opérateur de saisie (par défaut login de connexion à GEO)|character varying(20)| |
+|date_sai|Date de la saisie du document|timestamp without time zone| |
+|l_doc|Titre du document ou légère description|character varying(100)| |
+|gid|Compteur (identifiant interne)|integer|nextval('m_economie.an_immo_media_seq'::regclass)|
+
+Particularité(s) à noter : aucune
+
+### classes d'objets de gestions métiers sont classés dans le schéma m_economie :
+
+`geo_v_immo_bien_terrain` : vue permettant de gérer l'insertion et la mise jour des biens de type terrain.
+
+`geo_v_immo_bien_locunique` : vue permettant de gérer l'insertion et la mise jour de locaux confondus avec le bâtiment.
+
+`geo_v_immo_bien_locident` : vue permettant de gérer l'insertion et la mise jour les locaux identifiés reconstruisant le bâtiment qui s'en composent.
+
+`geo_v_immo_bien_locnonident` : vue permettant de gérer l'insertion et la mise jour les locaux non identifiables dans un même bâtiment.
+
+`an_v_immo_bien_locnonident` : vue complémentaire à la précedent permettant de gérer l'insertion et la mise jour des n locaux.
 
 ### classes d'objets applicatives métiers sont classés dans le schéma x_apps :
  
-`x_apps.xapps_geo_v_immo` : Vue d'exploitation permettant de lister les biens mis en disponibilité (vente, location ou les deux) et afficher au niveau de la cartographie de l'application WebSIG.
+`x_apps.xapps_an_vmr_immo_bati` : vue matérialisée rafraichie à chaque insertion ou modification pour le calcul de statistiques remontées aux bâtiments (nb de locaux saisis et surface de plancher total saisie pour chaque local appartenant aux bâtiments)
 
 ### classes d'objets applicatives grands publics sont classés dans le schéma x_apps_public :
 
@@ -342,8 +364,7 @@ Valeurs possibles :
 
 ## Projet QGIS pour la gestion
 
-Aucun projet QGIS a été réalisé pour la gestion interne des données.
-
+Projet QGIS en cours de réalisation pour la saisie de l'inventaire cartographique.
 
 ## Export Open Data
 
