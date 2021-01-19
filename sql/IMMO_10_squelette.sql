@@ -25,25 +25,29 @@ SOMMAIRE :
 
 -- VUES 
 
-DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_etat;
+DROP VIEW IF EXISTS x_apps.xapps_an_vmr_immo_bati;
+DROP VIEW IF EXISTS an_v_immo_bien_locnonident;
+DROP VIEW IF EXISTS geo_v_immo_bien_locident;
+DROP VIEW IF EXISTS geo_v_immo_bien_locnonident;
+DROP VIEW IF EXISTS geo_v_immo_bien_locunique;
+DROP VIEW IF EXISTS geo_v_immo_bien_terrain;
 
 -- CLASSES
 
-DROP TABLE IF EXISTS m_economie.geo_immo_bien CASCADE;
-DROP TABLE IF EXISTS m_economie.an_immo_bien CASCADE;
-DROP TABLE IF EXISTS m_economie.an_immo_bati CASCADE;
-DROP TABLE IF EXISTS m_economie.an_immo_prop CASCADE;
-DROP TABLE IF EXISTS m_economie.an_immo_comm CASCADE;
-DROP TABLE IF EXISTS m_economie.an_immo_media CASCADE;
-DROP TABLE IF EXISTS m_economie.lk_immo_occup CASCADE;
-DROP TABLE IF EXISTS m_economie.lk_immo_ityp CASCADE;
+DROP TABLE IF EXISTS m_economie.geo_immo_bien;
+DROP TABLE IF EXISTS m_economie.an_immo_bien;
+DROP TABLE IF EXISTS m_economie.an_immo_bati;
+DROP TABLE IF EXISTS m_economie.an_immo_propbati;
+DROP TABLE IF EXISTS m_economie.an_immo_propbien;
+DROP TABLE IF EXISTS m_economie.an_immo_comm;
+DROP TABLE IF EXISTS m_economie.an_immo_media ;
+DROP TABLE IF EXISTS m_economie.lk_immo_occup;
+
 
 
 -- DOMAINES DE VALEUR
 
 DROP TABLE IF EXISTS m_economie.lt_immo_ityp CASCADE;
-DROP TABLE IF EXISTS m_economie.lt_immo_dbien CASCADE;
-DROP TABLE IF EXISTS m_economie.lt_immo_dbati CASCADE;
 DROP TABLE IF EXISTS m_economie.lt_immo_tbien CASCADE;
 DROP TABLE IF EXISTS m_economie.lt_immo_etat CASCADE;
 
@@ -58,9 +62,6 @@ DROP SEQUENCE m_economie.an_immo_prop_seq;
 DROP SEQUENCE m_economie.an_immo_media_seq;
 DROP SEQUENCE m_economie.lk_immo_occup_seq;
 */
---TRIGGERS
-
--- DROP TRIGGER IF EXISTS  ON m_economie. ;
 
 
 
@@ -177,8 +178,6 @@ COMMENT ON SEQUENCE m_economie.lk_immo_occup_seq
   */
 
 
-
-
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
 -- ###                                                    DOMAINES DE VALEURS                                                  ###
@@ -210,61 +209,6 @@ COMMENT ON TABLE m_economie.lt_immo_ityp
 COMMENT ON COLUMN m_economie.lt_immo_ityp.code IS 'Code du type d''objet immobilier saisi';
 COMMENT ON COLUMN m_economie.lt_immo_ityp.valeur IS 'Valeur du type d''objet immobilier saisi';
 
---############################################################ lt_immo_dbati ##################################################
-
-CREATE TABLE m_economie.lt_immo_dbati
-(
-  code character varying(2) NOT NULL,
-  valeur character varying(80) NOT NULL,
-  CONSTRAINT lt_immo_dbati_pkey PRIMARY KEY (code)
-)
-WITH (
-  OIDS=FALSE
-);
-
-INSERT INTO m_economie.lt_immo_dbati(code, valeur)
-    VALUES
-	('1','Double vitrage'),
-	('2','Site clôturé'),
-	('3','Places de parking'),
-	('4','Murs périphériques (bardage métallique…)'),
-	('5','Ossature (couverture bac acier…)'),
-	('6','Menuiserie aluminium'),
-	('7','Accès sécurisé'),
-	('8','Système d''alarme'),
-	('9','Parties communes'),
-	('10','Portes de plain-pied'),
-	('11','Charge au sol'),
-	('12','Terrain attenant');
-
-COMMENT ON TABLE m_economie.lt_immo_dbati
-  IS 'Code permettant de décrire la description du bâtiment';
-COMMENT ON COLUMN m_economie.lt_immo_dbati.code IS 'Code du type décrivant des éléments du bâtiment';
-COMMENT ON COLUMN m_economie.lt_immo_dbati.valeur IS 'Valeur du type décrivant des éléments du bâtiment';
-
---############################################################ lt_immo_dbien ##################################################
-
-CREATE TABLE m_economie.lt_immo_dbien
-(
-  code character varying(2) NOT NULL,
-  valeur character varying(80) NOT NULL,
-  CONSTRAINT lt_immo_dbien_pkey PRIMARY KEY (code)
-)
-WITH (
-  OIDS=FALSE
-);
-
-INSERT INTO m_economie.lt_immo_dbien(code, valeur)
-    VALUES
-        ('1','Vitrine'),
-	('2','Présence d''une remise'),
-	('3','Autre')
-	;
-
-COMMENT ON TABLE m_economie.lt_immo_dbien
-  IS 'Code permettant de décrire la description du bien';
-COMMENT ON COLUMN m_economie.lt_immo_dbien.code IS 'Code du type décrivant des éléments du bien';
-COMMENT ON COLUMN m_economie.lt_immo_dbien.valeur IS 'Valeur du type décrivant des éléments du bien';
 
 --############################################################ lt_immo_tbien ##################################################
 
@@ -335,518 +279,379 @@ COMMENT ON COLUMN m_economie.lt_immo_etat.valeur IS 'Valeur de l''état du bien 
 
 --################################################################# geo_immo_bien #######################################################
 
-CREATE TABLE m_economie.geo_immo_bien--------------------------------------------- Objet primitif du bien immobilier
-	(
-	idimmo      text DEFAULT 'O' || nextval('m_economie.geo_immo_bien_seq') NOT NULL,--------- Identifiant unique de l'objet
-	idbati	    text,------------------------------------------------------------------------- Identifiant du bâti
-	idsite      character varying (7),-------------------------------------------------------- Identifiant du site d'activité d'appartenance
-	sup_m2      integer ,--------------------------------------------------------------------- Superficie de l''objet en m² (surface SIG)
-	ityp        character varying (2) ,------------------------------------------------------- Type d''occupation
-	observ      character varying (1000) ,----------------------------------------------------- Observations
-	op_sai      character varying (25),------------------------------------------------------- Opérateur de saisie
-	date_sai    timestamp without time zone default now(),------------------------------------ Date de saisie
-	date_maj    timestamp without time zone ,------------------------------------------------- Date de mise à jour
-	src_geom    varchar(2) NOT NULL DEFAULT '00',--------------------------------------------- Source du référentiel géographique pour le positionnement du nœud
-	src_date    integer,---------------------------------------------------------------------- Année du référentiel de saisi
-	insee       character varying(11),-------------------------------------------------------- Code Insee de la ou des communes d'assises
-	commune     character varying(160),------------------------------------------------------- Libellé de la ou des communes d'assises
-	geom       geometry(MultiPolygon,2154)---------------------------------------------------- Attribut de géométrie
-);
+-- Table: m_economie.geo_immo_bien
 
-ALTER TABLE m_economie.geo_immo_bien
-  ADD CONSTRAINT geo_immo_bien_pkey PRIMARY KEY(idimmo);
+-- DROP TABLE m_economie.geo_immo_bien;
 
-COMMENT ON TABLE m_economie.geo_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
-COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo IS 'Identifiant unique de l''objet';
-COMMENT ON COLUMN m_economie.geo_immo_bien.idbati IS 'Identifiant unique bu bâtiment';
-COMMENT ON COLUMN m_economie.geo_immo_bien.idsite IS 'Identifiant du site d''activité d''appartenance';
-COMMENT ON COLUMN m_economie.geo_immo_bien.sup_m2 IS 'Superficie de l''objet en m²';
-COMMENT ON COLUMN m_economie.geo_immo_bien.ityp IS 'Type d''occupation';
-COMMENT ON COLUMN m_economie.geo_immo_bien.observ IS 'Observations';
-COMMENT ON COLUMN m_economie.geo_immo_bien.op_sai IS 'Opérateur de saisie';
-COMMENT ON COLUMN m_economie.geo_immo_bien.date_sai IS 'Date de saisie';
-COMMENT ON COLUMN m_economie.geo_immo_bien.date_maj IS 'Date de mise à jour';
-COMMENT ON COLUMN m_economie.geo_immo_bien.src_geom IS 'Source du référentiel géographique pour le positionnement du nœud';
-COMMENT ON COLUMN m_economie.geo_immo_bien.src_date IS 'Année du référentiel de saisi';
-COMMENT ON COLUMN m_economie.geo_immo_bien.insee IS 'Code Insee de la ou des communes d''assises';
-COMMENT ON COLUMN m_economie.geo_immo_bien.commune IS 'Libellé de la ou des communes d''assises';
-COMMENT ON COLUMN m_economie.geo_immo_bien.geom IS 'Attribut de géométrie';
-
--- FONCTIONS
-
--- CALCUL SURFACE SIG DE l'OBJET SAISI (à l'insertioin et à la mise à jour)
-
--- Trigger: t_t1_insert_update_surf_immo_bien
--- DROP TRIGGER t_t1_insert_update_surf_immo_bien ON m_economie.geo_immo_bien;
-
-CREATE TRIGGER t_t1_insert_update_surf_immo_bien
-    BEFORE INSERT OR UPDATE 
-    ON m_economie.geo_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
-
--- INSERTION DATE DU JOUR UNIQUEMENT DANS LE CADRE D'UNE MISE A JOUR (date de mise à jour)
-
--- Trigger: t_t2_insert_update_datemaj_immo_bien
--- DROP TRIGGER t_t2_insert_update_datemaj_immo_bien ON m_economie.geo_immo_bien;
-
-CREATE TRIGGER t_t2_insert_update_datemaj_immo_bien
-    BEFORE UPDATE 
-    ON m_economie.geo_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE public.ft_r_timestamp_maj();
-
--- INSERTION DU OU DES CODES INSEE ET DU LIBELLE DE LA OU DES COMMUNNES correspondant à la commnune d'appartenance de l'objet saisie
-
--- Trigger: t_t3_insert_update_commune_immo_bien
--- DROP TRIGGER t_t3_insert_update_commune_immo_bien ON m_economie.geo_immo_bien;
-
-CREATE TRIGGER t_t3_insert_update_commune_immo_bien
-    BEFORE INSERT OR UPDATE
-    ON m_economie.geo_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE public.ft_r_commune_s();
+CREATE TABLE m_economie.geo_immo_bien
+(
+    idimmo text COLLATE pg_catalog."default" NOT NULL,
+    idbati text COLLATE pg_catalog."default",
+    idsite character varying(7) COLLATE pg_catalog."default",
+    sup_m2 integer,
+    ityp character varying(2) COLLATE pg_catalog."default",
+    observ character varying(1000) COLLATE pg_catalog."default",
+    op_sai character varying(25) COLLATE pg_catalog."default",
+    date_sai timestamp without time zone DEFAULT now(),
+    date_maj timestamp without time zone,
+    src_geom character varying(2) COLLATE pg_catalog."default" NOT NULL DEFAULT '00'::character varying,
+    src_date integer,
+    insee character varying(25) COLLATE pg_catalog."default",
+    commune character varying(160) COLLATE pg_catalog."default",
+    geom geometry(MultiPolygon,2154),
+    CONSTRAINT geo_immo_bien_pkey PRIMARY KEY (idimmo),
+    CONSTRAINT geo_immo_bien_geom_fkey FOREIGN KEY (src_geom)
+        REFERENCES r_objet.lt_src_geom (code) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE SET DEFAULT,
+    CONSTRAINT geo_immo_bien_ityp_fkey FOREIGN KEY (ityp)
+        REFERENCES m_economie.lt_immo_ityp (code) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE SET DEFAULT
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
 
-   
-    
--- FONCTIONN : SUPPRESSION DES OCCUPANTS LORSQUE SUPRESSION DE L'OBJET SAISI (les autres suppressions ont été définies dans GEO
--- au niveau des relations)
+COMMENT ON TABLE m_economie.geo_immo_bien
+    IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
 
+COMMENT ON COLUMN m_economie.geo_immo_bien.idimmo
+    IS 'Identifiant unique de l''objet';
 
--- FUNCTION: m_economie.ft_m_immo_delete_occup_bati()
--- DROP FUNCTION m_economie.ft_m_immo_delete_occup_bati();
+COMMENT ON COLUMN m_economie.geo_immo_bien.idbati
+    IS 'Identifiant unique bu bâtiment';
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_delete_occup_bati()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
+COMMENT ON COLUMN m_economie.geo_immo_bien.idsite
+    IS 'Identifiant du site d''activité d''appartenance';
 
+COMMENT ON COLUMN m_economie.geo_immo_bien.sup_m2
+    IS 'Superficie de l''objet en m²';
 
-BEGIN
+COMMENT ON COLUMN m_economie.geo_immo_bien.ityp
+    IS 'Type d''occupation';
 
-     DELETE FROM m_economie.lk_immo_occup WHERE idimmo = old.idimmo;
-     return new ;
+COMMENT ON COLUMN m_economie.geo_immo_bien.observ
+    IS 'Observations';
 
-END;
+COMMENT ON COLUMN m_economie.geo_immo_bien.op_sai
+    IS 'Opérateur de saisie';
 
-$BODY$;
+COMMENT ON COLUMN m_economie.geo_immo_bien.date_sai
+    IS 'Date de saisie';
 
-ALTER FUNCTION m_economie.ft_m_immo_delete_occup_bati()
-    OWNER TO sig_create;
+COMMENT ON COLUMN m_economie.geo_immo_bien.date_maj
+    IS 'Date de mise à jour';
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_occup_bati() TO edit_sig;
+COMMENT ON COLUMN m_economie.geo_immo_bien.src_geom
+    IS 'Source du référentiel géographique pour le positionnement du nœud';
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_occup_bati() TO sig_create;
+COMMENT ON COLUMN m_economie.geo_immo_bien.src_date
+    IS 'Année du référentiel de saisi';
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_occup_bati() TO create_sig;
+COMMENT ON COLUMN m_economie.geo_immo_bien.insee
+    IS 'Code Insee de la ou des communes d''assises';
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_occup_bati() TO PUBLIC;
+COMMENT ON COLUMN m_economie.geo_immo_bien.commune
+    IS 'Libellé de la ou des communes d''assises';
 
-COMMENT ON FUNCTION m_economie.ft_m_immo_delete_occup_bati()
-    IS 'Fonction gérant la suppression de la relation bien immobiliser occupant lorsque l''objet saisi est supprimé';
-	
+COMMENT ON COLUMN m_economie.geo_immo_bien.geom
+    IS 'Attribut de géométrie';
+-- Index: idx_geo_immo_bien_idbati
 
--- Trigger: t_t4_delete_occup_immo_bien
--- DROP TRIGGER t_t4_delete_occup_immo_bien ON m_economie.geo_immo_bien;
+-- DROP INDEX m_economie.idx_geo_immo_bien_idbati;
 
-CREATE TRIGGER t_t4_delete_occup_immo_bien
-    AFTER DELETE
-    ON m_economie.geo_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_delete_occup_bati();
-    
+CREATE INDEX idx_geo_immo_bien_idbati
+    ON m_economie.geo_immo_bien USING btree
+    (idbati COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
 
-
--- FONCTION : incrémentation par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d'occupation
-
--- FUNCTION: m_economie.ft_m_immo_update_surf_immo()
-
--- DROP FUNCTION m_economie.ft_m_immo_update_surf_immo();
-
-CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_update_surf_immo()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-
-DECLARE v_surf integer;
-
-BEGIN
-	 
-	 IF OLD.ityp = '10' THEN
-	 -- TERRAIN
-	 	-- mise à jour de la surface du bien si géométrie modifiée
-	 	UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND geo_immo_bien.ityp = '10' AND sup_m2 <> OLD.sup_m2;  
-     END IF;
-	 -- BATI = local
-	    -- mise à jour de la surface du bien si géométrie modifiée
-	 IF OLD.ityp = '21' THEN
-	    v_surf := (SELECT geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien, m_economie.an_immo_bati WHERE geo_immo_bien.idimmo = an_immo_bati.idimmo AND geo_immo_bien.ityp = '21' AND sup_m2 <> OLD.sup_m2 AND geo_immo_bien.idimmo = OLD.idimmo);  
-	    
-		IF v_surf > 0 THEN
-			UPDATE m_economie.an_immo_bati SET surf_m = v_surf WHERE idimmo = OLD.idimmo;  
-			UPDATE m_economie.an_immo_bien SET surf_m = v_surf WHERE idimmo = OLD.idimmo;  
-        END IF;
-	 END IF;
-	 
-	 	 IF OLD.ityp = '22' THEN
-	 -- LOCAL INDEPENDEMMENT DIVISE
-	 	-- mise à jour de la surface du bien si géométrie modifiée
-	 	UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND an_immo_bien.idimmo = OLD.idimmo;  
-     END IF;
-
-	return new ;
-
-END;
-
-$BODY$;
-
-ALTER FUNCTION m_economie.ft_m_immo_update_surf_immo()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_immo() TO PUBLIC;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_immo() TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_immo() TO edit_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_immo() TO create_sig;
-
-COMMENT ON FUNCTION m_economie.ft_m_immo_update_surf_immo()
-    IS 'Fonction incrémentant par défaut de la surface SIG dans le descriptif du bâtiment et du bien selon le cas d''occupation';
-
--- Trigger: t_t5_update_surf_immo
-
--- DROP TRIGGER t_t5_update_surf_immo ON m_economie.geo_immo_bien;
-
-CREATE TRIGGER t_t5_update_surf_immo
-    AFTER UPDATE OF geom
-    ON m_economie.geo_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_update_surf_immo();
 
 --################################################################# an_immo_bien #######################################################
 
-CREATE TABLE m_economie.an_immo_bien--------------------------------------------- Attribut métier du bien immobilier
-	(
-	idbien      text DEFAULT 'B' || nextval('m_economie.an_immo_bien_seq') NOT NULL,---------- Identifiant unique du bien
-	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
-	tbien       character varying (4),-------------------------------------------------------- Type de bien
-	libelle     character varying (254) ,----------------------------------------------------- Libellé du bien
-	bdesc       character varying (100) ,----------------------------------------------------- Description du bien
-	pdp	    boolean default false,-------------------------------------------------------- Bien en pas-de-porte
-	lib_occup   character varying(150),------------------------------------------------------- Libellé de l'occupant ou détail sur le type d'occupation (si pas un établissement lié)
-	bal	    integer,---------------------------------------------------------------------- Identifiant de la base adresse
-	adr	    character varying (254),------------------------------------------------------ Adresse litérale (si différente de la BAL)
-	adrcomp	    character varying (100),------------------------------------------------------ Complément d'adresse
-	surf_m	    integer,---------------------------------------------------------------------- Surface en m²
-	source	    character varying (254),------------------------------------------------------ Source de la mise à jour
-	refext	    character varying (254),------------------------------------------------------ Lien vers un site présentant le terrain
-	observ      character varying (1000) ----------------------------------------------------- Observations
-);
+-- Table: m_economie.an_immo_bien
+
+-- DROP TABLE m_economie.an_immo_bien;
+
+CREATE TABLE m_economie.an_immo_bien
+(
+    idbien text COLLATE pg_catalog."default" NOT NULL,
+    idimmo text COLLATE pg_catalog."default",
+    tbien character varying(4) COLLATE pg_catalog."default",
+    libelle character varying(254) COLLATE pg_catalog."default",
+    pdp boolean DEFAULT false,
+    lib_occup character varying(150) COLLATE pg_catalog."default",
+    bal integer,
+    adr character varying(254) COLLATE pg_catalog."default",
+    adrcomp character varying(100) COLLATE pg_catalog."default",
+    surf_p integer,
+    source character varying(254) COLLATE pg_catalog."default",
+    refext character varying(254) COLLATE pg_catalog."default",
+    observ character varying(1000) COLLATE pg_catalog."default",
+    surf_rdc integer DEFAULT 0,
+    surf_etag integer DEFAULT 0,
+    surf_mezza integer DEFAULT 0,
+    surf_acti integer DEFAULT 0,
+    surf_bur integer DEFAULT 0,
+    CONSTRAINT an_immo_bien_pkey PRIMARY KEY (idbien),
+    CONSTRAINT an_immo_bien_tbien_fkey FOREIGN KEY (tbien)
+        REFERENCES m_economie.lt_immo_tbien (code) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+COMMENT ON TABLE m_economie.an_immo_bien
+    IS 'Table alphanumérique contenant les informations des biens immobiliers ou locaux';
+
+COMMENT ON COLUMN m_economie.an_immo_bien.idbien
+    IS 'Identifiant unique du bien';
+
+COMMENT ON COLUMN m_economie.an_immo_bien.idimmo
+    IS 'Identifiant unique de l''objet bien';
 
-ALTER TABLE m_economie.an_immo_bien
-  ADD CONSTRAINT an_immo_bien_pkey PRIMARY KEY(idbien);
+COMMENT ON COLUMN m_economie.an_immo_bien.tbien
+    IS 'Type de bien';
 
-COMMENT ON TABLE m_economie.an_immo_bien IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
-COMMENT ON COLUMN m_economie.an_immo_bien.idbien IS 'Identifiant unique du bien';
-COMMENT ON COLUMN m_economie.an_immo_bien.idimmo IS 'Identifiant unique de l''objet bien';
-COMMENT ON COLUMN m_economie.an_immo_bien.tbien IS 'Type de bien';
-COMMENT ON COLUMN m_economie.an_immo_bien.libelle IS 'Libellé du bien';
-COMMENT ON COLUMN m_economie.an_immo_bien.lib_occup IS 'Libellé de l''occupant ou détail sur le type d''occupation (si pas un établissement lié)';
-COMMENT ON COLUMN m_economie.an_immo_bien.bdesc IS 'Description du bien';
-COMMENT ON COLUMN m_economie.an_immo_bien.pdp IS 'Bien en pas-de-porte';
-COMMENT ON COLUMN m_economie.an_immo_bien.bal IS 'Identifiant de la base adresse';
-COMMENT ON COLUMN m_economie.an_immo_bien.adr IS 'Adresse litérale (si différente de la BAL)';
-COMMENT ON COLUMN m_economie.an_immo_bien.adrcomp IS 'Complément d''adresse';
-COMMENT ON COLUMN m_economie.an_immo_bien.surf_m IS 'Surface en m²';
-COMMENT ON COLUMN m_economie.an_immo_bien.source IS 'Source de la mise à jour';
-COMMENT ON COLUMN m_economie.an_immo_bien.refext IS 'Lien vers un site présentant le terrain';
-COMMENT ON COLUMN m_economie.an_immo_bien.observ IS 'Observations';
+COMMENT ON COLUMN m_economie.an_immo_bien.libelle
+    IS 'Libellé du bien';
 
+COMMENT ON COLUMN m_economie.an_immo_bien.pdp
+    IS 'Bien en pas-de-porte';
 
--- FONCTION : APRES INSERT OU UPDATE, gestion surface SIG dans la table des biens
+COMMENT ON COLUMN m_economie.an_immo_bien.lib_occup
+    IS 'Libellé de l''occupant ou détail sur le type d''occupation (si pas un établissement lié)';
 
--- FUNCTION: m_economie.ft_m_immo_insert_surf_bien()
+COMMENT ON COLUMN m_economie.an_immo_bien.bal
+    IS 'Identifiant de la base adresse';
 
--- DROP FUNCTION m_economie.ft_m_immo_insert_surf_bien();
+COMMENT ON COLUMN m_economie.an_immo_bien.adr
+    IS 'Adresse litérale (si différente de la BAL)';
 
+COMMENT ON COLUMN m_economie.an_immo_bien.adrcomp
+    IS 'Complément d''adresse';
 
+COMMENT ON COLUMN m_economie.an_immo_bien.surf_p
+    IS 'Surface totale de plancher totale en m²';
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_surf_bien()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
+COMMENT ON COLUMN m_economie.an_immo_bien.source
+    IS 'Source de la mise à jour';
 
-DECLARE v_ityp character varying(2);
+COMMENT ON COLUMN m_economie.an_immo_bien.refext
+    IS 'Lien vers un site présentant le terrain';
 
-BEGIN
+COMMENT ON COLUMN m_economie.an_immo_bien.observ
+    IS 'Observations';
 
-    
-	 IF (TG_OP = 'INSERT') THEN
-	 -- TERRAIN ou BATI = local
-	 	-- insertion de la surface SIG par défaut pour la surface du bien
-		UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND (geo_immo_bien.ityp = '10' OR geo_immo_bien.ityp = '21' OR geo_immo_bien.ityp = '22');  
-     END IF;
-	 
-	 IF (TG_OP = 'UPDATE') THEN
-	  v_ityp := (SELECT ityp FROM m_economie.geo_immo_bien WHERE idimmo = OLD.idimmo);
-	
-		-- TERRAIN ou BATI = local
-	 	-- mise à jour de la surface SIG par défaut par la surface du bien si surf_m est supprimée
-	    IF v_ityp = '10' or v_ityp='22' THEN
-			UPDATE m_economie.an_immo_bien SET surf_m = geo_immo_bien.sup_m2 FROM m_economie.geo_immo_bien WHERE geo_immo_bien.idimmo = an_immo_bien.idimmo AND (geo_immo_bien.ityp = '10' OR geo_immo_bien.ityp = '22') AND an_immo_bien.surf_m IS NULL;  
-	    END IF;
+COMMENT ON COLUMN m_economie.an_immo_bien.surf_rdc
+    IS 'Surface en rez-de-chaussée';
 
-	 END IF;
-	 
-	return NEW ;
+COMMENT ON COLUMN m_economie.an_immo_bien.surf_etag
+    IS 'Surface à l''étage';
 
-END;
+COMMENT ON COLUMN m_economie.an_immo_bien.surf_mezza
+    IS 'Surface en mezzanine';
+
+COMMENT ON COLUMN m_economie.an_immo_bien.surf_acti
+    IS 'Surface  en activité (atelier)';
 
-$BODY$;
+COMMENT ON COLUMN m_economie.an_immo_bien.surf_bur
+    IS 'Surface en bureau';
+-- Index: fki_an_immo_bien_tbien_fkey
 
-ALTER FUNCTION m_economie.ft_m_immo_insert_surf_bien()
-    OWNER TO sig_create;
+-- DROP INDEX m_economie.fki_an_immo_bien_tbien_fkey;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO PUBLIC;
+CREATE INDEX fki_an_immo_bien_tbien_fkey
+    ON m_economie.an_immo_bien USING btree
+    (tbien COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: idx_an_immo_bien_idimmo
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO sig_create;
+-- DROP INDEX m_economie.idx_an_immo_bien_idimmo;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO edit_sig;
+CREATE INDEX idx_an_immo_bien_idimmo
+    ON m_economie.an_immo_bien USING btree
+    (idimmo COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_surf_bien() TO create_sig;
 
-COMMENT ON FUNCTION m_economie.ft_m_immo_insert_surf_bien()
-    IS 'Fonction gérant la surface du bien selon l''occupation et si une insertion ou une mise à jour';
 
+--################################################################# an_immo_propbati #######################################################
 
+-- Table: m_economie.an_immo_propbati
 
--- Trigger: t_t1_insert_surf_bien
+-- DROP TABLE m_economie.an_immo_propbati;
 
--- DROP TRIGGER t_t1_insert_surf_bien ON m_economie.an_immo_bien;
+CREATE TABLE m_economie.an_immo_propbati
+(
+    idprop text COLLATE pg_catalog."default" NOT NULL,
+    idbati text COLLATE pg_catalog."default",
+    propnom character varying(100) COLLATE pg_catalog."default",
+    proptel character varying(14) COLLATE pg_catalog."default",
+    proptelp character varying(14) COLLATE pg_catalog."default",
+    propmail character varying(80) COLLATE pg_catalog."default",
+    observ character varying(1000) COLLATE pg_catalog."default",
+    CONSTRAINT an_immo_prop_pkey PRIMARY KEY (idprop)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
-CREATE TRIGGER t_t1_insert_surf_bien
-    AFTER INSERT OR UPDATE 
-    ON m_economie.an_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_surf_bien();
 
--- FONCTION : suppression des occupants à la suppression d'un bien (et en cascade si supprime l'objet saisi)
+COMMENT ON TABLE m_economie.an_immo_propbati
+    IS 'Table alphanumérique des propriétaires bâtis';
 
--- FUNCTION: m_economie.ft_m_immo_delete_bien()
+COMMENT ON COLUMN m_economie.an_immo_propbati.idprop
+    IS 'Identifiant du propriétaire';
 
--- DROP FUNCTION m_economie.ft_m_immo_delete_bien();
+COMMENT ON COLUMN m_economie.an_immo_propbati.idbati
+    IS 'Identifiant du bâtiment';
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_delete_bien()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
+COMMENT ON COLUMN m_economie.an_immo_propbati.propnom
+    IS 'Nom du propriétaire';
 
+COMMENT ON COLUMN m_economie.an_immo_propbati.proptel
+    IS 'Téléphone du propriétaire';
 
-BEGIN
+COMMENT ON COLUMN m_economie.an_immo_propbati.proptelp
+    IS 'Téléphone portable du propriétaire';
 
-     DELETE FROM m_economie.lk_immo_occup WHERE idbien = old.idbien;
-     DELETE FROM m_economie.an_immo_prop WHERE idbien = old.idbien;
-     DELETE FROM m_economie.an_immo_comm WHERE idbien = old.idbien;
-     return new ;
+COMMENT ON COLUMN m_economie.an_immo_propbati.propmail
+    IS 'Email du propriétaire';
 
-END;
+COMMENT ON COLUMN m_economie.an_immo_propbati.observ
+    IS 'Observations';
+-- Index: idx_an_immo_prop_idbati
 
-$BODY$;
+-- DROP INDEX m_economie.idx_an_immo_prop_idbati;
 
-ALTER FUNCTION m_economie.ft_m_immo_delete_bien()
-    OWNER TO sig_create;
+CREATE INDEX idx_an_immo_prop_idbati
+    ON m_economie.an_immo_propbati USING btree
+    (idbati COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bien() TO edit_sig;
+--################################################################# an_immo_propbien #######################################################
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bien() TO sig_create;
+-- Table: m_economie.an_immo_propbien
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bien() TO create_sig;
+-- DROP TABLE m_economie.an_immo_propbien;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bien() TO PUBLIC;
+CREATE TABLE m_economie.an_immo_propbien
+(
+    idprop text COLLATE pg_catalog."default" NOT NULL,
+    idbien text COLLATE pg_catalog."default",
+    propnom character varying(100) COLLATE pg_catalog."default",
+    proptel character varying(14) COLLATE pg_catalog."default",
+    proptelp character varying(14) COLLATE pg_catalog."default",
+    propmail character varying(80) COLLATE pg_catalog."default",
+    observ character varying(1000) COLLATE pg_catalog."default",
+    CONSTRAINT n_immo_propbien_pkey PRIMARY KEY (idprop)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
-COMMENT ON FUNCTION m_economie.ft_m_immo_delete_bien()
-    IS 'Fonction gérant la suppression de la relation bien immobiliser occupant, des propriétaires et commercialisation lorsque le bien est supprimé';
-	
 
--- Trigger: t_t4_delete_occup_immo_bien
--- DROP TRIGGER t_t4_delete_immo_bien ON m_economie.geo_immo_bien;
+COMMENT ON TABLE m_economie.an_immo_propbien
+    IS 'Table alphanumérique des propriétaires des biens immobiliers ou locaux';
 
-CREATE TRIGGER t_t4_delete_immo_bien
-    AFTER DELETE
-    ON m_economie.an_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_delete_bien();
-    
+COMMENT ON COLUMN m_economie.an_immo_propbien.idprop
+    IS 'Identifiant du propriétaire';
 
+COMMENT ON COLUMN m_economie.an_immo_propbien.idbien
+    IS 'Identifiant du bien immobilier ou local';
 
--- FUNCTION: m_economie.ft_m_immo_update_surf_bien()
+COMMENT ON COLUMN m_economie.an_immo_propbien.propnom
+    IS 'Nom du propriétaire';
 
--- DROP FUNCTION m_economie.ft_m_immo_update_surf_bien();
+COMMENT ON COLUMN m_economie.an_immo_propbien.proptel
+    IS 'Téléphone du propriétaire';
 
-CREATE FUNCTION m_economie.ft_m_immo_update_surf_bien()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
+COMMENT ON COLUMN m_economie.an_immo_propbien.proptelp
+    IS 'Téléphone portable du propriétaire';
 
-BEGIN
+COMMENT ON COLUMN m_economie.an_immo_propbien.propmail
+    IS 'Email du propriétaire';
 
-	 
-	 
-	-- SI LOCAL = BATI uniquement ici car surf bati = surg local
-	-- c'est la surface du bien qui prime sur la surface du bâti
-	IF (SELECT ityp FROM m_economie.geo_immo_bien WHERE idimmo = NEW.idimmo) = '21' THEN
-	   UPDATE m_economie.an_immo_bati SET surf_m = NEW.surf_m WHERE idimmo = NEW.idimmo;
-	END IF;
-	 
-	return NEW ;
-
-END;
-
-$BODY$;
-
-ALTER FUNCTION m_economie.ft_m_immo_update_surf_bien()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bien() TO PUBLIC;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bien() TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bien() TO edit_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_update_surf_bien() TO create_sig;
-
-COMMENT ON FUNCTION m_economie.ft_m_immo_update_surf_bien()
-    IS 'Fonction gérant la mise à jour de la surface du bien selon l''occupation';
-
-
-CREATE TRIGGER t_t5_update_surf_bien
-    BEFORE UPDATE 
-    ON m_economie.an_immo_bien
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_update_surf_bien();
-
---################################################################# an_immo_prop #######################################################
-
-CREATE TABLE m_economie.an_immo_prop --------------------------------------------- Attribut métier du propriétaire
-	(
-	idprop      text DEFAULT 'P' || nextval('m_economie.an_immo_prop_seq') NOT NULL,---------- Identifiant unique du propriétaire
-	idbati      text,------------------------------------------------------------------------- Identifiant du bâtiment
-	idimmo	    text,------------------------------------------------------------------------- Identifiant de l'objet
-	idbien	    text,------------------------------------------------------------------------- Identifiant du bien
-	propnom     character varying (100),------------------------------------------------------ Nom du propriétaire
-	proptel     character varying (14),------------------------------------------------------- Téléphone du propriétaire
-	proptelp    character varying (14),------------------------------------------------------- Téléphone portable du propriétaire	
-	propmail    character varying (80),------------------------------------------------------- Email du propriétaire	
-	observ      character varying (1000) ----------------------------------------------------- Observations
-);
-
-ALTER TABLE m_economie.an_immo_prop
-  ADD CONSTRAINT an_immo_prop_pkey PRIMARY KEY(idprop);
-
-COMMENT ON TABLE m_economie.an_immo_prop IS 'Table des objets graphiques correspond à la primitive des biens immobiliers';
-COMMENT ON COLUMN m_economie.an_immo_prop.idprop IS 'Identifiant du propriétaire';
-COMMENT ON COLUMN m_economie.an_immo_prop.idbati IS 'Identifiant du bâtiment';
-COMMENT ON COLUMN m_economie.an_immo_prop.idimmo IS 'Identifiant de l''objet';
-COMMENT ON COLUMN m_economie.an_immo_prop.idbien IS 'Identifiant du bien';
-COMMENT ON COLUMN m_economie.an_immo_prop.propnom IS 'Nom du propriétaire';
-COMMENT ON COLUMN m_economie.an_immo_prop.proptel IS 'Téléphone du propriétaire';
-COMMENT ON COLUMN m_economie.an_immo_prop.proptelp IS 'Téléphone portable du propriétaire';
-COMMENT ON COLUMN m_economie.an_immo_prop.propmail IS 'Email du propriétaire';
-COMMENT ON COLUMN m_economie.an_immo_prop.observ IS 'Observations';
-
-
+COMMENT ON COLUMN m_economie.an_immo_propbien.observ
+    IS 'Observations';
 
 --################################################################# an_immo_bati #######################################################
 
-CREATE TABLE m_economie.an_immo_bati --------------------------------------------- Attribut métier du propriétaire
-	(
-	idbati      text DEFAULT 'BA' || nextval('m_economie.an_immo_bati_seq') NOT NULL,--------- Identifiant unique du bâtiment
-	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet
-	ityp        character varying (2) ,------------------------------------------------------- Type d''occupation
-	libelle     character varying (254),------------------------------------------------------ Libellé du bâtiment
-	surf_m      integer,---------------------------------------------------------------------- Surface en m²	
-	shon        integer,---------------------------------------------------------------------- Surface de plancher en m²
-	hauteur     integer,---------------------------------------------------------------------- Hauteur em mètre
-	nbloc       integer,---------------------------------------------------------------------- Nombre de local dans le bâtiment
-	bdesc       character varying(100),------------------------------------------------------- Description du bâtiment
-	mprop	    boolean default false,-------------------------------------------------------- Même propriétaire que le bâtiment	
-	observ      character varying(1000)------------------------------------------------------- Observations
-);
+-- Table: m_economie.an_immo_bati
 
-ALTER TABLE m_economie.an_immo_bati
-  ADD CONSTRAINT an_immo_bati_pkey PRIMARY KEY(idbati);
+-- DROP TABLE m_economie.an_immo_bati;
 
-COMMENT ON TABLE m_economie.an_immo_bati IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
-COMMENT ON COLUMN m_economie.an_immo_bati.idbati IS 'Identifiant du bâtiment';
-COMMENT ON COLUMN m_economie.an_immo_bati.idimmo IS 'Identifiant de l''objet';
-COMMENT ON COLUMN m_economie.an_immo_bati.ityp IS 'Type d''occupation (incrémentation automatique par la table geo_immo_bien pour la gestion de la liste des domaines des bâtiments pour un type local non identifié)';
-COMMENT ON COLUMN m_economie.an_immo_bati.libelle IS 'Libellé du bâtiment';
-COMMENT ON COLUMN m_economie.an_immo_bati.surf_m IS 'Surface en m²';
-COMMENT ON COLUMN m_economie.an_immo_bati.shon IS 'Surface de plancher en m²';
-COMMENT ON COLUMN m_economie.an_immo_bati.hauteur IS 'Hauteur em mètre';
-COMMENT ON COLUMN m_economie.an_immo_bati.nbloc IS 'Nombre de local dans le bâtiment';
-COMMENT ON COLUMN m_economie.an_immo_bati.bdesc IS 'Description du bâtiment';
-COMMENT ON COLUMN m_economie.an_immo_bati.mprop IS 'Même propriétaire que le local';
-COMMENT ON COLUMN m_economie.an_immo_bati.observ IS 'Observations';
+CREATE TABLE m_economie.an_immo_bati
+(
+    idbati text COLLATE pg_catalog."default" NOT NULL,
+    idimmo text COLLATE pg_catalog."default",
+    ityp character varying(2) COLLATE pg_catalog."default",
+    libelle character varying(254) COLLATE pg_catalog."default",
+    surf_p integer,
+    mprop boolean DEFAULT false,
+    observ character varying(1000) COLLATE pg_catalog."default",
+    CONSTRAINT an_immo_bati_pkey PRIMARY KEY (idbati),
+    CONSTRAINT an_immo_bati_ityp_fkey FOREIGN KEY (ityp)
+        REFERENCES m_economie.lt_immo_ityp (code) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
 
--- FONCTION : génère l'identifiant idbati avant insertion : permet de gérer le cas d'un ajout direct d'un bâtiment inexistant 
--- comprenant n locaux identifiable (dans liste de valeurs GEO)
+COMMENT ON TABLE m_economie.an_immo_bati
+    IS 'Table alphanumérique contenant les informations aux bâtiments';
 
--- FUNCTION: m_economie.ft_m_immo_insert_bati()
--- DROP FUNCTION m_economie.ft_m_immo_insert_bati();
+COMMENT ON COLUMN m_economie.an_immo_bati.idbati
+    IS 'Identifiant du bâtiment';
 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_bati()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
+COMMENT ON COLUMN m_economie.an_immo_bati.idimmo
+    IS 'Identifiant de l''objet';
 
+COMMENT ON COLUMN m_economie.an_immo_bati.ityp
+    IS 'Type d''occupation (incrémentation automatique par la table geo_immo_bien pour la gestion de la liste des domaines des bâtiments pour un type local non identifié)';
 
+COMMENT ON COLUMN m_economie.an_immo_bati.libelle
+    IS 'Libellé du bâtiment';
 
-BEGIN
+COMMENT ON COLUMN m_economie.an_immo_bati.surf_p
+    IS 'Surface de plancher total du bâtiment renseigné par l''utilisateur';
 
-    
-     new.idbati := 'BA' || (SELECT nextval('m_economie.an_immo_bati_seq'::regclass));
+COMMENT ON COLUMN m_economie.an_immo_bati.mprop
+    IS 'Type de propriétaire (unique ou en copropriété). La valeur true indique qu''il s''agit d''une copropriété';
 
-	 
-     new.ityp := '22'; -- force le type d''occupation à local divisé dans un bâtiment pour gérer l'affichage du bâtiment dans la liste de choix
-		       -- à l'enregistrement le bâtiment prendra la valeur définitf de l'occupation de l'objet saisi avec le trigger after
+COMMENT ON COLUMN m_economie.an_immo_bati.observ
+    IS 'Observations';
+-- Index: fki_an_immo_bati_ityp_fkey
 
-     return new ;
+-- DROP INDEX m_economie.fki_an_immo_bati_ityp_fkey;
 
-END;
+CREATE INDEX fki_an_immo_bati_ityp_fkey
+    ON m_economie.an_immo_bati USING btree
+    (ityp COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: idx_an_immo_bati_idimmo
 
-$BODY$;
+-- DROP INDEX m_economie.idx_an_immo_bati_idimmo;
 
-ALTER FUNCTION m_economie.ft_m_immo_insert_bati()
-    OWNER TO sig_create;
+CREATE INDEX idx_an_immo_bati_idimmo
+    ON m_economie.an_immo_bati USING btree
+    (idimmo COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_bati() TO edit_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_bati() TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_bati() TO create_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_bati() TO PUBLIC;
-
-COMMENT ON FUNCTION m_economie.ft_m_immo_insert_bati()
-    IS 'Fonction gérant l''insertion d''nouvel identifiant du bâtiment (cas d''ajout de valeur depuis GEO)';
-	
-	
 -- Trigger: t_t1_insert_immo_bati
 
 -- DROP TRIGGER t_t1_insert_immo_bati ON m_economie.an_immo_bati;
@@ -855,185 +660,157 @@ CREATE TRIGGER t_t1_insert_immo_bati
     BEFORE INSERT
     ON m_economie.an_immo_bati
     FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_bati();
-
--- FONCTION : Fonction supprimant les valeurs de cette table et intègrant les nouvelles valeurs pour la mise à jour de la table an_immo_bati déclenchée sur la table lk_immo_ityp après cette insertion
-
--- FUNCTION: m_economie.ft_m_immo_insert_occup_bati()
-
--- DROP FUNCTION m_economie.ft_m_immo_insert_occup_bati();
-
-CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_occup_bati()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-
-BEGIN
+    EXECUTE PROCEDURE m_economie.ft_m_gestion_immo_insertbati();
 
 
-	 -- je supprime le contenu de la table lk_immo_ityp permettant de mettre à jour l'attribut ityp de la table an_immo_bati
-     DELETE FROM m_economie.lk_immo_ityp;
-	 -- j'intègre les nouvelles valeurs dans la table pour la mise à jour de la table an_immo_bati déclenchée sur la table lk_immo_ityp après cette insertion
-     INSERT INTO m_economie.lk_immo_ityp (id,idimmo, ityp_objet,ityp_bati)
-     SELECT 
-     	row_number() over() as id,
-    	bi.idimmo,
-    	bi.ityp AS ityp_objet,
-    	ba.ityp AS ityp_bati
-   	FROM m_economie.geo_immo_bien bi,
-    	m_economie.an_immo_bati ba
-  	WHERE bi.idimmo = ba.idimmo AND bi.ityp::text <> '22'::text;
-
-
-     return new ;
-
-END;
-
-$BODY$;
-
-ALTER FUNCTION m_economie.ft_m_immo_insert_occup_bati()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_occup_bati() TO edit_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_occup_bati() TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_occup_bati() TO create_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_occup_bati() TO PUBLIC;
-
-COMMENT ON FUNCTION m_economie.ft_m_immo_insert_occup_bati()
-    IS 'Fonction supprimant les valeurs de cette table et intègrant les nouvelles valeurs pour la mise à jour de la table an_immo_bati déclenchée sur la table lk_immo_ityp après cette insertion';
-
-
--- Trigger: t_t2_insert_occup_immo_bati
--- t_t2_insert_occup_immo_bati ON m_economie.an_immo_bati;
-
-CREATE TRIGGER t_t2_insert_occup_immo_bati
-    AFTER INSERT 
-    ON m_economie.an_immo_bati
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_occup_bati();
-					 
--- FONCTION : Fonction permettant de supprimer la ligne null créée après l'insertion d'un bâtiment dans le cas d'un ajout d'un bâtiment avec biens identifiés dans la table an_immo_bati
-
--- FUNCTION: m_economie.ft_m_immo_delete_bati_null()
--- DROP FUNCTION m_economie.ft_m_immo_delete_bati_null();
-
-CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_delete_bati_null()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-
-BEGIN
-
-      -- je supprime uniquement pour les locaux divisés d'un même bâtiment, la valeur null qui s'est créée à l'enregistrement du bien saisi
-      DELETE FROM m_economie.an_immo_bati WHERE ityp = '22' AND libelle IS NULL;
-	  
-     return new ;
-
-END;
-
-$BODY$;
-
-ALTER FUNCTION m_economie.ft_m_immo_delete_bati_null()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bati_null() TO edit_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bati_null() TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bati_null() TO create_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_delete_bati_null() TO PUBLIC;
-
-COMMENT ON FUNCTION m_economie.ft_m_immo_delete_bati_null()
-    IS 'Fonction gérant la suppression des bâtiments après insertion d''une occupation de type 22 (bâtiment avec n locaux identifiés)';				 
-					 
--- Trigger: t_t3_delete_immo_bati_null
--- DROP TRIGGER t_t3_delete_immo_bati_null ON m_economie.an_immo_bati;
-
-CREATE TRIGGER t_t3_delete_immo_bati_null
-    AFTER INSERT
-    ON m_economie.an_immo_bati
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_delete_bati_null();
-
-	
 					 
 --################################################################# an_immo_comm #######################################################
 
-CREATE TABLE m_economie.an_immo_comm --------------------------------------------- Attribut métier de la commercialisation
-	(
-	idcomm      text DEFAULT 'C' || nextval('m_economie.an_immo_comm_seq') NOT NULL,---------- Identifiant unique de la commercialisation
-	idimmo      text,------------------------------------------------------------------------- Identifiant de l''objet bien
-	idbien      text,------------------------------------------------------------------------- Identifiant du bien
-	prix_a	    integer,---------------------------------------------------------------------- Prix d'acquisition du bien occupé
-	prix_am     integer,---------------------------------------------------------------------- Prix d'acquisition au m² du bien occupé
-	loyer_a     integer,---------------------------------------------------------------------- Loyer actuel du bien
-	loyer_am    integer,---------------------------------------------------------------------- Loyer actuel du bien au m²
-	bail_a	    integer,---------------------------------------------------------------------- Montant du bail actuel du bien
-	prix        integer,---------------------------------------------------------------------- Prix total
-	prix_m      integer,---------------------------------------------------------------------- Prix au m²
-	loyer       integer,---------------------------------------------------------------------- Loyer total
-	loyer_m     integer,---------------------------------------------------------------------- Loyer au m²
-	bail        integer,---------------------------------------------------------------------- Montant du Bail
-	comm        character varying(150),------------------------------------------------------- Nom du commercialisateur
-	commtel     character varying(14),-------------------------------------------------------- Téléphone du commercialisateur
-	commtelp    character varying(14),-------------------------------------------------------- Téléphone portable du commercialisateur
-	commmail    character varying(80),-------------------------------------------------------- Email du commercialisateur
-	etat        character varying(2),--------------------------------------------------------- Etat de la commercialisation
-	refext      character varying(254),------------------------------------------------------- Référence externe d'un site internet présentant une fiche de commercialisation
-	observ      character varying(1000)------------------------------------------------------- Observations
-);
+-- Table: m_economie.an_immo_comm
 
-ALTER TABLE m_economie.an_immo_comm
-  ADD CONSTRAINT an_immo_comm_pkey PRIMARY KEY(idcomm);
+-- DROP TABLE m_economie.an_immo_comm;
 
-COMMENT ON TABLE m_economie.an_immo_comm IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
-COMMENT ON COLUMN m_economie.an_immo_comm.idcomm IS 'Identifiant unique de la commercialisation';
-COMMENT ON COLUMN m_economie.an_immo_comm.idimmo IS 'Identifiant de l''objet bien';
-COMMENT ON COLUMN m_economie.an_immo_comm.idbien IS 'Identifiant du bien';
-COMMENT ON COLUMN m_economie.an_immo_comm.prix_a IS 'Prix d''acquisition du bien occupé';
-COMMENT ON COLUMN m_economie.an_immo_comm.prix_am IS 'Prix d''acquisition au m² du bien occupé';
-COMMENT ON COLUMN m_economie.an_immo_comm.loyer_a IS 'Loyer actuel du bien';
-COMMENT ON COLUMN m_economie.an_immo_comm.loyer_am IS 'Loyer actuel du bien au m²';
-COMMENT ON COLUMN m_economie.an_immo_comm.bail_a IS 'Montant du bail actuel du bien';
-COMMENT ON COLUMN m_economie.an_immo_comm.prix IS 'Prix total';
-COMMENT ON COLUMN m_economie.an_immo_comm.prix_m IS 'Prix au m²';
-COMMENT ON COLUMN m_economie.an_immo_comm.loyer IS 'Loyer total';
-COMMENT ON COLUMN m_economie.an_immo_comm.loyer_m IS 'Loyer au m²';
-COMMENT ON COLUMN m_economie.an_immo_comm.bail IS 'Montant du Bail';
-COMMENT ON COLUMN m_economie.an_immo_comm.comm IS 'Nom du commercialisateur';
-COMMENT ON COLUMN m_economie.an_immo_comm.commtel IS 'Téléphone du commercialisateur';
-COMMENT ON COLUMN m_economie.an_immo_comm.commtelp IS 'Téléphone portable du commercialisateur';
-COMMENT ON COLUMN m_economie.an_immo_comm.commmail IS 'Email du commercialisateur';
-COMMENT ON COLUMN m_economie.an_immo_comm.etat IS 'Etat de la commercialisation';
-COMMENT ON COLUMN m_economie.an_immo_comm.refext IS 'Référence externe d''un site internet présentant une fiche de commercialisation';
-COMMENT ON COLUMN m_economie.an_immo_comm.observ IS 'Observations';
+CREATE TABLE m_economie.an_immo_comm
+(
+    idcomm text COLLATE pg_catalog."default" NOT NULL,
+    idimmo text COLLATE pg_catalog."default",
+    idbien text COLLATE pg_catalog."default",
+    prix_a integer,
+    prix_am integer,
+    loyer_a integer,
+    loyer_am integer,
+    bail_a integer,
+    prix integer,
+    prix_m integer,
+    loyer integer,
+    loyer_m integer,
+    bail integer,
+    comm character varying(150) COLLATE pg_catalog."default",
+    commtel character varying(14) COLLATE pg_catalog."default",
+    commtelp character varying(14) COLLATE pg_catalog."default",
+    commmail character varying(80) COLLATE pg_catalog."default",
+    etat character varying(2) COLLATE pg_catalog."default",
+    refext character varying(254) COLLATE pg_catalog."default",
+    observ character varying(1000) COLLATE pg_catalog."default",
+    CONSTRAINT an_immo_comm_pkey PRIMARY KEY (idcomm),
+    CONSTRAINT an_immo_comm_etat_fkey FOREIGN KEY (etat)
+        REFERENCES m_economie.lt_immo_etat (code) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE SET DEFAULT
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+COMMENT ON TABLE m_economie.an_immo_comm
+    IS 'Table alphanumérique contenant les informations sur la commercialisation des biens immobiliers ou locaux';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.idcomm
+    IS 'Identifiant unique de la commercialisation';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.idimmo
+    IS 'Identifiant de l''objet bien';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.idbien
+    IS 'Identifiant du bien';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.prix_a
+    IS 'Prix d''acquisition du bien occupé';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.prix_am
+    IS 'Prix d''acquisition au m² du bien occupé';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.loyer_a
+    IS 'Loyer actuel du bien';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.loyer_am
+    IS 'Loyer actuel du bien au m²';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.bail_a
+    IS 'Montant du bail actuel du bien';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.prix
+    IS 'Prix total';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.prix_m
+    IS 'Prix au m²';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.loyer
+    IS 'Loyer total';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.loyer_m
+    IS 'Loyer au m²';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.bail
+    IS 'Montant du Bail';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.comm
+    IS 'Nom du commercialisateur';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.commtel
+    IS 'Téléphone du commercialisateur';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.commtelp
+    IS 'Téléphone portable du commercialisateur';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.commmail
+    IS 'Email du commercialisateur';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.etat
+    IS 'Etat de la commercialisation';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.refext
+    IS 'Référence externe d''un site internet présentant une fiche de commercialisation';
+
+COMMENT ON COLUMN m_economie.an_immo_comm.observ
+    IS 'Observations';
 
 --################################################################# lk_immo_occup #######################################################
 
+-- Table: m_economie.lk_immo_occup
+
+-- DROP TABLE m_economie.lk_immo_occup;
+
 CREATE TABLE m_economie.lk_immo_occup
-	(
-	id          integer DEFAULT nextval('m_economie.lk_immo_occup_seq') NOT NULL,------------ Identifiant unique de l'occupation
-	idbien      text,------------------------------------------------------------------------ Identifiant du bien occupé
-	idimmo	    text,------------------------------------------------------------------------ Identifiant de l''objet bien
-	siret       character varying(14)-------------------------------------------------------- N° SIRET de l'établissement occupant
-	);
+(
+    id integer NOT NULL DEFAULT nextval('m_economie.lk_immo_occup_seq'::regclass),
+    idbien text COLLATE pg_catalog."default",
+    siret character varying(14) COLLATE pg_catalog."default",
+    CONSTRAINT lk_immo_occup_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
-ALTER TABLE m_economie.lk_immo_occup
-  ADD CONSTRAINT lk_immo_occup_pkey PRIMARY KEY(id);
+COMMENT ON TABLE m_economie.lk_immo_occup
+    IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
 
-COMMENT ON TABLE m_economie.lk_immo_occup IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
-COMMENT ON COLUMN m_economie.lk_immo_occup.id IS 'Identifiant unique de l''occupation';
-COMMENT ON COLUMN m_economie.lk_immo_occup.idbien IS 'Identifiant du bien occupé';
-COMMENT ON COLUMN m_economie.lk_immo_occup.idimmo IS 'Identifiant de l''objet bien';
-COMMENT ON COLUMN m_economie.lk_immo_occup.siret IS 'N° SIRET de l''établissement occupant';
+COMMENT ON COLUMN m_economie.lk_immo_occup.id
+    IS 'Identifiant unique de l''occupation';
+
+COMMENT ON COLUMN m_economie.lk_immo_occup.idbien
+    IS 'Identifiant du bien occupé';
+
+COMMENT ON COLUMN m_economie.lk_immo_occup.siret
+    IS 'N° SIRET de l''établissement occupant';
+-- Index: idx_lk_immo_occup_idbien
+
+-- DROP INDEX m_economie.idx_lk_immo_occup_idbien;
+
+CREATE INDEX idx_lk_immo_occup_idbien
+    ON m_economie.lk_immo_occup USING btree
+    (idbien COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: idx_lk_immo_occup_siret
+
+-- DROP INDEX m_economie.idx_lk_immo_occup_siret;
+
+CREATE INDEX idx_lk_immo_occup_siret
+    ON m_economie.lk_immo_occup USING btree
+    (siret COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
 
 
 --################################################################# an_immo_media #######################################################
@@ -1045,14 +822,14 @@ COMMENT ON COLUMN m_economie.lk_immo_occup.siret IS 'N° SIRET de l''établissem
 
 CREATE TABLE m_economie.an_immo_media
 (
-    id text,
-    media text,
+    id text COLLATE pg_catalog."default",
+    media text COLLATE pg_catalog."default",
     miniature bytea,
-    n_fichier text,
-    t_fichier text,
-    op_sai character varying(20),
+    n_fichier text COLLATE pg_catalog."default",
+    t_fichier text COLLATE pg_catalog."default",
+    op_sai character varying(20) COLLATE pg_catalog."default",
     date_sai timestamp without time zone,
-    l_doc character varying(100),
+    l_doc character varying(100) COLLATE pg_catalog."default",
     gid integer NOT NULL DEFAULT nextval('m_economie.an_immo_media_seq'::regclass),
     CONSTRAINT an_immo_media_pkey PRIMARY KEY (gid)
 )
@@ -1060,17 +837,6 @@ WITH (
     OIDS = FALSE
 )
 TABLESPACE pg_default;
-
-ALTER TABLE m_economie.an_immo_media
-    OWNER to sig_create;
-
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.an_immo_media TO edit_sig;
-
-GRANT ALL ON TABLE m_economie.an_immo_media TO sig_create;
-
-GRANT ALL ON TABLE m_economie.an_immo_media TO create_sig;
-
-GRANT SELECT ON TABLE m_economie.an_immo_media TO read_sig;
 
 COMMENT ON TABLE m_economie.an_immo_media
     IS 'Table gérant les documents intégrés pour la gestion des données du marché immobilier d''entreprises';
@@ -1095,131 +861,18 @@ COMMENT ON COLUMN m_economie.an_immo_media.op_sai
 
 COMMENT ON COLUMN m_economie.an_immo_media.date_sai
     IS 'Date de la saisie du document';
-	COMMENT ON COLUMN m_economie.an_immo_media.l_doc
+
+COMMENT ON COLUMN m_economie.an_immo_media.l_doc
     IS 'Titre du document ou légère description';
 
 COMMENT ON COLUMN m_economie.an_immo_media.gid
     IS 'Compteur (identifiant interne)';
+-- Index: idx_an_immo_media_id
 
---################################################################# lk_immo_ityp #######################################################
+-- DROP INDEX m_economie.idx_an_immo_media_id;
 
-					 
--- View: m_economie.lk_immo_ityp
+CREATE INDEX idx_an_immo_media_id
+    ON m_economie.an_immo_media USING btree
+    (id COLLATE pg_catalog."default" ASC NULLS LAST)
+    TABLESPACE pg_default;
 
-CREATE TABLE m_economie.lk_immo_ityp
-	(
-	id          integer NOT NULL,------------------------------------------------------------ Identifiant unique
-	idimmo      text,------------------------------------------------------------------------ Identifiant de l''objet saisi
-	ityp_objet  character varying(2),-------------------------------------------------------- Occupation de l''objet saisi
-	ityp_bati   character varying(2)--------------------------------------------------------- Occupation du bâti
-	);
-
-ALTER TABLE m_economie.lk_immo_ityp
-  ADD CONSTRAINT lk_immo_ityp_pkey PRIMARY KEY(id);
-
-ALTER TABLE m_economie.lk_immo_ityp
-    OWNER to sig_create;
-
-
-
-COMMENT ON TABLE m_economie.lk_immo_ityp
-    IS 'Table non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié. Table incrémenté automatiquement à l''insertion d''une valeur dans la table an_immo_bati';
-
-COMMENT ON COLUMN m_economie.lk_immo_ityp.id
-    IS 'Identifiant unique';
-
-COMMENT ON COLUMN m_economie.lk_immo_ityp.idimmo
-    IS 'Identifiant de l''objet saisi';
-
-COMMENT ON COLUMN m_economie.lk_immo_ityp.ityp_objet
-    IS 'Occupation de l''objet saisi';
-
-COMMENT ON COLUMN m_economie.lk_immo_ityp.ityp_bati
-    IS 'Occupation du bâti';
-					 
-COMMENT ON TABLE m_economie.lk_immo_ityp
-    IS 'Table non géographiques listant les types d''occupation entre la table des objeys saisis et les attributs des bâtiments (exclu des bâtiments avec biens identifiés). Objectif : utiliser cette vue rafraichie après l''insertion d''un bâtiment pour mettre à jour cette même table des bâtis pour gérer la liste des bâtiments (uniquement si locaux identifiés) affichés à l''utilisateur dans GEO pour affecter un bâtiment à un bien identifié. Table incrémenté automatiquement à l''insertion d''une valeur dans la table an_immo_bati';
-
-					 
--- FONCTION : Fonction permettant de mettre à jour l''attribut ityp dans la table an_immo_bati
-
--- FUNCTION: m_economie.ft_m_immo_insert_ityp()
--- DROP FUNCTION m_economie.ft_m_immo_insert_ityp();
-					 
-CREATE OR REPLACE FUNCTION m_economie.ft_m_immo_insert_ityp()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-
-BEGIN
-
-     -- mise à jour de l'attribut ityp dans la table an_immo_bati (permet de filtrer correctement ityp = '22' dans la liste des bâtiments avec locaux identifiés dans GEO)
-     UPDATE m_economie.an_immo_bati SET ityp = lk_immo_ityp.ityp_objet FROM m_economie.lk_immo_ityp WHERE lk_immo_ityp.idimmo = an_immo_bati.idimmo ;  
-
-     return new ;
-
-END;
-
-$BODY$;
-
-ALTER FUNCTION m_economie.ft_m_immo_insert_ityp()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_ityp() TO edit_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_ityp() TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_ityp() TO create_sig;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_immo_insert_ityp() TO PUBLIC;
-
-COMMENT ON FUNCTION m_economie.ft_m_immo_insert_ityp()
-    IS 'Fonction permettant de mettre à jour l''attribut ityp dans la table an_immo_bati via cette table de lien incrémentée après insertion dans cette même table an_immo_bati';
-
-
--- DROP TRIGGER t_t1_insert_immo_ityp ON m_economie.lk_immo_ityp;
-CREATE TRIGGER t_t1_insert_immo_ityp
-    AFTER INSERT
-    ON m_economie.lk_immo_ityp
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_immo_insert_ityp();
-					 
--- ###############################################################################################################################
--- ###                                                                                                                         ###
--- ###                                                        CONTRAINTES                                                      ###
--- ###                                                                                                                         ###
--- ###############################################################################################################################
-
-
--- CLE ETRANGERE
-
-ALTER TABLE m_economie.geo_immo_bien
-  ADD CONSTRAINT geo_immo_bien_ityp_fkey FOREIGN KEY (ityp)
-      REFERENCES m_economie.lt_immo_ityp(code) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE SET DEFAULT;
-      
-ALTER TABLE m_economie.geo_immo_bien
-  ADD CONSTRAINT geo_immo_bien_geom_fkey FOREIGN KEY (src_geom)
-      REFERENCES r_objet.lt_src_geom(code) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE SET DEFAULT;
-      
-ALTER TABLE m_economie.an_immo_bien
-  ADD CONSTRAINT an_immo_bien_tbien_fkey FOREIGN KEY (tbien)
-      REFERENCES m_economie.lt_immo_tbien(code) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE SET DEFAULT;
-					 
-					 
-/*
--- pas de clé étrangère ici car plusieurs valeurs possibles depuis GEO
-ALTER TABLE m_economie.an_immo_bati
-  ADD CONSTRAINT an_immo_bati_bdesc_fkey FOREIGN KEY (bdesc)
-      REFERENCES m_economie.lt_immo_dbati(code) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE SET DEFAULT;
-*/
-
-ALTER TABLE m_economie.an_immo_comm
-  ADD CONSTRAINT an_immo_comm_etat_fkey FOREIGN KEY (etat)
-      REFERENCES m_economie.lt_immo_etat(code) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE SET DEFAULT;
