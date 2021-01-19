@@ -22,8 +22,7 @@ SOMMAIRE :
 -- ###                                                                                                                         ###
 -- ###############################################################################################################################
 
-
--- VUES 
+-- VUE
 
 DROP VIEW IF EXISTS x_apps.xapps_an_vmr_immo_bati;
 DROP VIEW IF EXISTS an_v_immo_bien_locnonident;
