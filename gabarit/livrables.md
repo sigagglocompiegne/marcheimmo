@@ -59,11 +59,11 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 
 - Tous les objets de type "surface" sont des polygones fermés, et si ils sont adjacents, ils devront être topologique (absence de chevauchements et de micro-trous). 
 
-![picto](topo_poly_1.png) ![picto](topo_poly_3.png)
+![picto](https://github.com/sigagglocompiegne/espace_vert/blob/master/gabarit/topo_poly_1.png) ![picto](https://github.com/sigagglocompiegne/espace_vert/blob/master/gabarit/topo_poly_3.png)
 
 - Un polygone contenant un autre polygone devra être découpé avec celui-ci.
 
-![picto](topo_poly_2.png)
+![picto](https://github.com/sigagglocompiegne/espace_vert/blob/master/gabarit/topo_poly_2.png)
 
 ### Système de coordonnées
 
