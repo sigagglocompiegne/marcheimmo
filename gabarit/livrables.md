@@ -80,9 +80,11 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 |Nom fichier|Définition|Catégorie|Géométrie|
 |:---|:---|:---|:---|
-|geo_v_ev_point|Localisation des objets "espace vert" de représentation ponctuelle|Inventaire cartographique|Ponctuel|
-|geo_v_ev_polygon|Délimitation des objets "espace vert" de représentation surfacique|Inventaire cartographique|Polygone|
-|geo_v_ev_line|Tracé des objets "espace vert" de représentation rectiligne|Inventaire cartographique|Linéaire|
+|geo_v_immo_bien_terrain|Localisation des terrains|Inventaire cartographique|Polygone|
+|geo_v_immo_bien_locunique|Localisation des locaux correspondant à un unique bâtiment|Inventaire cartographique|Polygone|
+|geo_v_immo_bien_locnonident|Localsiation du bâtiment contenant n locaux|Inventaire cartographique|Polygone|
+|an_v_immo_bien_locnonident|Inventaire cartographique|sans géométrie (utilise la géométrie de geo_v_immo_bien_locnonident en relation n..m)|
+|geo_v_immo_bien_locident|Localisation des locaux identifiés permettant la reconstruction du bâtiment d'activité|Inventaire cartographique|Polygone|
 
 ## Implémentation informatique
 
