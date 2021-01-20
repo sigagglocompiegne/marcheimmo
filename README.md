@@ -6,14 +6,14 @@ Spécification du fichier d’échange relatif aux données concernant l'inventa
 
 - [Lire la documentation du standard](gabarit/livrables.md)
 - Script d'initialisation de la base de données
-  * [Suivi des modifications](sql/IMMO_00_trace.sql)
-  * [Création  de la structure initiale](sql/IMMO_10_squelette.sql)
-  * [Création des vues de gestion](sql/IMMO_20_vues_gestion.sql)
-  * [Création des vues applicatives](sql/IMMO_21_vues_xapps.sql)
-  * [Création des privilèges](sql/IMMO_99_grant.sql)
-- [Documentation d'administration de la base](doc/doc_admin_bd_immo.md)
+  * [Suivi des modifications](bdd/IMMO_00_trace.sql)
+  * [Création  de la structure initiale](bdd/IMMO_10_squelette.sql)
+  * [Création des vues de gestion](bdd/IMMO_20_vues_gestion.sql)
+  * [Création des vues applicatives](bdd/IMMO_21_vues_xapps.sql)
+  * [Création des privilèges](bdd/IMMO_99_grant.sql)
+- [Documentation d'administration de la base](bdd/doc_admin_bd_immo.md)
 - [Documentation d'administration de l'application Activité Economique](../../../amt_fon_eco/blob/master/doc/doc_admin_app_eco.md)
-- [Documentation utilisateur de l'application](doc/doc_util_admin_immo.md)
+- [Documentation utilisateur de l'application](app/doc_util_admin_immo.md)
 
 ## Contexte
 
