@@ -28,7 +28,9 @@ Le développement fonctionnel de l'inventaire cartographique priviligie l'accès
 ![picto](choix.png)
 
 1 - Cliquez sur le module métier pour accéder aux diverses fonctoins de gestion de l'inventaire
+
 2 - Cliquez sur le sous-menu `Gestion de votre patrimoine` et choissisez le type d'objets à saisir
+
 3 - Cliquez sur l'outil de dessin (ici polygon topologique)
 
 #### Choix 1 - Saisir un bien immobilier de type terrain
