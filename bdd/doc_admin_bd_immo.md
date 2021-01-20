@@ -24,11 +24,11 @@ La donnée a été construite de façon à pouvoir réaliser un inventaire carto
 
 ## Modèle conceptuel simplifié
 
-![picto](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/img/mcd_immo.png)
+![picto](mcd_immo.png)
 
 ## Schéma fonctionnel
 
-![picto](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/img/schema_fonctionnel_bien_immo.png)
+![picto](schema_fonctionnel_bien_immo.png)
 
 ## Dépendances
 
