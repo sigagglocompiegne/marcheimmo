@@ -33,6 +33,8 @@ Le développement fonctionnel de l'inventaire cartographique priviligie l'accès
 
 3 - Cliquez sur l'outil de dessin (ici polygon topologique)
 
+Les options liées aux dessins (saisie, accroche, ...) sont détaillées au niveau du tutoriel [Dessiner et Annoter](https://geo.compiegnois.fr/portail/index.php/2020/06/16/les-outils-de-dessin/) et du tutoriel [Dessiner en mode avancé](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/)
+
 #### Choix 1 - Saisir un bien immobilier de type terrain
 
 ![picto](choix_11.png)
