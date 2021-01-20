@@ -13,7 +13,7 @@ Si le bien est déjà saisi, l'accès à ces informations pour compléments ou a
 
 ### Choix 1 - Saisir un bien immobilier de type terrain
 
-![picto](../img/choix_11.png)
+![picto](choix_11.png)
 
 Particularité(s) à noter :
 * 
