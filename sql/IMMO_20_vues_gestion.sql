@@ -384,7 +384,7 @@ $BODY$;
 
 -- DROP FUNCTION m_economie.ft_m_gestion_immolocnonident_bien();
 
-CREATE FUNCTION m_economie.ft_m_gestion_immolocnonident_bien()
+CREATE OR REPLACE FUNCTION m_economie.ft_m_gestion_immolocnonident_bien()
     RETURNS trigger
     LANGUAGE 'plpgsql'
     COST 100
@@ -416,6 +416,8 @@ SELECT v_idcomm,NEW.idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer
 
 INSERT INTO m_economie.an_immo_propbien (idprop,idbien,propnom,proptel,proptelp,propmail,observ)
 SELECT v_idprop,v_idbien,NEW.propnom_bien,NEW.proptel_bien,NEW.proptelp_bien,NEW.propmail_bien,NEW.observ_propbien;
+
+REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
 
 END IF;
 
@@ -466,6 +468,8 @@ refext = NEW.refext_comm,
 observ = NEW.observ_comm
 WHERE idcomm = NEW.idcomm;
 
+REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
+
 END IF;
 
 IF (TG_OP='DELETE') then
@@ -485,6 +489,9 @@ RETURN NEW;
 END;
 
 $BODY$;
+
+
+
 
 
 -- ############################################################ ft_m_gestion_immolocunique #########################################    
