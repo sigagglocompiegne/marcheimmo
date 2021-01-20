@@ -23,7 +23,7 @@ Pour supprimer un objet saisi, un simple clic sur l'objet à partir de la carte 
 
 **La saisie de l'inventaire**
 
-Le développement fonctionnel de l'inventaire cartographique priviligie l'accès par type de biens. Vous trouverez si dessous les différents choix possibles. 
+Le développement fonctionnel de l'inventaire cartographique priviligie l'accès par type de biens. Vous trouverez ci-dessous les différents choix possibles. 
 
 ### Choix 1 - Saisir un bien immobilier de type terrain
 
