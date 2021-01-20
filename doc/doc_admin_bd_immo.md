@@ -28,7 +28,7 @@ La donnée a été construite de façon à pouvoir réaliser un inventaire carto
 
 ## Schéma fonctionnel
 
-(à venir)
+![picto](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/img/schema_fonctionnel_bien_immo.png)
 
 ## Dépendances
 
