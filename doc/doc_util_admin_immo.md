@@ -108,6 +108,12 @@ Particularité(s) à noter :
 
 - possibilité d'affecter un établissement SIRENE par une recherche par son numéro SIRET, son nom, son enseigne, ... dans l'onglet `Occupant(s) ou occupation`
 
+#### Résultat cartographique pour le choix 2
+
+![picto](choix_211.png)
+
+1 - Représentation du bâtiment seul avec en étiquette le nom du bâtiment et entre parenthèse le nombre de locaux (ici obligatoirement 1 et pas plus)
+
 ### Choix 3 - Saisir un bien immobilier de type bâtiment contenant n locaux non identifiés : Local non identifié dans un bâtiment divisible
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
@@ -176,7 +182,7 @@ Particularité(s) à noter :
 
 ![picto](choix_311.png)
 
-1 - Représentation du bâtiment seul avec en étiquette le nom du bâtiment et entre parenthèse le nombre de locaux affectés non identifiés (ici 3)
+1 - Représentation du bâtiment seul avec en étiquette le nom du bâtiment et entre parenthèse le nombre de locaux affectés non identifiés (ici 3). Si le nombre de locaux est à 0, cela signifie que le bâtiment a été initialisé dans l'inventaire cartographique sans affectation de locaux.
 
 ### Choix 4 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
 
