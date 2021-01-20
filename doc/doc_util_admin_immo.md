@@ -25,7 +25,7 @@ Pour supprimer un objet saisi, un simple clic sur l'objet à partir de la carte 
 
 Le développement fonctionnel de l'inventaire cartographique priviligie l'accès par type de biens. Vous trouverez ci-dessous les différents choix possibles. 
 
-### Choix 1 - Saisir un bien immobilier de type terrain
+#### Choix 1 - Saisir un bien immobilier de type terrain
 
 ![picto](choix_11.png)
 
@@ -33,10 +33,10 @@ Particularité(s) à noter :
 * 
 * 
 
-### Choix 2 - Saisir un bien immobilier de type local correspondant à un bâtiment : Local (Bâtiment non divisé)
+#### Choix 2 - Saisir un bien immobilier de type local correspondant à un bâtiment : Local (Bâtiment non divisé)
 
-### Choix 3 - Saisir un bien immobilier de type bâitment contenant n locaux non identifiés : Local non identifié dans un bâtiment divisible
+#### Choix 3 - Saisir un bien immobilier de type bâitment contenant n locaux non identifiés : Local non identifié dans un bâtiment divisible
 
-### Choix 4 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
+#### Choix 4 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
 
 
