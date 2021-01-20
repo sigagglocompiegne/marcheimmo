@@ -37,7 +37,9 @@ Les options liées aux dessins (saisie, accroche, ...) sont détaillées au nive
 
 #### Choix 1 - Saisir un bien immobilier de type terrain
 
-![picto](choix_11.png)
+Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en base la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
+
+![picto](choix_1.png)
 
 Particularité(s) à noter :
 * 
