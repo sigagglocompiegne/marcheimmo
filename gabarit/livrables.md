@@ -95,6 +95,20 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
+|idimmo|identifiant de l'objet|text|O[n° incrémenté]||Incrémentation automatique par le gabarit|
+|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immp_ityp)|Non Null forcé à la valeur '10'|Non modifiable dans le gabarit|
+|libelle|Libellé du bien|character varying(254)||||
+|op_sai|Opérateur de saisie|character varying(25)||||
+|date_sai|Date de saisie|date|now()||Non modifiable dans le gabarit|
+|date_maj|Date de mise à jour|date||||
+|src_geom|Référentiel géographique utilisé pour la saisie|character varying(2)|Liste de valeurs (lt_src_geom)|Valeur '11' (PCI Vecteur) par défaut||
+|src_date|Année du référentiel géographique utilisé pour la saisie|integer||||
+|insee|Code insee de la ou des commune(s) d'emprise|character varying(25)||||
+|commune|Libellé de la ou des commune(s) d'emprise|character varying(160)||||
+|adr|Adresse du bien|character varying(254)||||
+|adrcomp|Complément d'adresse|character varying(254)||||
+|sup_m²|Surface en m² de l'objet saisi|integer|$area||Non modifiable dans le gabarit|
+|observ|Observations|character varying(254)||||
 
 
 
@@ -102,7 +116,22 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
-
+|idimmo|identifiant de l'objet|text|O[n° incrémenté]||Incrémentation automatique par le gabarit|
+|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immp_ityp)|Non Null forcé à la valeur '10'|Non modifiable dans le gabarit|
+|tbien|type de biens|character varying(2)|Liste de valeurs (lt_immp_tbien(21))|Non Null||
+|lib_bati|Libellé du bâti|character varying(254)||Non Null||
+|libelle|Libellé du bien|character varying(254)||||
+|op_sai|Opérateur de saisie|character varying(25)||||
+|date_sai|Date de saisie|date|now()||Non modifiable dans le gabarit|
+|date_maj|Date de mise à jour|date||||
+|src_geom|Référentiel géographique utilisé pour la saisie|character varying(2)|Liste de valeurs (lt_src_geom)|Valeur '11' (PCI Vecteur) par défaut||
+|src_date|Année du référentiel géographique utilisé pour la saisie|integer||||
+|insee|Code insee de la ou des commune(s) d'emprise|character varying(25)||||
+|commune|Libellé de la ou des commune(s) d'emprise|character varying(160)||||
+|adr|Adresse du bien|character varying(254)||||
+|adrcomp|Complément d'adresse|character varying(254)||||
+|sup_m²|Surface en m² de l'objet saisi|integer|$area||Non modifiable dans le gabarit|
+|observ|Observations|character varying(254)||||
 
 `geo_v_immo_bien_locnonident` : fichier contenant les objets "bâtiment" contenant n locaux non identifiés de type surfacique
 
