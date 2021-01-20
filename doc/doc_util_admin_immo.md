@@ -35,7 +35,7 @@ Le développement fonctionnel de l'inventaire cartographique priviligie l'accès
 
 Les options liées aux dessins (saisie, accroche, ...) sont détaillées au niveau du tutoriel [Dessiner et Annoter](https://geo.compiegnois.fr/portail/index.php/2020/06/16/les-outils-de-dessin/) et du tutoriel [Dessiner en mode avancé](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/)
 
-#### Choix 1 - Saisir un bien immobilier de type terrain
+### Choix 1 - Saisir un bien immobilier de type terrain
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
@@ -57,11 +57,11 @@ Particularité(s) à noter :
 
 - le type de bien est rendu obligatoire.
 - par défaut le terrain est initialisé à `Non concerné` dans la partie commercialisation.
-- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer dans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
 - l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
 
 
-#### Choix 2 - Saisir un bien immobilier de type local correspondant à un bâtiment : Local (Bâtiment non divisé)
+### Choix 2 - Saisir un bien immobilier de type local correspondant à un bâtiment : Local (Bâtiment non divisé)
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
@@ -85,7 +85,7 @@ Particularité(s) à noter :
 - par défaut le propriétaire du bâtiment est celui du local.
 - par défaut le local est initialisé à `Non concerné` dans la partie commercialisation.
 - l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
-- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer dans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
 
 
 ![picto](choix_22.png)
@@ -96,7 +96,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 
-- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer dans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
 
 ![picto](choix_23.png)
 
@@ -104,7 +104,7 @@ Particularité(s) à noter :
 
 2 - Ces 2 dernières surfaces ne sont disponibles que si le local est déclaré en activité dans le type de bien.
 
-#### Choix 3 - Saisir un bien immobilier de type bâtiment contenant n locaux non identifiés : Local non identifié dans un bâtiment divisible
+### Choix 3 - Saisir un bien immobilier de type bâtiment contenant n locaux non identifiés : Local non identifié dans un bâtiment divisible
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
@@ -125,11 +125,37 @@ Particularité(s) à noter :
 - le libellé n'est pas encore rendu obligatoire ici, mais il est préférable de saisir un nom de bâtiment (même si celui-ci se nomme comme l'occupant), pour qu'il s'affiche sur la partie cartographique.
 - si le type de propriétaire est indiqué en copropriété au niveau du bâtiment, la saisie du propriétaire du local sera possible dans le fiche du local.
 - l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
-- la saisie d'un document joint ne peut pas s'effectuer dans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
+- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
 
 ![picto](choix_32.png)
 
-#### Choix 4 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
+1 - Cliquez sur `AJOUTER` pour insérer un nouveau local
+
+Particularité(s) à noter :
+
+- l'ajout d'un nouveau local joint ne peut pas s'effectuer sans enregistrement préalable de la fiche initiale. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées. 
+
+![picto](choix_33.png)
+
+1 - Informations génériques sur le local, des éléments descriptifs seront ajoutés par la suite
+
+2 - Informations sur les surfaces (même principe que le choix 2)
+
+3 - La médiathèque est ici réservé aux documents annexes se référant au local (photo, pdf, ...)
+
+4 - Information sur le propriétaire du local
+
+5 - Ajout d'un occupant connu ou non. Possibilité d'affecter un établissement SIRENE par une recherche par son numéro SIRET, son nom, son enseigne, ...
+
+6 - Informations relatives à la commercialisation du local
+
+Particularité(s) à noter :
+
+- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, d'accéder de nouveau à la fiche du local, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
+- le propriétaire du local est par défaut celui du bâtiment sauf si le type de propriétaire est indiqué en copropriété, la saisie du propriétaire du local est alors possible
+- par défaut le terrain est initialisé à `Non concerné` dans la partie commercialisation.
+
+### Choix 4 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
