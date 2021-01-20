@@ -25,7 +25,7 @@ Cet inventaire sera ainsi intégré à la base de données de la collectivité e
 
 ## Principe fonctionnel
 
-![picto](https://github.com/sigagglocompiegne/amt_fon_eco/raw/master/img/principe_fonctionnel_bien_immo_v2.png)
+![picto](principe_fonctionnel_bien_immo_v2.png)
 
 Schéma 1 : représentation des objets de l'inventaire cartographique
 
