@@ -69,7 +69,7 @@ COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
     IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO ';
 
 --################################################## xapps_geo_v_immo_bati ###############################################
-    
+
 -- View: x_apps.xapps_geo_v_immo_bati
 
 -- DROP VIEW x_apps.xapps_geo_v_immo_bati;
@@ -78,13 +78,18 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_bati
  AS
  SELECT row_number() OVER () AS gid,
     ba.libelle,
+	stat.nbloc_tot,
     st_multi(st_union(o.geom))::geometry(MultiPolygon,2154) AS geom
-   FROM m_economie.geo_immo_bien o, m_economie.an_immo_bati ba
-  WHERE o.idbati = ba.idbati AND o.ityp::text <> '10'::text
-  GROUP BY o.idbati, ba.libelle;
+   FROM m_economie.geo_immo_bien o,
+    m_economie.an_immo_bati ba,
+	x_apps.xapps_an_vmr_immo_bati stat
+  WHERE o.idbati = ba.idbati AND o.idbati = stat.idbati AND o.ityp::text <> '10'::text
+  GROUP BY o.idbati, ba.libelle,stat.nbloc_tot;
+
 
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_bati
     IS 'Vue géographique présentant le bâtiment reconstitué à partir des locaux indépendant divisés d''un même bâtiment (pour la cartographie GEO de l''application)';
+
 
   
 --################################################## xapps_an_vmr_immo_bati ###############################################
