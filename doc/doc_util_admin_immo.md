@@ -104,6 +104,10 @@ Particularité(s) à noter :
 
 2 - Ces 2 dernières surfaces ne sont disponibles que si le local est déclaré en activité dans le type de bien.
 
+Particularité(s) à noter :
+
+- possibilité d'affecter un établissement SIRENE par une recherche par son numéro SIRET, son nom, son enseigne, ... dans l'onglet `Occupant(s) ou occupation`
+
 ### Choix 3 - Saisir un bien immobilier de type bâtiment contenant n locaux non identifiés : Local non identifié dans un bâtiment divisible
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
@@ -154,6 +158,18 @@ Particularité(s) à noter :
 - la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, d'accéder de nouveau à la fiche du local, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
 - le propriétaire du local est par défaut celui du bâtiment sauf si le type de propriétaire est indiqué en copropriété, la saisie du propriétaire du local est alors possible
 - par défaut le terrain est initialisé à `Non concerné` dans la partie commercialisation.
+
+![picto](choix_34.png)
+
+1 - Tous les locaux saisis sont présent ici (1 ligne par local)
+
+2 - Accédez à la fiche du local pour visualiser toutes les informations et les mettre à jour
+
+3 - Vous pouvez ajouter un nouveau local
+
+![picto](choix_35.png)
+
+1 - Les éléments des différents locaux affectés sont repris au niveau de l'onglet descriptif du bâtiment pour information
 
 ### Choix 4 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
 
