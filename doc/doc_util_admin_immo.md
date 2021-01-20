@@ -223,3 +223,15 @@ Particularité(s) à noter :
 - par défaut le terrain est initialisé à `Non concerné` dans la partie commercialisation.
 
 **ATTENTION** : à l'initialisation du premier local d'un bâtiment, vous allez saisir les informations génériques du bâtiment, à la saisie d'un nouveau local affecté à ce même bâtiment, inutile de resaisir les informations du bâtiment (surface de planché ou observations). A l'enregistrement, ces informations seront automatiquement récupérées pour ce local.
+
+
+#### Résultat cartographique pour le choix 4
+
+![picto](choix_421.png)
+
+1 - Saisie du local 1 affecté au bâtiment Holdiparc 1
+
+2 - Saisie du local 2 affecté au bâtiment Holdiparc 1
+
+3 - Reconstruction du bâtiment Holdiparc 1. L'étiquette indique le nom du bâtiment et entre parenthèse le nombre de locaux affectés (ici 2)
+
