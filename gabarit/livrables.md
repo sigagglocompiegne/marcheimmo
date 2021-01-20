@@ -200,7 +200,7 @@ A ce stade, *chaque local doit appartenir à un bâtiment identifié.* Si celui-
 
 ### Liste de valeurs
 
-Le contenu des listes de valeurs est disponible dans la documentation complète de la base de données en cliquant [ici](/bdd/doc_admin_bd_ev.md) dans la rubrique `Liste de valeurs`.
+Le contenu des listes de valeurs est disponible dans la documentation complète de la base de données en cliquant [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/doc/doc_admin_bd_immo.md) dans la rubrique `Liste de valeurs`.
 
 ### Les identifiants
 
