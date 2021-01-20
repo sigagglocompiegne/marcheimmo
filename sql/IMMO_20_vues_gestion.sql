@@ -360,9 +360,9 @@ END IF;
 
 IF (TG_OP='DELETE') then
 
-DELETE FROM m_economie.lk_immo_occup WHERE idbien = (SELECT idbien FROM m_economie.an_immo_bien bi WHERE bi.idimmo = OLD.idimmo);
-DELETE FROM m_economie.an_immo_propbien WHERE idbien = (SELECT idbien FROM m_economie.an_immo_bien bi WHERE bi.idimmo = OLD.idimmo);
-DELETE FROM m_economie.an_immo_media WHERE id = (SELECT idbien FROM m_economie.an_immo_bien bi WHERE bi.idimmo = OLD.idimmo);
+DELETE FROM m_economie.lk_immo_occup WHERE idbien IN (SELECT idbien FROM m_economie.an_immo_bien bi WHERE bi.idimmo = OLD.idimmo);
+DELETE FROM m_economie.an_immo_propbien WHERE idbien IN (SELECT idbien FROM m_economie.an_immo_bien bi WHERE bi.idimmo = OLD.idimmo);
+DELETE FROM m_economie.an_immo_media WHERE id IN (SELECT idbien FROM m_economie.an_immo_bien bi WHERE bi.idimmo = OLD.idimmo);
 DELETE FROM m_economie.geo_immo_bien WHERE idimmo = OLD.idimmo;
 DELETE FROM m_economie.an_immo_propbati WHERE idprop = OLD.idprop;
 DELETE FROM m_economie.an_immo_bati WHERE idbati = OLD.idbati;
