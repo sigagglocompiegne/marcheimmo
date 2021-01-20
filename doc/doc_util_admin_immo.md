@@ -5,7 +5,7 @@
 **Pour tous les utilisateurs** :
 - (non opérationnel)
 
-**Pour les administrateurs** : cette documentation est spécifique aux personnes intégrant de la donnée, soit par l'intermédiaire de l'inventaire cartographique possible depuis l'application Web ou depuis le gabarit QGIS disponible ici. Les compléments métiers des biens du marché de l'immobilier d'entreprises sont assurés par le service métier concerné.
+**Pour les administrateurs** : cette documentation est spécifique aux personnes intégrant de la donnée, soit par l'intermédiaire de l'inventaire cartographique possible depuis l'application Web ou depuis le gabarit QGIS disponible [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/gabarit/livrables.md). Les compléments métiers des biens du marché de l'immobilier d'entreprises sont assurés par le service métier concerné.
 
 
 
