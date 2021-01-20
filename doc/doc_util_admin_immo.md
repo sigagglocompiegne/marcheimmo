@@ -9,11 +9,11 @@
 
 Le développement fonctionnel de l'inventaire cartographique priviligie l'accès par type de biens. Vous trouverez si dessous les différents choix possibles. 
 
-Si le bien est déjà saisi, l'accès à ces informations pour compléments ou ajouts d'informations (média, occupants, locaux éventuels pour les bâtiments concernés) est possible par simple clique sur l'objet à partir de la carte. Ce fonctionnel permet d'accéder de nouveau à la fiche d'informations pour la modifier.
+Si le bien est déjà saisi, l'accès à ces informations pour compléments ou ajouts d'informations (média, occupants, locaux éventuels pour les bâtiments concernés) est possible par simple clic sur l'objet à partir de la carte. Ce fonctionnel permet d'accéder de nouveau à la fiche d'informations pour la modifier.
 
 ### Choix 1 - Saisir un bien immobilier de type terrain
 
-![picto](../img/choix_211.png)
+![picto](../img/choix_11.png)
 
 Particularité(s) à noter :
 * 
