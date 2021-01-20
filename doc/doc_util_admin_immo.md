@@ -79,11 +79,25 @@ Après la saisie du bien, une fiche d'informations apparaît pour la saisie des 
 
 6 - Informations annexes liés à l'inventaire cartographique
 
+Particularité(s) à noter :
+
+- le libellé n'est pas encore rendu obligatoire ici, mais il est préférable de saisir un nom de bâtiment (même si celui-ci se nomme comme l'occupant), pour qu'il s'affiche sur la partie cartographique.
+- par défaut le propriétaire du bâtiment est celui du local.
+- par défaut le local est initialisé à `Non concerné` dans la partie commercialisation.
+- l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
+- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer dans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+
+
 ![picto](choix_22.png)
 
 1 - Elément de généralité du local, des éléments descriptifs seront ajoutés par la suite
 
 2 - La médiathèque est ici réservé aux documents annexes se référant au local (photo, pdf, ...)
+
+Particularité(s) à noter :
+
+- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer dans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+
 
 ![picto](choix_22.png)
 
@@ -91,13 +105,6 @@ Après la saisie du bien, une fiche d'informations apparaît pour la saisie des 
 
 2 - Ces 2 dernières surfaces ne sont disponibles que si le local est déclaré en activité dans le type de bien.
 
-Particularité(s) à noter :
-
-- le libellé n'est pas encore rendu obligatoire ici, mais il est préférable de saisir un nom de bâtiment (même si celui-ci se nomme comme l'occupant), pour qu'il s'affiche sur la partie cartographique.
-- par défaut le propriétaire du bâtiment est celui du local.
-- par défaut le local est initialisé à `Non concerné` dans la partie commercialisation.
-- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer dans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
-- l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
 
 #### Choix 3 - Saisir un bien immobilier de type bâitment contenant n locaux non identifiés : Local non identifié dans un bâtiment divisible
 
