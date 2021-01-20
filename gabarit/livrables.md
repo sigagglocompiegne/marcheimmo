@@ -96,7 +96,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
 |idimmo|identifiant de l'objet|text|O[n° incrémenté]||Incrémentation automatique par le gabarit|
-|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immp_ityp)|Non Null forcé à la valeur '10'|Non modifiable dans le gabarit|
+|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immo_ityp)|Non Null forcé à la valeur '10'|Non modifiable dans le gabarit|
 |libelle|Libellé du bien|character varying(254)||||
 |op_sai|Opérateur de saisie|character varying(25)||||
 |date_sai|Date de saisie|date|now()||Non modifiable dans le gabarit|
@@ -117,8 +117,8 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
 |idimmo|identifiant de l'objet|text|O[n° incrémenté]||Incrémentation automatique par le gabarit|
-|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immp_ityp)|Non Null forcé à la valeur '10'|Non modifiable dans le gabarit|
-|tbien|type de biens|character varying(2)|Liste de valeurs (lt_immp_tbien(21))|Non Null||
+|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immo_ityp)|Non Null forcé à la valeur '21'|Non modifiable dans le gabarit|
+|tbien|type de biens|character varying(2)|Liste de valeurs (lt_immo_tbien(21))|Non Null||
 |lib_bati|Libellé du bâti|character varying(254)||Non Null||
 |libelle|Libellé du bien|character varying(254)||||
 |op_sai|Opérateur de saisie|character varying(25)||||
@@ -137,16 +137,66 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
+|idimmo|identifiant de l'objet|text|O[n° incrémenté]||Incrémentation automatique par le gabarit|
+|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immo_ityp)|Non Null forcé à la valeur '23'|Non modifiable dans le gabarit|
+|lib_bati|Libellé du bâti|character varying(254)||Non Null||
+|libelle|Libellé du bien|character varying(254)||||
+|op_sai|Opérateur de saisie|character varying(25)||||
+|date_sai|Date de saisie|date|now()||Non modifiable dans le gabarit|
+|date_maj|Date de mise à jour|date||||
+|src_geom|Référentiel géographique utilisé pour la saisie|character varying(2)|Liste de valeurs (lt_src_geom)|Valeur '11' (PCI Vecteur) par défaut||
+|src_date|Année du référentiel géographique utilisé pour la saisie|integer||||
+|insee|Code insee de la ou des commune(s) d'emprise|character varying(25)||||
+|commune|Libellé de la ou des commune(s) d'emprise|character varying(160)||||
+|adr|Adresse du bien|character varying(254)||||
+|adrcomp|Complément d'adresse|character varying(254)||||
+|sup_m²|Surface en m² de l'objet saisi|integer|$area||Non modifiable dans le gabarit|
+|observ|Observations|character varying(254)||||
 
-`an_v_immo_bien_locnonident` : fichier contenant les attributs spécifiques des "locaux" non identifiés dans un même bâtiment utilisant la géométrie précédente de type surfacique (jointure n..m dans le projet QGIS)
+`an_v_immo_bien_locnonident` : fichier contenant les attributs spécifiques des "locaux" non identifiés dans un même bâtiment utilisant la géométrie précédente de type surfacique (jointure n..m dans le projet QGIS). L'ajout de locaux n'est pas une obligation à ce stade, la saisie seule d'un objet pré-figurant le bâtiment dans la classe d'objet précédente `geo_v_immo_bien_locnonident` est suffisant.
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
+|idimmo|identifiant de l'objet|text|Récupération par jointure n..m dans le projet||Non modifiable dans le gabarit|
+|tbien|type de biens|character varying(2)|Liste de valeurs (lt_immo_tbien(23))|Non Null||
+|libelle|Libellé du bien|character varying(254)||||
 
 `geo_v_immo_bien_locident` : fichier contenant les objets "locaux" identifiés de type surfacique reconstruisant dynamiquement les bâtiments.
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
+|idimmo|identifiant de l'objet|text|O[n° incrémenté]||Incrémentation automatique par le gabarit|
+|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immo_ityp)|Non Null forcé à la valeur '22'|Non modifiable dans le gabarit|
+|tbien|type de biens|character varying(2)|Liste de valeurs (lt_immo_tbien(22))|Non Null||
+|bati_appart|Bâtiment d'appartenance|text|Liste de valeurs (Liste des bâtiments (pour appartenance à des locaux identifiés))|Non Null||
+|lib_bati|Libellé du bâti|character varying(254)||Non Null||
+|libelle|Libellé du bien|character varying(254)||||
+|op_sai|Opérateur de saisie|character varying(25)||||
+|date_sai|Date de saisie|date|now()||Non modifiable dans le gabarit|
+|date_maj|Date de mise à jour|date||||
+|src_geom|Référentiel géographique utilisé pour la saisie|character varying(2)|Liste de valeurs (lt_src_geom)|Valeur '11' (PCI Vecteur) par défaut||
+|src_date|Année du référentiel géographique utilisé pour la saisie|integer||||
+|insee|Code insee de la ou des commune(s) d'emprise|character varying(25)||||
+|commune|Libellé de la ou des commune(s) d'emprise|character varying(160)||||
+|adr|Adresse du bien|character varying(254)||||
+|adrcomp|Complément d'adresse|character varying(254)||||
+|sup_m²|Surface en m² de l'objet saisi|integer|$area||Non modifiable dans le gabarit|
+|observ|Observations|character varying(254)||||
+
+A ce stade, *chaque local doit appartenir à un bâtiment identifié.* Si celui-ci n'est pas listé, vous devez préalablement le saisir dans la classe d'objet `an_immo_bati` nommée `Liste des bâtiments (pour appartenance à des locaux identifiés)` dans le gabarit.
+
+`an_immo_bati` : fichier contenant la liste des bâtiments dont les locaux sont identifiés.
+
+|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
+|:---|:---|:---|:---|:---|:---|
+|idbati|identifiant du bâtiment|text|BA[n° incrémenté]||Incrémentation automatique par le gabarit|
+|idimmo|identifiant de l'objet|text|||Non modifiable dans le gabarit|
+|ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immo_ityp)|Non Null forcé à la valeur '22'|Non modifiable dans le gabarit|
+|libelle|Libellé du bâtiment|character varying(254)||Non null||
+|surf_p|Surface de plancher total|integer|||Non modifiable dans le gabarit|
+|mprop|Type de propriétaire|booléan|false||Non modifiable dans le gabarit|
+|observ|Observations|character varying(254)||||
+
 
 ### Liste de valeurs
 
