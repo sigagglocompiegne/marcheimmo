@@ -171,6 +171,13 @@ Particularité(s) à noter :
 
 1 - Les éléments des différents locaux affectés sont repris au niveau de l'onglet descriptif du bâtiment pour information
 
+
+#### Résultat cartographique pour le choix 3
+
+![picto](choix_311.png)
+
+1 - Représentation du bâtiment seul avec en étiquette le nom du bâtiment et entre parenthèse le nombre de locaux affectés non identifiés (ici 3)
+
 ### Choix 4 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
