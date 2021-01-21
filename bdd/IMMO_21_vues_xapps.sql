@@ -63,7 +63,7 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
 		b.adr,
 		b.adrcomp,
 		o.commune,
-		o.idsite,
+		s.site_nom AS za,
     st_pointonsurface(o.geom) AS geom
    FROM m_economie.geo_immo_bien o
      LEFT JOIN m_economie.an_immo_comm c1 ON c1.idimmo = o.idimmo
@@ -72,16 +72,13 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
      LEFT JOIN m_economie.lt_immo_etat e1 ON c1.etat::text = e1.code::text
      LEFT JOIN m_economie.lt_immo_etat e2 ON c2.etat::text = e2.code::text
 	 LEFT JOIN m_economie.lt_immo_tbien tb ON tb.code = b.tbien
+	 LEFT JOIN m_economie.an_sa_site s ON s.idsite = o.idsite
   WHERE CASE WHEN c1.etat::text IS NOT NULL THEN  c1.etat::text <> 'ZZ'::text ELSE c2.etat::text <> 'ZZ'::text END;
+
 
 
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
     IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO et permettant les recherches';
-
-
-
-
-
 
 --################################################## xapps_geo_v_immo_bati ###############################################
 
