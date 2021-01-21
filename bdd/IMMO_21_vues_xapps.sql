@@ -81,7 +81,8 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
 		b.adrcomp,
 		o.commune,
 		s.site_nom AS za,
-    st_pointonsurface(o.geom) AS geom
+    st_pointonsurface(o.geom) AS geom,
+    o.geom AS geom1
    FROM m_economie.geo_immo_bien o
      LEFT JOIN m_economie.an_immo_comm c1 ON c1.idimmo = o.idimmo
      LEFT JOIN m_economie.an_immo_bien b ON b.idimmo = o.idimmo
