@@ -37,8 +37,9 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
 
  SELECT o.idimmo,
         b.idbien,
-		CASE WHEN o.ityp = '10' THEN 'Terrain' ELSE 'Local' END as ityp,
-		b.surf_p AS surface,
+	CASE WHEN o.ityp = '10' THEN 'Terrain' ELSE 'Local' END as ityp,
+	o.ityp AS ityp_code,
+	b.surf_p AS surface,
         CASE
             WHEN c1.prix IS NULL THEN c2.prix
             ELSE c1.prix
