@@ -30,7 +30,7 @@ DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_bati;
 
 -- View: x_apps.xapps_geo_v_immo_etat
 
--- DROP VIEW x_apps.xapps_geo_v_immo_etat;
+--DROP VIEW x_apps.xapps_geo_v_immo_etat;
 
 CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
  AS
@@ -59,6 +59,11 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
                 ELSE NULL::text
             END
         END AS dispo,
+		b.libelle,
+		b.adr,
+		b.adrcomp,
+		o.commune,
+		o.idsite,
     st_pointonsurface(o.geom) AS geom
    FROM m_economie.geo_immo_bien o
      LEFT JOIN m_economie.an_immo_comm c1 ON c1.idimmo = o.idimmo
@@ -72,6 +77,9 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
 
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
     IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO et permettant les recherches';
+
+
+
 
 
 
