@@ -36,6 +36,16 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
  AS
  
  SELECT o.idimmo,
+        b.idbien,
+        CASE
+WHEN length(b.surf_p::character varying) >= 1 AND length(b.surf_p::character varying) <= 3 THEN b.surf_p::character varying || ' m²'::text
+WHEN length(b.surf_p::character varying) = 4 THEN replace(to_char(b.surf_p, 'FM9G999'), ','::text, ' '::text) || ' m²'::text
+WHEN length(b.surf_p::character varying) = 5 THEN replace(to_char(b.surf_p, 'FM99G999'), ','::text, ' '::text) || ' m²'::text
+WHEN length(b.surf_p::character varying) = 6 THEN replace(to_char(b.surf_p, 'FM999G999'), ','::text, ' '::text) || ' m²'::text
+WHEN length(b.surf_p::character varying) = 7 THEN replace(to_char(b.surf_p, 'FM9G999G999'), ','::text, ' '::text) || ' m²'::text
+WHEN length(b.surf_p::character varying) = 8 THEN replace(to_char(b.surf_p, 'FM99G999G999'), ','::text, ' '::text) || ' m²'::text
+ELSE NULL
+END,
  		CASE WHEN o.ityp = '10' THEN 'Terrain' ELSE 'Local' END as ityp,
 		b.surf_p AS surface,
         CASE
@@ -75,10 +85,11 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
 	 LEFT JOIN m_economie.an_sa_site s ON s.idsite = o.idsite
   WHERE CASE WHEN c1.etat::text IS NOT NULL THEN  c1.etat::text <> 'ZZ'::text ELSE c2.etat::text <> 'ZZ'::text END;
 
-
-
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
     IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO et permettant les recherches';
+    
+
+
 
 --################################################## xapps_geo_v_immo_bati ###############################################
 
