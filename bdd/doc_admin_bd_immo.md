@@ -16,11 +16,13 @@ Cette orientation pourrait également déboucher sur un observatoire des commerc
  
  **Résumé fonctionnel** :
  
-La donnée a été construite de façon à pouvoir réaliser un inventaire cartographique selon la composition des bâtiments. 3 scénarii de construction ont été établis en dehors de la gestion des terrains qui se réalise indépendemment.
+La donnée a été construite de façon à pouvoir réaliser un inventaire cartographique des bâtiments et locaus d'activité selon la composition de ces dits bâtiments. 3 scénarii de construction ont été établis en dehors de la gestion des terrains qui se réalise indépendemment.
 
 - le local et le bâtiment en font qu'une seule entité : Local (Bâtiment non divisé)
 - le bâtiment contient au moins 2 locaux mais ils ne sont identifiables (localisation ou numérisation impossible) : Local non identifié dans un bâtiment divisible
 - le bâtiment est composé d'au moins 2 locaux identifiables (dans ce cas le bâtiment est reconstruit virtuellement par l'association des locaus qui le composent) : Local indépendant divisé
+
+L'adressage des bâtiments a été réalisé sur la Base Adresse Local (BAL) permettant ainsi de récupérer automatiquement les établissemets occupants déjà géolocalisés sur la BAL. La gestion des établissements au local n'est pas encore pris en compte (en cours de régfléxion), seul un attribut permet de saisir librement pour le moment un ocucpant ou une occupation.
 
 ## Modèle conceptuel simplifié
 
@@ -38,6 +40,7 @@ La base de données du suivi du marché de l'immobilier d'entreprises ne s'appui
 |:---|:---|:---|:---|
 |r_objet| lt_src_geom | Liste de valeurs | Valeurs décrivant le référentiel géographique utilisé pour la saisie des objets graphiques|
 |s_sirene| an_etablissement_api | classe d'objets | données de la base de données SIRENE de l'Insee|
+|x_apps| xapps_geo_vmr_adresse | classe d'objets | données de la Base Locale des Adresses (BAL)|
 
 ## Séquences 
 
@@ -86,8 +89,7 @@ Particularité(s) à noter : aucune
 |libelle|Libellé du bien|character varying(254)| |
 |pdp|Bien en pas-de-porte|boolean|false|
 |lib_occup|Libellé de l'occupant ou détail sur le type d'occupation (si pas un établissement lié)|character varying(150)| |
-|bal|Identifiant de la base adresse|integer| |
-|adr|Adresse litérale (si différente de la BAL)|character varying(254)| |
+|adr|Adresse litérale (si différente du bâtiment)|character varying(254)| |
 |adrcomp|Complément d'adresse|character varying(100)| |
 |surf_p|Surface totale de plancher totale en m²|integer| |
 |source|Source de la mise à jour|character varying(254)| |
@@ -184,13 +186,13 @@ Particularité(s) à noter : aucune
 
 ---
 
-`lk_immo_occup` : table de liens permettant l'affectation d'un ou plusieurs établissements à un local ou un terrain
+`lk_immo_batiadr` : table de liens permettant l'affectation du bâtiment à une adresse de la BAL
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|id|Identifiant unique de l'occupation|integer|nextval('m_economie.lk_immo_occup_seq'::regclass)|
-|idbien|Identifiant du bien occupé|text| |
-|siret|N° SIRET de l'établissement occupant|character varying(14)| |
+|id|Identifiant unique de l'occupation|integer|nextval('m_economie.lk_immo_batiadr_seq'::regclass)|
+|idbati|Identifiant du bâtiment|text| |
+|id_adresse|Identifiant adresse de la BAL|bigint| |
 
 Particularité(s) à noter : aucune
 
