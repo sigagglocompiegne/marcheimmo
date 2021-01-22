@@ -71,7 +71,7 @@ Après la saisie du bien, une fiche d'informations apparaît pour la saisie des 
 
 2 - Informations calculées automatiquement par rapport au local saisie dans l'onglet `Local`
 
-3 - Surface de planché totale du bâtiment
+3 - Afectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse
 
 4 - Propriété du bâtiment
 
@@ -84,8 +84,7 @@ Particularité(s) à noter :
 - le libellé n'est pas encore rendu obligatoire ici, mais il est préférable de saisir un nom de bâtiment (même si celui-ci se nomme comme l'occupant), pour qu'il s'affiche sur la partie cartographique.
 - par défaut le propriétaire du bâtiment est celui du local.
 - par défaut le local est initialisé à `Non concerné` dans la partie commercialisation.
-- l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
-- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
 
 
 ![picto](choix_22.png)
