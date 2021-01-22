@@ -119,7 +119,7 @@ Particularité(s) à noter :
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
-![picto](choix_31.png)
+![picto](choix_31_1.png)
 
 1 - Onglet permettant la saisie des informations liées aux bâtiments dont la surface de planché totale du bâtiment
 
