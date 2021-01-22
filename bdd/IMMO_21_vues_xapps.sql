@@ -34,6 +34,7 @@ DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_bati;
 
 CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
  AS
+ 
  SELECT o.idimmo,
     b.idbien,
         CASE
@@ -42,43 +43,13 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
         END AS ityp,
     o.ityp AS ityp_code,
     b.surf_p AS surface,
-        CASE
-            WHEN c1.prix IS NULL THEN c2.prix
-            ELSE c1.prix
-        END AS prix,
-        CASE
-            WHEN c1.loyer IS NULL THEN c2.loyer
-            ELSE c1.loyer
-        END AS loyer,
-        CASE
-            WHEN c1.loyer_m IS NULL THEN c2.loyer_m
-            ELSE c1.loyer_m
-        END AS loyer_m,
-        CASE
-            WHEN c1.bail IS NULL THEN c2.bail
-            ELSE c1.bail
-        END AS bail,
-        CASE
-            WHEN c1.etat IS NULL THEN c2.etat
-            ELSE c1.etat
-        END AS etat,
-    tb.valeur AS typlocal,
-        CASE
-            WHEN c1.etat IS NULL THEN
-            CASE
-                WHEN c2.etat::text = '10'::text OR c2.etat::text = '20'::text THEN 'En vente'::text
-                WHEN c2.etat::text = '30'::text THEN 'En location'::text
-                WHEN c2.etat::text = '40'::text THEN 'En vente et/ou en location'::text
-                ELSE NULL::text
-            END
-            ELSE
-            CASE
-                WHEN c1.etat::text = '10'::text OR c1.etat::text = '20'::text THEN 'En vente'::text
-                WHEN c1.etat::text = '30'::text THEN 'En location'::text
-                WHEN c1.etat::text = '40'::text THEN 'En vente et/ou en location'::text
-                ELSE NULL::text
-            END
-        END AS dispo,
+	c.prix,
+	c.prix_m,
+	c.loyer,
+	c.loyer_m,
+	c.bail,
+	c.etat AS dispo,
+	tb.valeur AS typlocal,
     b.libelle,
     b.adr,
     b.adrcomp,
@@ -87,19 +58,13 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
     st_pointonsurface(o.geom) AS geom,
     o.geom AS geom1
    FROM m_economie.geo_immo_bien o
-     LEFT JOIN m_economie.an_immo_comm c1 ON c1.idimmo = o.idimmo
-     LEFT JOIN m_economie.an_immo_bien b ON b.idimmo = o.idimmo
-     LEFT JOIN m_economie.an_immo_comm c2 ON c2.idbien = b.idbien
-     LEFT JOIN m_economie.lt_immo_etat e1 ON c1.etat::text = e1.code::text
-     LEFT JOIN m_economie.lt_immo_etat e2 ON c2.etat::text = e2.code::text
-     LEFT JOIN m_economie.lt_immo_tbien tb ON tb.code::text = b.tbien::text
+     JOIN m_economie.an_immo_bien b ON b.idimmo = o.idimmo
+     JOIN m_economie.an_immo_comm c ON c.idbien = b.idbien    
+     JOIN m_economie.lt_immo_etat e ON c.etat::text = e.code::text
+     JOIN m_economie.lt_immo_tbien tb ON tb.code::text = b.tbien::text
      LEFT JOIN m_economie.an_sa_site s ON s.idsite::text = o.idsite::text
   WHERE
-        CASE
-            WHEN c1.etat::text IS NOT NULL THEN c1.etat::text <> 'ZZ'::text
-            ELSE c2.etat::text <> 'ZZ'::text
-        END;
-
+  c.etat::text <> 'ZZ'::text;
 
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
     IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO et permettant les recherches';
