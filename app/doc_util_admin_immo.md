@@ -96,6 +96,7 @@ Particularité(s) à noter :
 Particularité(s) à noter :
 
 - la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+- l'adresse saisie ici, est une adresse différente du bâtiment
 
 ![picto](choix_23.png)
 
