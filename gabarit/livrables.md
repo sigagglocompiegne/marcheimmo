@@ -84,6 +84,7 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 |geo_v_immo_bien_locnonident|Localsiation du bâtiment contenant n locaux|Inventaire cartographique|Polygone|
 |an_v_immo_bien_locnonident|Inventaire cartographique|sans géométrie (utilise la géométrie de geo_v_immo_bien_locnonident en relation n..m)|
 |geo_v_immo_bien_locident|Localisation des locaux identifiés permettant la reconstruction du bâtiment d'activité|Inventaire cartographique|Polygone|
+|an_immo_bati|Liste des bâtiments d'affectation pour les locaux idfentifiés reconstruisant le bâtiment|Inventaire cartographique|sans objet|
 
 ## Implémentation informatique
 
@@ -121,6 +122,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |tbien|type de biens|character varying(2)|Liste de valeurs (lt_immo_tbien(21))|Non Null||
 |lib_bati|Libellé du bâti|character varying(254)||Non Null||
 |libelle|Libellé du bien|character varying(254)||||
+|id_adresse|Identifiant adresse BAL|integer||||
 |op_sai|Opérateur de saisie|character varying(25)||||
 |date_sai|Date de saisie|date|now()||Non modifiable dans le gabarit|
 |date_maj|Date de mise à jour|date||||
@@ -128,7 +130,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |src_date|Année du référentiel géographique utilisé pour la saisie|integer||||
 |insee|Code insee de la ou des commune(s) d'emprise|character varying(25)||||
 |commune|Libellé de la ou des commune(s) d'emprise|character varying(160)||||
-|adr|Adresse du bien|character varying(254)||||
+|adr|Adresse du bien si différente du bâtiment|character varying(254)||||
 |adrcomp|Complément d'adresse|character varying(254)||||
 |sup_m²|Surface en m² de l'objet saisi|integer|$area||Non modifiable dans le gabarit|
 |observ|Observations|character varying(254)||||
@@ -141,6 +143,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |ityp|type d'occupation|character varying(2)|Liste de valeurs (lt_immo_ityp)|Non Null forcé à la valeur '23'|Non modifiable dans le gabarit|
 |lib_bati|Libellé du bâti|character varying(254)||Non Null||
 |libelle|Libellé du bien|character varying(254)||||
+|id_adresse|Identifiant adresse BAL|integer||||
 |op_sai|Opérateur de saisie|character varying(25)||||
 |date_sai|Date de saisie|date|now()||Non modifiable dans le gabarit|
 |date_maj|Date de mise à jour|date||||
@@ -148,7 +151,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |src_date|Année du référentiel géographique utilisé pour la saisie|integer||||
 |insee|Code insee de la ou des commune(s) d'emprise|character varying(25)||||
 |commune|Libellé de la ou des commune(s) d'emprise|character varying(160)||||
-|adr|Adresse du bien|character varying(254)||||
+|adr|Adresse du bien (si différent du bâtiment)|character varying(254)||||
 |adrcomp|Complément d'adresse|character varying(254)||||
 |sup_m²|Surface en m² de l'objet saisi|integer|$area||Non modifiable dans le gabarit|
 |observ|Observations|character varying(254)||||
@@ -171,6 +174,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |bati_appart|Bâtiment d'appartenance|text|Liste de valeurs (Liste des bâtiments (pour appartenance à des locaux identifiés))|Non Null||
 |lib_bati|Libellé du bâti|character varying(254)||Non Null||
 |libelle|Libellé du bien|character varying(254)||||
+|id_adresse|Identifiant adresse BAL|integer||||
 |op_sai|Opérateur de saisie|character varying(25)||||
 |date_sai|Date de saisie|date|now()||Non modifiable dans le gabarit|
 |date_maj|Date de mise à jour|date||||
@@ -178,7 +182,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |src_date|Année du référentiel géographique utilisé pour la saisie|integer||||
 |insee|Code insee de la ou des commune(s) d'emprise|character varying(25)||||
 |commune|Libellé de la ou des commune(s) d'emprise|character varying(160)||||
-|adr|Adresse du bien|character varying(254)||||
+|adr|Adresse du bien (si différente du bâtiment|character varying(254)||||
 |adrcomp|Complément d'adresse|character varying(254)||||
 |sup_m²|Surface en m² de l'objet saisi|integer|$area||Non modifiable dans le gabarit|
 |observ|Observations|character varying(254)||||
