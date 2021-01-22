@@ -40,8 +40,7 @@ DROP TABLE IF EXISTS m_economie.an_immo_propbati;
 DROP TABLE IF EXISTS m_economie.an_immo_propbien;
 DROP TABLE IF EXISTS m_economie.an_immo_comm;
 DROP TABLE IF EXISTS m_economie.an_immo_media ;
-DROP TABLE IF EXISTS m_economie.lk_immo_occup;
-
+DROP TABLE IF EXISTS m_economie.lk_immo_batiadr;
 
 
 -- DOMAINES DE VALEUR
@@ -162,18 +161,25 @@ COMMENT ON SEQUENCE m_economie.an_immo_media_seq
   IS 'Séquence unique pour l''identifiant media';
   */
 
---############################################################ lk_immo_occup_seq ##################################################
---DROP SEQUENCE m_economie.lk_immo_occup_seq;
+--############################################################ lk_immo_batiadr_seq ##################################################
+
 /*
-CREATE SEQUENCE m_economie.lk_immo_occup_seq
-  INCREMENT 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1 
-  CACHE 1;
-  
-COMMENT ON SEQUENCE m_economie.lk_immo_occup_seq
-  IS 'Séquence unique pour la relation bien et occupant(s)';
+-- SEQUENCE: m_economie.lk_immo_batiadr_seq
+
+-- DROP SEQUENCE m_economie.lk_immo_batiadr_seq;
+
+CREATE SEQUENCE m_economie.lk_immo_batiadr_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE m_economie.lk_immo_batiadr_seq
+    OWNER TO sig_create;
+
+COMMENT ON SEQUENCE m_economie.lk_immo_batiadr_seq
+    IS 'Séquence unique pour la relation bati adresse';
   */
 
 
@@ -382,7 +388,6 @@ CREATE TABLE m_economie.an_immo_bien
     libelle character varying(254) COLLATE pg_catalog."default",
     pdp boolean DEFAULT false,
     lib_occup character varying(150) COLLATE pg_catalog."default",
-    bal integer,
     adr character varying(254) COLLATE pg_catalog."default",
     adrcomp character varying(100) COLLATE pg_catalog."default",
     surf_p integer,
@@ -427,11 +432,8 @@ COMMENT ON COLUMN m_economie.an_immo_bien.pdp
 COMMENT ON COLUMN m_economie.an_immo_bien.lib_occup
     IS 'Libellé de l''occupant ou détail sur le type d''occupation (si pas un établissement lié)';
 
-COMMENT ON COLUMN m_economie.an_immo_bien.bal
-    IS 'Identifiant de la base adresse';
-
 COMMENT ON COLUMN m_economie.an_immo_bien.adr
-    IS 'Adresse litérale (si différente de la BAL)';
+    IS 'Adresse litérale (si différente du bâtiment)';
 
 COMMENT ON COLUMN m_economie.an_immo_bien.adrcomp
     IS 'Complément d''adresse';
@@ -765,50 +767,50 @@ COMMENT ON COLUMN m_economie.an_immo_comm.refext
 COMMENT ON COLUMN m_economie.an_immo_comm.observ
     IS 'Observations';
 
---################################################################# lk_immo_occup #######################################################
+--################################################################# lk_immo_batiadr #######################################################
 
--- Table: m_economie.lk_immo_occup
+-- Table: m_economie.lk_immo_batiadr
 
--- DROP TABLE m_economie.lk_immo_occup;
+-- DROP TABLE m_economie.lk_immo_batiadr;
 
-CREATE TABLE m_economie.lk_immo_occup
+CREATE TABLE m_economie.lk_immo_batiadr
 (
-    id integer NOT NULL DEFAULT nextval('m_economie.lk_immo_occup_seq'::regclass),
-    idbien text COLLATE pg_catalog."default",
-    siret character varying(14) COLLATE pg_catalog."default",
-    CONSTRAINT lk_immo_occup_pkey PRIMARY KEY (id)
+    id integer NOT NULL DEFAULT nextval('m_economie.lk_immo_batiadr_seq'::regclass),
+    idbati text COLLATE pg_catalog."default",
+    id_adresse bigint,
+    CONSTRAINT lk_immo_batiadr_pkey PRIMARY KEY (id)
 )
 WITH (
     OIDS = FALSE
 )
 TABLESPACE pg_default;
 
-COMMENT ON TABLE m_economie.lk_immo_occup
-    IS 'Table des objets graphiques correspond au bâtiment contenant le bien de type de local';
+COMMENT ON TABLE m_economie.lk_immo_batiadr
+    IS 'Table de relation entre les bâtiments et les adresses';
 
-COMMENT ON COLUMN m_economie.lk_immo_occup.id
-    IS 'Identifiant unique de l''occupation';
+COMMENT ON COLUMN m_economie.lk_immo_batiadr.id
+    IS 'Identifiant unique de la relation';
 
-COMMENT ON COLUMN m_economie.lk_immo_occup.idbien
-    IS 'Identifiant du bien occupé';
+COMMENT ON COLUMN m_economie.lk_immo_batiadr.idbati
+    IS 'Identifiant du bâtiment';
 
-COMMENT ON COLUMN m_economie.lk_immo_occup.siret
-    IS 'N° SIRET de l''établissement occupant';
--- Index: idx_lk_immo_occup_idbien
+COMMENT ON COLUMN m_economie.lk_immo_batiadr.id_adresse
+    IS 'Identifiant unique de l''adresse';
+-- Index: idx_lk_immo_batiadr_id_adresse
 
--- DROP INDEX m_economie.idx_lk_immo_occup_idbien;
+-- DROP INDEX m_economie.idx_lk_immo_batiadr_id_adresse;
 
-CREATE INDEX idx_lk_immo_occup_idbien
-    ON m_economie.lk_immo_occup USING btree
-    (idbien COLLATE pg_catalog."default" ASC NULLS LAST)
+CREATE INDEX idx_lk_immo_batiadr_id_adresse
+    ON m_economie.lk_immo_batiadr USING btree
+    (id_adresse ASC NULLS LAST)
     TABLESPACE pg_default;
--- Index: idx_lk_immo_occup_siret
+-- Index: idx_lk_immo_batiadr_idbati
 
--- DROP INDEX m_economie.idx_lk_immo_occup_siret;
+-- DROP INDEX m_economie.idx_lk_immo_batiadr_idbati;
 
-CREATE INDEX idx_lk_immo_occup_siret
-    ON m_economie.lk_immo_occup USING btree
-    (siret COLLATE pg_catalog."default" ASC NULLS LAST)
+CREATE INDEX idx_lk_immo_batiadr_idbati
+    ON m_economie.lk_immo_batiadr USING btree
+    (idbati COLLATE pg_catalog."default" ASC NULLS LAST)
     TABLESPACE pg_default;
 
 
