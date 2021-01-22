@@ -95,7 +95,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 
-- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
 
 ![picto](choix_23.png)
 
