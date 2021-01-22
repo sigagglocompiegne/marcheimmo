@@ -71,7 +71,7 @@ Après la saisie du bien, une fiche d'informations apparaît pour la saisie des 
 
 2 - Informations calculées automatiquement par rapport au local saisie dans l'onglet `Local`
 
-3 - Afectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse
+3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse
 
 4 - Propriété du bâtiment
 
@@ -125,18 +125,20 @@ Après la saisie du bien, une fiche d'informations apparaît pour la saisie des 
 
 2 - Informations calculées automatiquement par rapport au local saisie dans l'onglet `Local`
 
-3 - Propriété du bâtiment
+3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse
 
-4 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
+4 - Propriété du bâtiment
 
-5 - Informations annexes liés à l'inventaire cartographique
+5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
+
+6 - Informations annexes liés à l'inventaire cartographique
 
 Particularité(s) à noter :
 
 - le libellé n'est pas encore rendu obligatoire ici, mais il est préférable de saisir un nom de bâtiment (même si celui-ci se nomme comme l'occupant), pour qu'il s'affiche sur la partie cartographique.
 - si le type de propriétaire est indiqué en copropriété au niveau du bâtiment, la saisie du propriétaire du local sera possible dans le fiche du local.
-- l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
 - la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
+- les établissements affectés automatiquement au bâtiment par l'adresse, ne sont pas reventilés aux locaux (fonctionnel non développé pour le moment, en réflexion si nécessaire). Un attribut est néanmoins présent pour une saisie libre d'un occupant autre ou d'une occupation particulière dans la fiche du local.
 
 ![picto](choix_32.png)
 
@@ -156,7 +158,7 @@ Particularité(s) à noter :
 
 4 - Information sur le propriétaire du local
 
-5 - Ajout d'un occupant connu ou non. Possibilité d'affecter un établissement SIRENE par une recherche par son numéro SIRET, son nom, son enseigne, ...
+5 - Ajout d'un occupant connu ou non
 
 6 - Informations relatives à la commercialisation du local
 
