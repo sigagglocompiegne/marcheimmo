@@ -17,7 +17,7 @@
 ALTER SEQUENCE m_economie.geo_immo_bien_seq
     OWNER TO sig_create;
     
-ALTER SEQUENCE m_economie.lk_immo_occup_seq
+ALTER SEQUENCE m_economie.lk_immo_batiadr_seq
     OWNER TO sig_create;
     
 ALTER SEQUENCE m_economie.an_immo_bati_seq
@@ -109,12 +109,12 @@ GRANT ALL ON TABLE m_economie.an_immo_media TO create_sig;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_media TO edit_sig;
 GRANT SELECT ON TABLE m_economie.an_immo_media TO read_sig;
 
-ALTER TABLE m_economie.lk_immo_occup
+ALTER TABLE m_economie.lk_immo_batiadr
   OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.lk_immo_occup TO sig_create;
-GRANT ALL ON TABLE m_economie.lk_immo_occup TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lk_immo_occup TO edit_sig;
-GRANT SELECT ON TABLE m_economie.lk_immo_occup TO read_sig;
+GRANT ALL ON TABLE m_economie.lk_immo_batiadr TO sig_create;
+GRANT ALL ON TABLE m_economie.lk_immo_batiadr TO create_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lk_immo_batiadr TO edit_sig;
+GRANT SELECT ON TABLE m_economie.lk_immo_batiadr TO read_sig;
 
 
 -- ########################################################### FONCTION  ####################################################################
