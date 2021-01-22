@@ -191,7 +191,7 @@ Particularité(s) à noter :
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
-![picto](choix_41.png)
+![picto](choix_41_1.png)
 
 1 - Les éléments descriptifs du bâtiment sont identiques aux autres choix (des éléments descriptifs seront ajoutés par la suite), la différence ici est l'appartenance à un bâtiment existant rendu obligatoire par le choix dans une liste pré-définie.
 
@@ -204,18 +204,20 @@ B - Indiquez le nom du bâtiment pour le libellé et la valeur
 
 C - CLiquez sur Ajouter, le nom du bâtiment apparaît dans la liste, vous pouvez le sélectionner.
 
-3 - Propriété du bâtiment
+3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse
 
-4 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
+4 - Propriété du bâtiment
 
-5 - Informations annexes liés à l'inventaire cartographique
+5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
+
+6 - Informations annexes liés à l'inventaire cartographique
 
 Particularité(s) à noter :
 
 - l'affectation des locaux affectée à un même bâtiment permet de la reconstruire virtuellement sur la carte
 - si le type de propriétaire est indiqué en copropriété au niveau du bâtiment, la saisie du propriétaire du local sera possible dans le fiche du local.
-- l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
 - la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
+
 
 ![picto](choix_42.png)
 
@@ -227,7 +229,7 @@ Particularité(s) à noter :
 
 4 - La médiathèque est ici réservé aux documents annexes se référant au local (photo, pdf, ...)
 
-5 - Ajout d'un occupant connu ou non. Possibilité d'affecter un établissement SIRENE par une recherche par son numéro SIRET, son nom, son enseigne, ...
+5 - Ajout d'un occupant connu ou non.
 
 6 - Informations relatives à la commercialisation du local
 
@@ -237,6 +239,7 @@ Particularité(s) à noter :
 - si le type de propriétaire est indiqué en copropriété au niveau du bâtiment, la saisie du propriétaire du local sera possible dans le fiche du local.
 - la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
 - par défaut le terrain est initialisé à `Non concerné` dans la partie commercialisation.
+- les établissements affectés automatiquement au bâtiment par l'adresse, ne sont pas reventilés aux locaux (fonctionnel non développé pour le moment, en réflexion si nécessaire). Un attribut est néanmoins présent pour une saisie libre d'un occupant autre ou d'une occupation particulière dans la fiche du local.
 
 **ATTENTION** : à l'initialisation du premier local d'un bâtiment, vous allez saisir les informations génériques du bâtiment, à la saisie d'un nouveau local affecté à ce même bâtiment, inutile de resaisir les informations du bâtiment (surface de planché ou observations). A l'enregistrement, ces informations seront automatiquement récupérées pour ce local.
 
