@@ -50,7 +50,11 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
 	c.loyer_m,
 	c.bail,
 	c.etat,
-	e.valeur AS dispo,
+	CASE 
+	WHEN c.etat IN ('10','20') THEN 'En vente'  
+	WHEN c.etat = '30' THEN 'En location'
+	WHEN c.etat = '40' THEN 'En vente et/ou en location'
+	ELSE ''	END AS dispo,
 	tb.valeur AS typlocal,
     b.libelle,
     b.adr,
@@ -63,15 +67,14 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
      LEFT JOIN m_economie.lk_immo_batiadr ad ON ad.idbati = o.idbati
      JOIN m_economie.an_immo_bien b ON b.idimmo = o.idimmo
      JOIN m_economie.an_immo_comm c ON c.idbien = b.idbien    
-     JOIN m_economie.lt_immo_etat e ON c.etat::text = e.code::text
      JOIN m_economie.lt_immo_tbien tb ON tb.code::text = b.tbien::text
      LEFT JOIN m_economie.an_sa_site s ON s.idsite::text = o.idsite::text
   WHERE
   c.etat::text <> 'ZZ'::text;
 
+
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
     IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO et permettant les recherches';
-
 
 
 
