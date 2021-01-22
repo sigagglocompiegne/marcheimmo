@@ -57,8 +57,7 @@ Particularité(s) à noter :
 
 - le type de bien est rendu obligatoire.
 - par défaut le terrain est initialisé à `Non concerné` dans la partie commercialisation.
-- la saisie d'un document joint ou de l'affectation d'un occupant ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
-- l'affectation d'adresse sur la Base Locale des Adresses n'est pas opérationnelle à ce stade.
+- la saisie d'un document joint ou de l'affectation de l'adresse ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
 
 
 ### Choix 2 - Saisir un bien immobilier de type local correspondant à un bâtiment : Local (Bâtiment non divisé)
