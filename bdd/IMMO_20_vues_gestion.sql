@@ -905,7 +905,7 @@ CREATE OR REPLACE VIEW m_economie.an_v_immo_bien_locnonident
 
 CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locident
  AS
- SELECT gbi.idimmo,
+ SELECT DISTINCT gbi.idimmo,
     gbi.idbati,
     abi.idbien,
     gbi.idsite,
