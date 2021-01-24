@@ -287,6 +287,7 @@ Valeurs possibles :
 |1110|Parking|
 |1210|Surface de dépôt ou de stockage|
 |1310|Surface agricole|
+|1410|Terrain avec bâtiment léger en activité|
 |2021|Bureau|
 |2121|Commerce|
 |2221|Activité|
