@@ -1008,7 +1008,9 @@ CREATE TRIGGER t_t2_refresh_stat_bati
 
 CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locnonident
  AS
- SELECT gbi.idimmo,
+ 
+ SELECT 
+    gbi.idimmo,
     gbi.idbati,
     gbi.idsite,
     gbi.sup_m2,
@@ -1021,7 +1023,8 @@ CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locnonident
     gbi.src_date,
     gbi.insee,
     gbi.commune,
-    a.id_adresse,
+    null::integer AS id_adresse,
+    string_agg(a.id_adresse::text,' ,') AS bal,
     ba.libelle AS libelle_bati,
     ba.surf_p AS surf_pbati,
     ba.mprop,
@@ -1037,11 +1040,13 @@ CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locnonident
      LEFT JOIN m_economie.lk_immo_batiadr a ON gbi.idbati = a.idbati,
     m_economie.an_immo_bati ba,
     m_economie.an_immo_propbati pba
-  WHERE gbi.ityp::text = '23'::text AND gbi.idbati = pba.idbati AND gbi.idbati = ba.idbati;
-
-
+  WHERE gbi.ityp::text = '23'::text AND gbi.idbati = pba.idbati AND gbi.idbati = ba.idbati
+  GROUP BY gbi.idimmo, ba.libelle,ba.surf_p,ba.mprop,ba.observ,pba.idprop,pba.propnom,pba.proptel,pba.proptelp,pba.propmail,pba.observ;
+  
+  
 COMMENT ON VIEW m_economie.geo_v_immo_bien_locnonident
     IS 'Vue éditable des locaux non identifiés dans un bâtiment divisible';
+
 
 CREATE TRIGGER t_t1_gestion_immolocnonident
     INSTEAD OF INSERT OR DELETE OR UPDATE 
@@ -1055,6 +1060,7 @@ CREATE TRIGGER t_t2_refresh_stat_bati
     ON m_economie.geo_v_immo_bien_locnonident
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_gestion_immo_statbati();
+
 
 
 
