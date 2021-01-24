@@ -899,12 +899,15 @@ CREATE OR REPLACE VIEW m_economie.an_v_immo_bien_locnonident
     m_economie.an_immo_bati ba
   WHERE gbi.ityp::text = '23'::text AND gbi.idimmo = abi.idimmo AND abi.idbien = com.idbien AND abi.idbien = pbi.idbien AND gbi.idbati = ba.idbati;
 
+-- ############################################################ geo_v_immo_bien_locident ######################################### 
+											   
 -- View: m_economie.geo_v_immo_bien_locident
 
 -- DROP VIEW m_economie.geo_v_immo_bien_locident;
 
 CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locident
  AS
+ 
  SELECT DISTINCT gbi.idimmo,
     gbi.idbati,
     abi.idbien,
@@ -919,7 +922,8 @@ CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locident
     gbi.src_date,
     gbi.insee,
     gbi.commune,
-    a.id_adresse,
+    null::integer AS id_adresse,
+	string_agg(a.id_adresse::text,' ,') AS bal,
     abi.tbien,
     abi.libelle,
     abi.pdp,
@@ -978,8 +982,10 @@ CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locident
     m_economie.an_immo_bati ba,
     m_economie.an_immo_propbati pba,
     m_economie.an_immo_propbien pbi
-  WHERE gbi.ityp::text = '22'::text AND gbi.idimmo = abi.idimmo AND abi.idbien = cbi.idbien AND gbi.idbati = pba.idbati AND gbi.idbati = ba.idbati AND abi.idbien = pbi.idbien;
-
+  WHERE gbi.ityp::text = '22'::text AND gbi.idimmo = abi.idimmo AND abi.idbien = cbi.idbien AND gbi.idbati = pba.idbati AND gbi.idbati = ba.idbati AND abi.idbien = pbi.idbien
+  GROUP BY gbi.idimmo, abi.idbien,cbi.idcomm,ba.idbati,pba.idprop,pbi.idprop;
+  
+  
 
 COMMENT ON VIEW m_economie.geo_v_immo_bien_locident
     IS 'Vue éditable des locaux identifiés reconstituant le bâtiment';
@@ -997,6 +1003,8 @@ CREATE TRIGGER t_t2_refresh_stat_bati
     ON m_economie.geo_v_immo_bien_locident
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_gestion_immo_statbati();
+
+
 
 
 
