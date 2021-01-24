@@ -234,6 +234,7 @@ INSERT INTO m_economie.lt_immo_tbien(code, valeur,ityp)
 	('1110','Parking','10'),
 	('1210','Surface de dépôt ou de stockage','10'),
 	('1310','Surface agricole','10'),
+	('1410','Terrain avec bâtiment léger en activité','10'),
 	('2021','Bureau','21'),
 	('2121','Commerce','21'),
 	('2221','Activité','21'),
