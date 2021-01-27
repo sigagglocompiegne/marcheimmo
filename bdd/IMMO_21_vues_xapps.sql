@@ -35,27 +35,30 @@ DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_bati;
 CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
  AS
  
- SELECT o.idimmo,
+ SELECT row_number() OVER () AS gid,
+    o.idimmo,
     b.idbien,
-	ad.id_adresse,
+    ad.id_adresse,
         CASE
             WHEN o.ityp::text = '10'::text THEN 'Terrain'::text
             ELSE 'Local'::text
         END AS ityp,
     o.ityp AS ityp_code,
     b.surf_p AS surface,
-	c.prix,
-	c.prix_m,
-	c.loyer,
-	c.loyer_m,
-	c.bail,
-	c.etat,
-	CASE 
-	WHEN c.etat IN ('10','20') THEN 'En vente'  
-	WHEN c.etat = '30' THEN 'En location'
-	WHEN c.etat = '40' THEN 'En vente et/ou en location'
-	ELSE ''	END AS dispo,
-	tb.valeur AS typlocal,
+	d.observ AS observ_desc,
+    c.prix,
+    c.prix_m,
+    c.loyer,
+    c.loyer_m,
+    c.bail,
+    c.etat,
+        CASE
+            WHEN c.etat::text = ANY (ARRAY['10'::character varying::text, '20'::character varying::text]) THEN 'En vente'::text
+            WHEN c.etat::text = '30'::text THEN 'En location'::text
+            WHEN c.etat::text = '40'::text THEN 'En vente et/ou en location'::text
+            ELSE ''::text
+        END AS dispo,
+    tb.valeur AS typlocal,
     b.libelle,
     b.adr,
     b.adrcomp,
@@ -66,15 +69,17 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
    FROM m_economie.geo_immo_bien o
      LEFT JOIN m_economie.lk_immo_batiadr ad ON ad.idbati = o.idbati
      JOIN m_economie.an_immo_bien b ON b.idimmo = o.idimmo
-     JOIN m_economie.an_immo_comm c ON c.idbien = b.idbien    
+     JOIN m_economie.an_immo_comm c ON c.idbien = b.idbien
+	 JOIN m_economie.an_immo_desc d ON d.idbien = b.idbien
      JOIN m_economie.lt_immo_tbien tb ON tb.code::text = b.tbien::text
      LEFT JOIN m_economie.an_sa_site s ON s.idsite::text = o.idsite::text
-  WHERE
-  c.etat::text <> 'ZZ'::text;
+  WHERE c.etat::text <> 'ZZ'::text;
 
 
 COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
     IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO et permettant les recherches';
+
+
 
 
 
