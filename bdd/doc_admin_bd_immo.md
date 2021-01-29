@@ -16,7 +16,7 @@ Cette orientation pourrait également déboucher sur un observatoire des commerc
  
  **Résumé fonctionnel** :
  
-La donnée a été construite de façon à pouvoir réaliser un inventaire cartographique des bâtiments et locaus d'activité selon la composition de ces dits bâtiments. 3 scénarii de construction ont été établis en dehors de la gestion des terrains qui se réalise indépendemment.
+La donnée a été construite de façon à pouvoir réaliser un inventaire cartographique des bâtiments et locaux d'activité selon la composition de ces dits bâtiments. 3 scénarii de construction ont été établis en dehors de la gestion des terrains qui se réalise indépendemment.
 
 - le local et le bâtiment en font qu'une seule entité : Local (Bâtiment non divisé)
 - le bâtiment contient au moins 2 locaux mais ils ne sont identifiables (localisation ou numérisation impossible) : Local non identifié dans un bâtiment divisible
