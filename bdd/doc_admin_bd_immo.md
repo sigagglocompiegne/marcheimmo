@@ -22,7 +22,11 @@ La donnée a été construite de façon à pouvoir réaliser un inventaire carto
 - le bâtiment contient au moins 2 locaux mais ils ne sont identifiables (localisation ou numérisation impossible) : Local non identifié dans un bâtiment divisible
 - le bâtiment est composé d'au moins 2 locaux identifiables (dans ce cas le bâtiment est reconstruit virtuellement par l'association des locaus qui le composent) : Local indépendant divisé
 
-L'adressage des bâtiments a été réalisé sur la Base Adresse Local (BAL) permettant ainsi de récupérer automatiquement les établissemets occupants déjà géolocalisés sur la BAL. La gestion des établissements au local n'est pas encore pris en compte (en cours de régfléxion), seul un attribut permet de saisir librement pour le moment un ocucpant ou une occupation.
+L'adressage des bâtiments a été réalisé sur la Base Adresse Local (BAL) permettant ainsi de récupérer automatiquement les établissemets occupants déjà géolocalisés sur la BAL. La gestion des établissements au local n'est pas encore pris en compte (en cours de réfléxion), seul un attribut permet de saisir librement pour le moment un ocucpant ou une occupation.
+
+En résumer, l'objectif est d'identifier un bâtiment d'activité (réalisé par l'inventaire cartographique), celui-ci contient n locaux d'activités occupés par un établissement. Ces locaux peuvent être ensuite mis sur le marché de la location ou de la vente. Lorsque que celui-ci n'est plus disponible, il n'est plus sur le marché et occupé par un nouvel établissement. L'atteinte d'une connaissance exhausitve des locaux à l'intérieur des bâtiments n'a pas éta fixé à ce stade. Cete base de données s'alimentera avec les données récoltées par le service gestionnaire.
+
+L'inventaire cartographique sere mené en priorité sur les ZAE (zone d'aménagement économique) avant d'être étendu aux autres sites d'activités et éventuellement en centre-ville.
 
 ## Modèle conceptuel simplifié
 
