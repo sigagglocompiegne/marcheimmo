@@ -20,6 +20,8 @@ Cet inventaire sera ainsi intégré à la base de données de la collectivité e
 
 En résumer, on identifie un bâtiment d'activité (réalisé par l'inventaire cartographique), celui-ci contient n locaux d'activités occupés par un établissement. Ces locaux peuvent être ensuite mis sur le marché de la location ou de la vente. Lorsque que celui-ci n'est plus disponible, il n'est plus sur le marché et occupé par un nouvel établissement.
 
+L'inventaire cartographique sere mené en priorité sur les ZAE (zone d'aménagement économique) avant d'être étendu aux autres sites d'activités et éventuellement en centre-ville.
+
 ## Gabarits
 
 - Fichier gabarit Qgis 3.x (vierge) complet à télécharger (en cours de réalisation)
