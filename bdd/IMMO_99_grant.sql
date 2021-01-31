@@ -88,6 +88,13 @@ GRANT ALL ON TABLE m_economie.an_immo_comm TO create_sig;
 GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_comm TO edit_sig;
 GRANT SELECT ON TABLE m_economie.an_immo_comm TO read_sig;
 
+ALTER TABLE m_economie.an_immo_desc
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_economie.an_immo_desc TO sig_create;
+GRANT ALL ON TABLE m_economie.an_immo_desc TO create_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_desc TO edit_sig;
+GRANT SELECT ON TABLE m_economie.an_immo_desc TO read_sig;
+
 ALTER TABLE m_economie.an_immo_propbati
   OWNER TO sig_create;
 GRANT ALL ON TABLE m_economie.an_immo_propbati TO sig_create;
@@ -203,14 +210,6 @@ GRANT SELECT ON TABLE m_economie.geo_v_immo_bien_locnonident TO read_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.geo_v_immo_bien_locnonident TO edit_sig;
 GRANT ALL ON TABLE m_economie.geo_v_immo_bien_locnonident TO create_sig;
 
-
-ALTER TABLE m_economie.geo_v_immo_bien_locunique
-    OWNER TO sig_create;
-
-GRANT ALL ON TABLE m_economie.geo_v_immo_bien_locunique TO sig_create;
-GRANT SELECT ON TABLE m_economie.geo_v_immo_bien_locunique TO read_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.geo_v_immo_bien_locunique TO edit_sig;
-GRANT ALL ON TABLE m_economie.geo_v_immo_bien_locunique TO create_sig;
 
 ALTER TABLE m_economie.geo_v_immo_bien_terrain
     OWNER TO sig_create;
