@@ -28,7 +28,6 @@ DROP VIEW IF EXISTS x_apps.xapps_an_vmr_immo_bati;
 DROP VIEW IF EXISTS an_v_immo_bien_locnonident;
 DROP VIEW IF EXISTS geo_v_immo_bien_locident;
 DROP VIEW IF EXISTS geo_v_immo_bien_locnonident;
-DROP VIEW IF EXISTS geo_v_immo_bien_locunique;
 DROP VIEW IF EXISTS geo_v_immo_bien_terrain;
 
 -- CLASSES
@@ -39,6 +38,7 @@ DROP TABLE IF EXISTS m_economie.an_immo_bati;
 DROP TABLE IF EXISTS m_economie.an_immo_propbati;
 DROP TABLE IF EXISTS m_economie.an_immo_propbien;
 DROP TABLE IF EXISTS m_economie.an_immo_comm;
+DROP TABLE IF EXISTS m_economie.an_immo_desc;
 DROP TABLE IF EXISTS m_economie.an_immo_media ;
 DROP TABLE IF EXISTS m_economie.lk_immo_batiadr;
 
@@ -55,6 +55,7 @@ DROP TABLE IF EXISTS m_economie.lt_immo_etat CASCADE;
 DROP SEQUENCE m_economie.geo_immo_bien_seq;
 DROP SEQUENCE m_economie.an_immo_bien_seq;
 DROP SEQUENCE m_economie.an_immo_comm_seq ;
+DROP SEQUENCE m_economie.an_immo_desc_seq ;
 DROP SEQUENCE m_economie.an_immo_bati_seq;
 DROP SEQUENCE m_economie.an_immo_prop_seq;
 DROP SEQUENCE m_economie.an_immo_media_seq;
@@ -878,3 +879,6 @@ CREATE INDEX idx_an_immo_media_id
     (id COLLATE pg_catalog."default" ASC NULLS LAST)
     TABLESPACE pg_default;
 
+--################################################################# an_immo_desc #######################################################
+
+(à venir)
