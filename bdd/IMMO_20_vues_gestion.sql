@@ -19,7 +19,6 @@ DROP TRIGGER IF EXISTS t_t1_gestion_immolocident ON m_economie.geo_v_immo_bien_l
 DROP TRIGGER IF EXISTS t_t2_refresh_stat_bati ON m_economie.geo_v_immo_bien_locident;
 DROP TRIGGER IF EXISTS t_t1_gestion_immolocnonident ON m_economie.geo_v_immo_bien_locnonident;
 DROP TRIGGER IF EXISTS t_t2_refresh_stat_bati ON m_economie.geo_v_immo_bien_locnonident;
-DROP TRIGGER IF EXISTS t_t1_gestion_immolocunique ON m_economie.geo_v_immo_bien_locunique;
 DROP TRIGGER IF EXISTS t_t2_refresh_stat_bati ON m_economie.geo_v_immo_bien_locunique;
 DROP TRIGGER IF EXISTS t_t1_gestion_immoterrain ON m_economie.geo_v_immo_bien_terrain;
 
@@ -29,7 +28,6 @@ DROP VIEW IF EXISTS x_apps.xapps_an_vmr_immo_bati;
 DROP VIEW IF EXISTS an_v_immo_bien_locnonident;
 DROP VIEW IF EXISTS geo_v_immo_bien_locident;
 DROP VIEW IF EXISTS geo_v_immo_bien_locnonident;
-DROP VIEW IF EXISTS geo_v_immo_bien_locunique;
 DROP VIEW IF EXISTS geo_v_immo_bien_terrain;
 
 --FONCTIONS
@@ -39,7 +37,6 @@ DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immo_statbati();
 DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immolocident();
 DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immolocnonident();
 DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immolocnonident_bien();
-DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immolocunique();
 DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immoterrain();
 
 -- #################################################################################################################################
@@ -550,172 +547,6 @@ $BODY$;
 
 
 
--- ############################################################ ft_m_gestion_immolocunique #########################################    
-                                  
--- FUNCTION: m_economie.ft_m_gestion_immolocunique()
-
--- DROP FUNCTION m_economie.ft_m_gestion_immolocunique();
-
-CREATE FUNCTION m_economie.ft_m_gestion_immolocunique()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-
-DECLARE v_idimmo text;
-DECLARE v_idbien text;
-DECLARE v_idbati text;
-DECLARE v_idprop text;
-DECLARE v_idcomm text;
-DECLARE v_iddesc text;
-
-BEGIN
-
-IF (TG_OP='INSERT') then
-
-v_idimmo := ('O'::text || nextval('m_economie.geo_immo_bien_seq'::regclass));
-v_idbien := ('B'::text || nextval('m_economie.an_immo_bien_seq'::regclass));
-v_idbati := ('BA'::text || nextval('m_economie.an_immo_bati_seq'::regclass));
-v_idprop := ('P'::text || nextval('m_economie.an_immo_prop_seq'::regclass));
-v_idcomm := ('C'::text || nextval('m_economie.an_immo_comm_seq'::regclass));
-v_iddesc := ('D'::text || nextval('m_economie.an_immo_desc_seq'::regclass));
-
-INSERT INTO m_economie.geo_immo_bien (idimmo,idbati,idsite,sup_m2,ityp,observ,op_sai,date_sai,date_maj,src_geom,src_date,insee,commune,geom)
-SELECT v_idimmo,v_idbati,
-(SELECT DISTINCT idsite FROM r_objet.geo_objet_ope WHERE st_intersects(geo_objet_ope.geom,ST_PointOnSurface(NEW.geom)) = true AND idsite <> '60159ak'),
-st_area(NEW.geom),'21',NEW.observ_obj,NEW.op_sai,now(),null,NEW.src_geom,NEW.src_date,
-(select string_agg(insee, ', ') from r_osm.geo_osm_commune where st_intersects(NEW.geom,geom)),
-(select string_agg(commune, ', ') from r_osm.geo_osm_commune where st_intersects(NEW.geom,geom)),
-NEW.geom;
-
-INSERT INTO m_economie.an_immo_bien (idbien,idimmo,tbien,libelle,pdp,lib_occup,adr,adrcomp,surf_p,source,refext,observ,surf_rdc,surf_etag,surf_mezza,surf_acti,surf_bur)
-SELECT v_idbien,v_idimmo,NEW.tbien,NEW.libelle,NEW.pdp,NEW.lib_occup,NEW.adr,NEW.adrcomp,NEW.surf_p,NEW.source,NEW.refext_bien,NEW.observ_bien,
-NEW.surf_rdc,NEW.surf_etag,NEW.surf_mezza,NEW.surf_acti,NEW.surf_bur;
-
-INSERT INTO m_economie.an_immo_desc (iddesc,idbien) 
-SELECT v_iddesc,v_idbien;
-
-INSERT INTO m_economie.an_immo_comm (idcomm,idimmo,idbien,prix_a,prix_am,loyer_a,loyer_am,bail_a,prix,prix_m,loyer,loyer_m,bail,comm,commtel,commtelp,commmail,etat,refext,observ) 
-SELECT v_idcomm,v_idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer_am,NEW.bail_a,NEW.prix,NEW.prix_m,NEW.loyer,NEW.loyer_m,NEW.bail,NEW.comm,NEW.commtel,NEW.commtelp,NEW.commmail,NEW.etat,NEW.refext_comm,NEW.observ_comm;
-
-INSERT INTO m_economie.an_immo_propbati (idprop,idbati,propnom,proptel,proptelp,propmail,observ)
-SELECT v_idprop,v_idbati,NEW.propnom,NEW.proptel,NEW.proptelp,NEW.propmail,NEW.observ_prop;
-
-INSERT INTO m_economie.an_immo_bati (idbati,idimmo,ityp,libelle,surf_p,mprop,observ)
-SELECT v_idbati,v_idimmo,'21',NEW.libelle_bati,NEW.surf_p,false,NEW.observ_bati;
-
--- si l'identifiant adresse est saisie (uniquement via Gabarit QGIS interne au service SIG)
-IF NEW.id_adresse > 0 THEN
-INSERT INTO  m_economie.lk_immo_batiadr (id,idbati,id_adresse)
-SELECT nextval('m_economie.lk_immo_batiadr_seq'::regclass),v_idbati,NEW.id_adresse;
-
-END IF;
-
-END IF;
-
-IF (TG_OP='UPDATE') then
-
-UPDATE  m_economie.geo_immo_bien SET
-idsite = (SELECT DISTINCT idsite FROM r_objet.geo_objet_ope WHERE st_intersects(geo_objet_ope.geom,ST_PointOnSurface(NEW.geom)) = true AND idsite <> '60159ak'),
-sup_m2 = st_area(NEW.geom),
-observ = NEW.observ_obj,
-op_sai = NEW.op_sai,
-date_maj = now(),
-src_geom = NEW.src_geom,
-src_date = NEW.src_date,
-insee = (select string_agg(insee, ', ') from r_osm.geo_osm_commune where st_intersects(NEW.geom,geom)),
-commune = (select string_agg(commune, ', ') from r_osm.geo_osm_commune where st_intersects(NEW.geom,geom)),
-geom = NEW.GEOM
-WHERE idimmo = NEW.idimmo;
-
--- si l'identifiant adresse est modifié sans existance préalable (uniquement via Gabarit QGIS interne au service SIG)
-IF (NEW.id_adresse IS NOT NULL AND OLD.id_adresse IS NULL)  THEN
-INSERT INTO  m_economie.lk_immo_batiadr (id,idbati,id_adresse)
-SELECT nextval('m_economie.lk_immo_batiadr_seq'::regclass),NEW.idbati,NEW.id_adresse;
-END IF;
-
--- si l'identifiant adresse est modifié avec une existance préalable (uniquement via Gabarit QGIS interne au service SIG)
-IF OLD.id_adresse IS NOT NULL AND OLD.id_adresse <> NEW.id_adresse THEN
-UPDATE m_economie.lk_immo_batiadr SET id_adresse = NEW.id_adresse WHERE idbati = NEW.idbati;
-END IF;
-
-UPDATE  m_economie.an_immo_bien SET
-tbien = NEW.tbien,
-libelle = NEW.libelle,
-pdp = NEW.pdp,
-lib_occup = NEW.lib_occup,
-adr = NEW.adr,
-adrcomp = NEW.adrcomp,
-surf_p = NEW.surf_p,
-source = NEW.source,
-refext = NEW.refext_bien,
-observ = NEW.observ_bien,
-surf_rdc = NEW.surf_rdc,
-surf_etag = NEW.surf_etag,
-surf_mezza = NEW.surf_mezza,
-surf_acti = NEW.surf_acti,
-surf_bur = NEW.surf_bur
-WHERE idbien = NEW.idbien;
-
-UPDATE  m_economie.an_immo_comm SET
-prix_a = NEW.prix_a,
-prix_am = NEW.prix_am,
-loyer_a = NEW.loyer_a,
-loyer_am = NEW.loyer_am,
-bail_a = NEW.bail_a,
-prix = NEW.prix,
-prix_m = NEW.prix_m,
-loyer = NEW.loyer,
-loyer_m = NEW.loyer_m,
-bail = NEW.bail,
-comm = NEW.comm,
-commtel = NEW.commtel,
-commtelp = NEW.commtelp,
-commmail = NEW.commmail,
-etat = NEW.etat,
-refext = NEW.refext_comm,
-observ = NEW.observ_comm
-WHERE idcomm = NEW.idcomm;
-
-UPDATE  m_economie.an_immo_propbati SET
-propnom = NEW.propnom,
-proptel = NEW.proptel,
-proptelp = NEW.proptelp,
-propmail = NEW.propmail,
-observ = NEW.observ_prop
-WHERE idprop = NEW.idprop;
-
-UPDATE  m_economie.an_immo_bati SET
-libelle = NEW.libelle_bati,
-surf_p = NEW.surf_pbati,
-observ = NEW.observ_bati
-WHERE idbati = NEW.idbati;
-
-END IF;
-
-IF (TG_OP='DELETE') then
-
-DELETE FROM m_economie.geo_immo_bien WHERE idimmo = OLD.idimmo;
-DELETE FROM m_economie.an_immo_bien WHERE idbien = OLD.idbien;
-DELETE FROM m_economie.an_immo_comm WHERE idcomm = OLD.idcomm;
-DELETE FROM m_economie.an_immo_desc WHERE idbien = OLD.idbien;
-DELETE FROM m_economie.an_immo_propbati WHERE idprop = OLD.idprop;
-DELETE FROM m_economie.an_immo_bati WHERE idbati = OLD.idbati;
-DELETE FROM m_economie.an_immo_media WHERE id = OLD.idbati;
-DELETE FROM m_economie.an_immo_media WHERE id = OLD.idbien;
-DELETE FROM m_economie.lk_immo_batiadr WHERE idbati = OLD.idbati;
-
-END IF;
-
-RETURN NEW;
-
-END;
-
-$BODY$;
-
-
-
 -- ############################################################ ft_m_gestion_immoterrain #########################################   
                                                                                            
 -- FUNCTION: m_economie.ft_m_gestion_immoterrain()
@@ -1066,102 +897,6 @@ CREATE TRIGGER t_t1_gestion_immolocnonident
 CREATE TRIGGER t_t2_refresh_stat_bati
     INSTEAD OF INSERT OR DELETE OR UPDATE 
     ON m_economie.geo_v_immo_bien_locnonident
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_gestion_immo_statbati();
-
-
-
-
--- ############################################################ geo_v_immo_bien_locunique #########################################
-
--- View: m_economie.geo_v_immo_bien_locunique
-
--- DROP VIEW m_economie.geo_v_immo_bien_locunique;
-
-CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locunique
- AS
- SELECT gbi.idimmo,
-    gbi.idbati,
-    abi.idbien,
-    gbi.idsite,
-    gbi.sup_m2,
-    '21'::character varying(2) AS ityp,
-    gbi.observ AS observ_obj,
-    gbi.op_sai,
-    gbi.date_sai,
-    gbi.date_maj,
-    gbi.src_geom,
-    gbi.src_date,
-    gbi.insee,
-    gbi.commune,
-    a.id_adresse,
-    abi.tbien,
-    abi.libelle,
-    abi.pdp,
-    abi.lib_occup,
-    abi.adr,
-    abi.adrcomp,
-    abi.surf_p,
-    abi.source,
-    abi.refext AS refext_bien,
-    abi.observ AS observ_bien,
-    abi.surf_rdc,
-    abi.surf_etag,
-    abi.surf_mezza,
-    abi.surf_acti,
-    abi.surf_bur,
-    cbi.idcomm,
-    cbi.prix_a,
-    cbi.prix_am,
-    cbi.loyer_a,
-    cbi.loyer_am,
-    cbi.bail_a,
-    cbi.prix,
-    cbi.prix_m,
-    cbi.loyer,
-    cbi.loyer_m,
-    cbi.bail,
-    cbi.comm,
-    cbi.commtel,
-    cbi.commtelp,
-    cbi.commmail,
-    cbi.etat,
-    cbi.refext AS refext_comm,
-    cbi.observ AS observ_comm,
-    ba.libelle AS libelle_bati,
-    ba.surf_p AS surf_pbati,
-    ba.mprop,
-    ba.observ AS observ_bati,
-    pba.idprop,
-    pba.propnom,
-    pba.proptel,
-    pba.proptelp,
-    pba.propmail,
-    pba.observ AS observ_prop,
-    gbi.geom
-   FROM m_economie.geo_immo_bien gbi
-     LEFT JOIN m_economie.lk_immo_batiadr a ON gbi.idbati = a.idbati,
-    m_economie.an_immo_bien abi,
-    m_economie.an_immo_comm cbi,
-    m_economie.an_immo_bati ba,
-    m_economie.an_immo_propbati pba
-  WHERE gbi.ityp::text = '21'::text AND gbi.idimmo = abi.idimmo AND abi.idbien = cbi.idbien AND gbi.idbati = pba.idbati AND gbi.idbati = ba.idbati;
-
-
-COMMENT ON VIEW m_economie.geo_v_immo_bien_locunique
-    IS 'Vue éditable des locaux dans un bâtiment non divisé';
-
-
-CREATE TRIGGER t_t1_gestion_immolocunique
-    INSTEAD OF INSERT OR DELETE OR UPDATE 
-    ON m_economie.geo_v_immo_bien_locunique
-    FOR EACH ROW
-    EXECUTE PROCEDURE m_economie.ft_m_gestion_immolocunique();
-
-
-CREATE TRIGGER t_t2_refresh_stat_bati
-    INSTEAD OF INSERT OR DELETE OR UPDATE 
-    ON m_economie.geo_v_immo_bien_locunique
     FOR EACH ROW
     EXECUTE PROCEDURE m_economie.ft_m_gestion_immo_statbati();
 
