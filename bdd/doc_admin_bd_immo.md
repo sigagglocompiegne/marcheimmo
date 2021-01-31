@@ -2,6 +2,8 @@
 
 # Documentation d'administration de la base #
 
+(reste à venir les éléments descriptifs d'un local qui seront intégrés à cette documentation)
+
 ## Principes
  
  **Généralités** :
@@ -190,6 +192,18 @@ Particularité(s) à noter : aucune
 
 ---
 
+ `an_immo_desc` : table des attributs métiers permettant de gérer les éléments descriptifs d'un local (non encore implémenté, en attente des éléments du service métier)
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|iddesc|Identifiant unique de la description|text| |
+|idbien|Identifiant du bien|text| |
+|observ|Observations (éléments descriptifs de l'ancienne bourse aux locaux pour le moment)|character varying(1000)| |
+
+Particularité(s) à noter : aucune
+
+---
+
 `lk_immo_batiadr` : table de liens permettant l'affectation du bâtiment à une adresse de la BAL
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
@@ -222,11 +236,9 @@ Particularité(s) à noter : aucune
 
 `geo_v_immo_bien_terrain` : vue permettant de gérer l'insertion et la mise jour des biens de type terrain.
 
-`geo_v_immo_bien_locunique` : vue permettant de gérer l'insertion et la mise jour de locaux confondus avec le bâtiment.
-
 `geo_v_immo_bien_locident` : vue permettant de gérer l'insertion et la mise jour les locaux identifiés reconstruisant le bâtiment qui s'en composent.
 
-`geo_v_immo_bien_locnonident` : vue permettant de gérer l'insertion et la mise jour les locaux non identifiables dans un même bâtiment.
+`geo_v_immo_bien_locnonident` : vue permettant de gérer l'insertion et la mise jour les locaux non identifiables dans un même bâtiment (1 à n locaux).
 
 `an_v_immo_bien_locnonident` : vue complémentaire à la précedent permettant de gérer l'insertion et la mise jour des n locaux.
 
