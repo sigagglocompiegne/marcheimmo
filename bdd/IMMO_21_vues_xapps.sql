@@ -28,28 +28,29 @@ DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_bati;
 
 --################################################## xapps_geo_v_immo_etat ###############################################
 
--- View: x_apps.xapps_geo_v_immo_etat
+-- View: x_apps.xapps_geo_vmr_immo_etat
 
--- DROP VIEW x_apps.xapps_geo_v_immo_etat;
+-- DROP MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
 
-CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
- AS
- 
- SELECT row_number() OVER () AS gid,
+CREATE MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat
+TABLESPACE pg_default
+AS
+ SELECT DISTINCT row_number() OVER () AS gid,
     o.idimmo,
+    o.idbati,
     b.idbien,
-    ad.id_adresse,
         CASE
             WHEN o.ityp::text = '10'::text THEN 'Terrain'::text
             ELSE 'Local'::text
         END AS ityp,
     o.ityp AS ityp_code,
     b.surf_p AS surface,
-	d.observ AS observ_desc,
+    d.observ AS observ_desc,
     c.prix,
     c.prix_m,
     c.loyer,
     c.loyer_m,
+    c.loyer_mp,
     c.bail,
     c.etat,
         CASE
@@ -64,48 +65,104 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_etat
     b.adrcomp,
     o.commune,
     s.site_nom AS za,
-    st_pointonsurface(o.geom) AS geom,
-    o.geom AS geom1
+    st_buffer(o.geom, 2.5::double precision) AS geom,
+    st_pointonsurface(o.geom) AS geom1
    FROM m_economie.geo_immo_bien o
-     LEFT JOIN m_economie.lk_immo_batiadr ad ON ad.idbati = o.idbati
      JOIN m_economie.an_immo_bien b ON b.idimmo = o.idimmo
+     LEFT JOIN m_economie.an_immo_desc d ON d.idbien = b.idbien
      JOIN m_economie.an_immo_comm c ON c.idbien = b.idbien
-	 JOIN m_economie.an_immo_desc d ON d.idbien = b.idbien
      JOIN m_economie.lt_immo_tbien tb ON tb.code::text = b.tbien::text
      LEFT JOIN m_economie.an_sa_site s ON s.idsite::text = o.idsite::text
-  WHERE c.etat::text <> 'ZZ'::text;
+  WHERE c.etat::text <> 'ZZ'::text
+WITH DATA;
 
+ALTER TABLE x_apps.xapps_geo_vmr_immo_etat
+    OWNER TO sig_create;
 
-COMMENT ON VIEW x_apps.xapps_geo_v_immo_etat
-    IS 'Vue géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO et permettant les recherches';
-
-
+COMMENT ON MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat
+    IS 'Vue matérialisée géographique présentant l''état de disponibilités d''un local/terrain (en vente, en location) et intégrée à la cartographie de l''application GEO et permettant les recherches';
 
 
 
 --################################################## xapps_geo_v_immo_bati ###############################################
 
--- View: x_apps.xapps_geo_v_immo_bati
+-- View: x_apps.xapps_geo_vmr_immo_bati
 
--- DROP VIEW x_apps.xapps_geo_v_immo_bati;
+-- DROP MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
 
-CREATE OR REPLACE VIEW x_apps.xapps_geo_v_immo_bati
- AS
+CREATE MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati
+TABLESPACE pg_default
+AS
+ WITH req_bati AS (
+         SELECT o.idbati,
+            ba.libelle,
+            ba.libelle AS etiquette,
+            stat.nbloc_tot,
+            o.idsite,
+            st_multi(st_union(o.geom))::geometry(MultiPolygon,2154) AS geom
+           FROM m_economie.geo_immo_bien o,
+            m_economie.an_immo_bati ba,
+            x_apps.xapps_an_vmr_immo_bati stat
+          WHERE o.idbati = ba.idbati AND o.idbati = stat.idbati AND o.ityp::text <> '10'::text
+          GROUP BY o.idbati, ba.libelle, stat.nbloc_tot, o.idsite
+        ), req_compteetab AS (
+         SELECT ba.idbati,
+            count(*) AS nb_etab,
+            string_agg(
+                CASE
+                    WHEN length(ae.l_nom::text) <> 0 THEN ae.l_nom
+                    WHEN length(ne.enseigne1etablissement::text) <> 0 THEN ne.enseigne1etablissement
+                    WHEN length(ne.enseigne2etablissement::text) <> 0 THEN ne.enseigne2etablissement
+                    WHEN length(ne.enseigne3etablissement::text) <> 0 THEN ne.enseigne3etablissement
+                    WHEN length(ne.denominationusuelleetablissement::text) <> 0 THEN ne.denominationusuelleetablissement
+                    WHEN length(t2.denominationunitelegale::text) <> 0 THEN t2.denominationunitelegale
+                    WHEN length(t2.denominationusuelle1unitelegale::text) <> 0 THEN t2.denominationusuelle1unitelegale
+                    WHEN length(t2.denominationusuelle2unitelegale::text) <> 0 THEN t2.denominationusuelle2unitelegale
+                    WHEN length(t2.denominationusuelle3unitelegale::text) <> 0 THEN t2.denominationusuelle3unitelegale
+                    WHEN length(t2.nomunitelegale::text) <> 0 THEN t2.nomunitelegale
+                    WHEN length(t2.nomusageunitelegale::text) <> 0 THEN t2.nomusageunitelegale
+                    WHEN length(t2.pseudonymeunitelegale::text) <> 0 THEN t2.pseudonymeunitelegale
+                    ELSE ''::character varying
+                END::text, chr(10)) AS liste_etab
+           FROM m_economie.an_immo_bati ba,
+            m_economie.lk_immo_batiadr a,
+            m_economie.lk_adresseetablissement e_1,
+            m_economie.an_sa_etab ae,
+            s_sirene.an_etablissement_api ne
+             JOIN ( SELECT an_unitelegale_api.siren,
+                    max(an_unitelegale_api.gid) AS max,
+                    an_unitelegale_api.denominationunitelegale,
+                    an_unitelegale_api.denominationusuelle1unitelegale,
+                    an_unitelegale_api.denominationusuelle2unitelegale,
+                    an_unitelegale_api.denominationusuelle3unitelegale,
+                    an_unitelegale_api.nomunitelegale,
+                    an_unitelegale_api.nomusageunitelegale,
+                    an_unitelegale_api.pseudonymeunitelegale
+                   FROM s_sirene.an_unitelegale_api
+                  GROUP BY an_unitelegale_api.siren, an_unitelegale_api.denominationunitelegale, an_unitelegale_api.denominationusuelle1unitelegale, an_unitelegale_api.denominationusuelle2unitelegale, an_unitelegale_api.denominationusuelle3unitelegale, an_unitelegale_api.nomunitelegale, an_unitelegale_api.nomusageunitelegale, an_unitelegale_api.pseudonymeunitelegale) t2 ON ne.siren::text = t2.siren::text
+          WHERE ba.idbati = a.idbati AND a.id_adresse = e_1.idadresse AND e_1.siret::text = ne.siret::text AND e_1.siret::text = ae.idsiret::text AND ae.l_compte = true AND ne.etatadministratifetablissement::text = 'A'::text
+          GROUP BY ba.idbati
+        )
  SELECT row_number() OVER () AS gid,
-    ba.libelle,
-    stat.nbloc_tot,
-	o.idsite,
-    st_multi(st_union(o.geom))::geometry(MultiPolygon,2154) AS geom
-   FROM m_economie.geo_immo_bien o,
-    m_economie.an_immo_bati ba,
-    x_apps.xapps_an_vmr_immo_bati stat
-  WHERE o.idbati = ba.idbati AND o.idbati = stat.idbati AND o.ityp::text <> '10'::text
-  GROUP BY o.idbati, ba.libelle, stat.nbloc_tot,o.idsite;
+    b.idbati,
+    b.libelle,
+        CASE
+            WHEN e.nb_etab <= 3 THEN e.liste_etab::character varying
+            ELSE b.libelle
+        END AS etiquette,
+    e.nb_etab,
+    b.nbloc_tot,
+    b.idsite,
+    b.geom
+   FROM req_bati b
+     LEFT JOIN req_compteetab e ON b.idbati = e.idbati
+WITH DATA;
 
+ALTER TABLE x_apps.xapps_geo_vmr_immo_bati
+    OWNER TO sig_create;
 
-COMMENT ON VIEW x_apps.xapps_geo_v_immo_bati
+COMMENT ON MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati
     IS 'Vue géographique présentant le bâtiment reconstitué à partir des locaux indépendant divisés d''un même bâtiment (pour la cartographie GEO de l''application)';
-
   
 --################################################## xapps_an_vmr_immo_bati ###############################################
 
@@ -223,11 +280,11 @@ AS
      LEFT JOIN req_biensp_22 ON req_bati.idbati = req_biensp_22.idbati
 WITH DATA;
 
-
+ALTER TABLE x_apps.xapps_an_vmr_immo_bati
+    OWNER TO sig_create;
 
 COMMENT ON MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati
     IS 'Vue matérialisée rafraichies par trigger à la mise à jour des données du marché immobilier formatant les données calculées aux bâtiments des locaux d''activités';
-
 
 CREATE INDEX idx_xapps_an_immo_bati_idbati
     ON x_apps.xapps_an_vmr_immo_bati USING btree
