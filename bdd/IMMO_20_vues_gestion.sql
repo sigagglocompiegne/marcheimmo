@@ -94,12 +94,16 @@ AS $BODY$
 BEGIN
 -- rafraichissement de la vue matérialisée permettant de calculer les surfaces au sol, planché et nb de biens aux bâtiments (déduit de la saisie utilisateur)
 REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
 
 return new;
 
 END;
 
 $BODY$;
+
+
 
 -- ############################################################ ft_m_gestion_immolocident #########################################
                                         
@@ -141,15 +145,16 @@ st_area(NEW.geom),'22',NEW.observ_obj,NEW.op_sai,now(),null,NEW.src_geom,NEW.src
 (select string_agg(commune, ', ') from r_osm.geo_osm_commune where st_intersects(NEW.geom,geom)),
 NEW.geom;
 
-INSERT INTO m_economie.an_immo_bien (idbien,idimmo,tbien,libelle,pdp,lib_occup,adr,adrcomp,surf_p,source,refext,observ,surf_rdc,surf_etag,surf_mezza,surf_acti,surf_bur)
+INSERT INTO m_economie.an_immo_bien (idbien,idimmo,tbien,libelle,pdp,lib_occup,adr,adrcomp,surf_p,source,refext,observ,surf_rdc,surf_etag,surf_mezza,surf_acti,surf_bur,op_sai,date_sai)
 SELECT v_idbien,v_idimmo,NEW.tbien,NEW.libelle,false,NEW.lib_occup,NEW.adr,NEW.adrcomp,NEW.surf_p,NEW.source,NEW.refext_bien,NEW.observ_bien,
-NEW.surf_rdc,NEW.surf_etag,NEW.surf_mezza,NEW.surf_acti,NEW.surf_bur;
+NEW.surf_rdc,NEW.surf_etag,NEW.surf_mezza,NEW.surf_acti,NEW.surf_bur,NEW.op_sai_bien,now();
 
-INSERT INTO m_economie.an_immo_desc (iddesc,idbien)
-SELECT v_iddesc,v_idbien;
+INSERT INTO m_economie.an_immo_desc (iddesc,idbien,observ)
+SELECT v_iddesc,v_idbien,NEW.observ_desc;
 
-INSERT INTO m_economie.an_immo_comm (idcomm,idimmo,idbien,prix_a,prix_am,loyer_a,loyer_am,bail_a,prix,prix_m,loyer,loyer_m,bail,comm,commtel,commtelp,commmail,etat,refext,observ) 
-SELECT v_idcomm,v_idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer_am,NEW.bail_a,NEW.prix,NEW.prix_m,NEW.loyer,NEW.loyer_m,NEW.bail,NEW.comm,NEW.commtel,NEW.commtelp,NEW.commmail,NEW.etat,NEW.refext_comm,NEW.observ_comm;
+INSERT INTO m_economie.an_immo_comm (idcomm,idimmo,idbien,prix_a,prix_am,loyer_a,loyer_am,bail_a,prix,prix_m,loyer,loyer_m,bail,comm,commtel,commtelp,commmail,etat,refext,observ,loyer_amp,loyer_mp) 
+SELECT v_idcomm,v_idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer_am,NEW.bail_a,NEW.prix,NEW.prix_m,NEW.loyer,NEW.loyer_m,NEW.bail,NEW.comm,NEW.commtel,NEW.commtelp,NEW.commmail,NEW.etat,
+NEW.refext_comm,NEW.observ_comm,NEW.loyer_amp,NEW.loyer_mp;
 
 IF (SELECT COUNT(*) FROM m_economie.an_immo_propbati WHERE idbati = NEW.bati_appart) = 0 THEN
 INSERT INTO m_economie.an_immo_propbati (idprop,idbati,propnom,proptel,proptelp,propmail,observ)
@@ -216,7 +221,13 @@ surf_rdc = NEW.surf_rdc,
 surf_etag = NEW.surf_etag,
 surf_mezza = NEW.surf_mezza,
 surf_acti = NEW.surf_acti,
-surf_bur = NEW.surf_bur
+surf_bur = NEW.surf_bur,
+op_sai = NEW.op_sai_bien,
+date_maj = now()
+WHERE idbien = NEW.idbien;
+
+UPDATE  m_economie.an_immo_desc SET
+observ = NEW.observ_desc
 WHERE idbien = NEW.idbien;
 
 UPDATE  m_economie.an_immo_comm SET
@@ -236,7 +247,9 @@ commtelp = NEW.commtelp,
 commmail = NEW.commmail,
 etat = NEW.etat,
 refext = NEW.refext_comm,
-observ = NEW.observ_comm
+observ = NEW.observ_comm,
+loyer_amp = NEW.loyer_amp,
+loyer_mp = NEW.loyer_mp
 WHERE idcomm = NEW.idcomm;
 
 UPDATE  m_economie.an_immo_propbati SET
@@ -282,6 +295,8 @@ DELETE FROM m_economie.lk_immo_batiadr WHERE idbati = OLD.idbati;
 END IF;
 
 REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
 
 END IF;
 
@@ -293,10 +308,7 @@ $BODY$;
 
 
 
-
-
 -- ############################################################ ft_m_gestion_immolocnonident #########################################                                                                                          
-                                                                                           
                                                                                            
 -- FUNCTION: m_economie.ft_m_gestion_immolocnonident()
 
@@ -423,9 +435,6 @@ END;
 $BODY$;
 
 
-
-
-
 -- ############################################################ ft_m_gestion_immolocnonident_bien #########################################      
                                                                                            
 -- FUNCTION: m_economie.ft_m_gestion_immolocnonident_bien()
@@ -457,20 +466,19 @@ v_idprop := ('P'::text || nextval('m_economie.an_immo_prop_seq'::regclass));
 v_idcomm := ('C'::text || nextval('m_economie.an_immo_comm_seq'::regclass));
 v_iddesc := ('D'::text || nextval('m_economie.an_immo_desc_seq'::regclass));
 
-INSERT INTO m_economie.an_immo_bien (idbien,idimmo,tbien,libelle,pdp,lib_occup,adr,adrcomp,surf_p,source,refext,observ,surf_rdc,surf_etag,surf_mezza,surf_acti,surf_bur)
+INSERT INTO m_economie.an_immo_bien (idbien,idimmo,tbien,libelle,pdp,lib_occup,adr,adrcomp,surf_p,source,refext,observ,surf_rdc,surf_etag,surf_mezza,surf_acti,surf_bur,op_sai,date_sai)
 SELECT v_idbien,NEW.idimmo,NEW.tbien,NEW.libelle,NEW.pdp,NEW.lib_occup,NEW.adr,NEW.adrcomp,NEW.surf_p,NEW.source,NEW.refext_bien,NEW.observ_bien,
-NEW.surf_rdc,NEW.surf_etag,NEW.surf_mezza,NEW.surf_acti,NEW.surf_bur;
+NEW.surf_rdc,NEW.surf_etag,NEW.surf_mezza,NEW.surf_acti,NEW.surf_bur,NEW.op_sai_bien,now();
 
-INSERT INTO m_economie.an_immo_desc (iddesc,idbien) 
-SELECT v_iddesc,v_idbien;
+INSERT INTO m_economie.an_immo_desc (iddesc,idbien,observ) 
+SELECT v_iddesc,v_idbien,NEW.observ_desc;
 
-INSERT INTO m_economie.an_immo_comm (idcomm,idimmo,idbien,prix_a,prix_am,loyer_a,loyer_am,bail_a,prix,prix_m,loyer,loyer_m,bail,comm,commtel,commtelp,commmail,etat,refext,observ) 
-SELECT v_idcomm,NEW.idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer_am,NEW.bail_a,NEW.prix,NEW.prix_m,NEW.loyer,NEW.loyer_m,NEW.bail,NEW.comm,NEW.commtel,NEW.commtelp,NEW.commmail,NEW.etat,NEW.refext_comm,NEW.observ_comm;
+INSERT INTO m_economie.an_immo_comm (idcomm,idimmo,idbien,prix_a,prix_am,loyer_a,loyer_am,bail_a,prix,prix_m,loyer,loyer_m,bail,comm,commtel,commtelp,commmail,etat,refext,observ,loyer_amp,loyer_mp) 
+SELECT v_idcomm,NEW.idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer_am,NEW.bail_a,NEW.prix,NEW.prix_m,NEW.loyer,NEW.loyer_m,NEW.bail,NEW.comm,NEW.commtel,NEW.commtelp,NEW.commmail,
+NEW.etat,NEW.refext_comm,NEW.observ_comm,NEW.loyer_amp,NEW.loyer_mp;
 
 INSERT INTO m_economie.an_immo_propbien (idprop,idbien,propnom,proptel,proptelp,propmail,observ)
 SELECT v_idprop,v_idbien,NEW.propnom_bien,NEW.proptel_bien,NEW.proptelp_bien,NEW.propmail_bien,NEW.observ_propbien;
-
-REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
 
 END IF;
 
@@ -490,7 +498,13 @@ surf_rdc = NEW.surf_rdc,
 surf_etag = NEW.surf_etag,
 surf_mezza = NEW.surf_mezza,
 surf_acti = NEW.surf_acti,
-surf_bur = NEW.surf_bur
+surf_bur = NEW.surf_bur,
+op_sai = NEW.op_sai_bien,
+date_maj = now()
+WHERE idbien = NEW.idbien;
+
+UPDATE  m_economie.an_immo_desc SET
+observ = NEW.observ_desc
 WHERE idbien = NEW.idbien;
 
 UPDATE  m_economie.an_immo_propbien SET
@@ -518,10 +532,10 @@ commtelp = NEW.commtelp,
 commmail = NEW.commmail,
 etat = NEW.etat,
 refext = NEW.refext_comm,
-observ = NEW.observ_comm
+observ = NEW.observ_comm,
+loyer_amp = NEW.loyer_amp,
+loyer_mp = NEW.loyer_mp
 WHERE idcomm = NEW.idcomm;
-
-REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
 
 END IF;
 
@@ -533,9 +547,11 @@ DELETE FROM m_economie.an_immo_desc WHERE idbien = OLD.idbien;
 DELETE FROM m_economie.an_immo_propbien WHERE idbien = OLD.idbien;
 DELETE FROM m_economie.an_immo_media WHERE id = OLD.idbien;
 
-REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
-
 END IF;
+
+REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
 
 RETURN NEW;
 
@@ -543,12 +559,6 @@ END;
 
 $BODY$;
 
-
-
-
-
--- ############################################################ ft_m_gestion_immoterrain #########################################   
-                                                                                           
 -- FUNCTION: m_economie.ft_m_gestion_immoterrain()
 
 -- DROP FUNCTION m_economie.ft_m_gestion_immoterrain();
@@ -582,11 +592,12 @@ st_area(NEW.geom),'10',NEW.observ_obj,NEW.op_sai,now(),null,NEW.src_geom,NEW.src
 (select string_agg(commune, ', ') from r_osm.geo_osm_commune where st_intersects(NEW.geom,geom)),
 NEW.geom;
 
-INSERT INTO m_economie.an_immo_bien (idbien,idimmo,tbien,libelle,pdp,lib_occup,adr,adrcomp,surf_p,source,refext,observ)
-SELECT v_idbien,v_idimmo,NEW.tbien,NEW.libelle,false,NEW.lib_occup,NEW.adr,NEW.adrcomp,NEW.surf_p,NEW.source,NEW.refext_bien,NEW.observ_bien;
+INSERT INTO m_economie.an_immo_bien (idbien,idimmo,tbien,libelle,pdp,lib_occup,adr,adrcomp,surf_p,source,refext,observ,op_sai,date_sai)
+SELECT v_idbien,v_idimmo,NEW.tbien,NEW.libelle,false,NEW.lib_occup,NEW.adr,NEW.adrcomp,NEW.surf_p,NEW.source,NEW.refext_bien,NEW.observ_bien,NEW.op_sai_bien,now();
 
-INSERT INTO m_economie.an_immo_comm (idcomm,idimmo,idbien,prix_a,prix_am,loyer_a,loyer_am,bail_a,prix,prix_m,loyer,loyer_m,bail,comm,commtel,commtelp,commmail,etat,refext,observ) 
-SELECT v_idcomm,v_idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer_am,NEW.bail_a,NEW.prix,NEW.prix_m,NEW.loyer,NEW.loyer_m,NEW.bail,NEW.comm,NEW.commtel,NEW.commtelp,NEW.commmail,NEW.etat,NEW.refext_comm,NEW.observ_comm;
+INSERT INTO m_economie.an_immo_comm (idcomm,idimmo,idbien,prix_a,prix_am,loyer_a,loyer_am,bail_a,prix,prix_m,loyer,loyer_m,bail,comm,commtel,commtelp,commmail,etat,refext,observ,loyer_amp,loyer_mp) 
+SELECT v_idcomm,v_idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer_am,NEW.bail_a,NEW.prix,NEW.prix_m,NEW.loyer,NEW.loyer_m,NEW.bail,NEW.comm,NEW.commtel,NEW.commtelp,NEW.commmail,NEW.etat,
+NEW.refext_comm,NEW.observ_comm,NEW.loyer_amp,NEW.loyer_mp;
 
 INSERT INTO m_economie.an_immo_propbien (idprop,idbien,propnom,proptel,proptelp,propmail,observ)
 SELECT v_idprop,v_idbien,NEW.propnom,NEW.proptel,NEW.proptelp,NEW.propmail,NEW.observ_prop;
@@ -617,7 +628,9 @@ adrcomp = NEW.adrcomp,
 surf_p = NEW.surf_p,
 source = NEW.source,
 refext = NEW.refext_bien,
-observ = NEW.observ_bien
+observ = NEW.observ_bien,
+op_sai = NEW.op_sai_bien,
+date_maj = now()
 WHERE idbien = NEW.idbien;
 
 UPDATE  m_economie.an_immo_comm SET
@@ -637,7 +650,9 @@ commtelp = NEW.commtelp,
 commmail = NEW.commmail,
 etat = NEW.etat,
 refext = NEW.refext_comm,
-observ = NEW.observ_comm
+observ = NEW.observ_comm,
+loyer_amp = NEW.loyer_amp,
+loyer_mp = NEW.loyer_mp
 WHERE idcomm = NEW.idcomm;
 
 UPDATE  m_economie.an_immo_propbien SET
@@ -660,12 +675,16 @@ DELETE FROM m_economie.an_immo_media WHERE id = OLD.idimmo;
 
 END IF;
 
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
+
 RETURN NEW;
 
 END;
 
 $BODY$;
-                                        
+
+                                       
                                         
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
