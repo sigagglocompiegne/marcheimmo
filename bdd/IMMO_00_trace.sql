@@ -22,3 +22,4 @@
 2020-01-22 : GB / Intégration de la géolocalisation des bâtiments sur la Base Adresse Locale (BAL), permettant de récupérer la liste des établissements (occupants) affectés sur la BAL
 2020-01-29 : GB / Simplification des bâtiments avec 1 local, fusionner avec les bâtiments contenant n locaux
 2020-02-01 : GB / Documentation GitHub pas à jour manque les éléments descriptifs qui seront intégrés plus tard (en attente retour service métier)
+2020-02-16 : GB / Intégration des derniers ajustements concernant les libellés affichés sur les locaux et les bâtiments
