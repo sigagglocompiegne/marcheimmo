@@ -221,21 +221,21 @@ GRANT ALL ON TABLE m_economie.geo_v_immo_bien_terrain TO create_sig;
 
 -- ########################################################### VUE APPLICATIVE ####################################################################
 
-ALTER TABLE x_apps.xapps_geo_v_immo_bati
+ALTER TABLE x_apps.xapps_geo_vmr_immo_bati
     OWNER TO sig_create;
 
-GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_bati TO sig_create;
-GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_bati TO read_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE x_apps.xapps_geo_v_immo_bati TO edit_sig;
-GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_bati TO create_sig;
+GRANT ALL ON TABLE x_apps.xapps_geo_vmr_immo_bati TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_vmr_immo_bati TO read_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE x_apps.xapps_geo_vmr_immo_bati TO edit_sig;
+GRANT ALL ON TABLE x_apps.xapps_geo_vmr_immo_bati TO create_sig;
 
-ALTER TABLE x_apps.xapps_geo_v_immo_etat
+ALTER TABLE x_apps.xapps_geo_vmr_immo_etat
     OWNER TO sig_create;
 
-GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_etat TO sig_create;
-GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_etat TO read_sig;
-GRANT SELECT ON TABLE x_apps.xapps_geo_v_immo_etat TO edit_sig;
-GRANT ALL ON TABLE x_apps.xapps_geo_v_immo_etat TO create_sig;
+GRANT ALL ON TABLE x_apps.xapps_geo_vmr_immo_etat TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_vmr_immo_etat TO read_sig;
+GRANT SELECT ON TABLE x_apps.xapps_geo_vmr_immo_etat TO edit_sig;
+GRANT ALL ON TABLE x_apps.xapps_geo_vmr_immo_etat TO create_sig;
 
 ALTER TABLE x_apps.xapps_an_vmr_immo_bati
     OWNER TO sig_create;
