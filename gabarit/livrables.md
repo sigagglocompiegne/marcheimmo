@@ -6,7 +6,7 @@
 
 # Changelog
 
-- 19/01/2021 : description initiale du gabarit de production des bâtiments d'activités et des locaux les composant.
+- 19/01/2021 : description initiale de production des bâtiments d'activités et des locaux les composant.
 
 # Livrables
 
