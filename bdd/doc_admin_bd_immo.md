@@ -244,9 +244,9 @@ Particularité(s) à noter : aucune
 
 ### classes d'objets applicatives métiers sont classés dans le schéma x_apps :
  
-`x_apps.xapps_geo_v_immo_bati` : Vue géographique présentant le bâtiment reconstitué à partir des locaux indépendant divisés d'un même bâtiment (pour la cartographie GEO de l'application) 
+`x_apps.xapps_geo_vmr_immo_bati` : Vue matérialisée rafraichie à chaque insertion ou modification présentant le bâtiment reconstitué à partir des locaux indépendant divisés d'un même bâtiment (pour la cartographie GEO de l'application et permettant de gérer l'affichage des libellés des bâtimnents) 
 
-`x_apps.xapps_geo_v_immo_etat` : Vue géographique présentant l'état de disponibilités d'un local/terrain (en vente, en location) et intégrée à la cartographie de l'application GEO 
+`x_apps.xapps_geo_vmr_immo_etat` : Vue matérialisée rafraichie à chaque insertion ou modification présentant l'état de disponibilités d'un local/terrain (en vente, en location) et intégrée à la cartographie de l'application GEO 
 
 `x_apps.xapps_an_vmr_immo_bati` : vue matérialisée rafraichie à chaque insertion ou modification pour le calcul de statistiques remontées aux bâtiments (nb de locaux saisis et surface de plancher total saisie pour chaque local appartenant aux bâtiments)
 
@@ -338,7 +338,9 @@ Valeurs possibles :
 
 ## Projet QGIS pour la gestion
 
-Projet QGIS en cours de réalisation pour la saisie de l'inventaire cartographique.
+Un Projet QGIS été réalisé pour la saisie de l'inventaire cartographique propre au service SIG et stockée ici
+Y:\Ressources\4-Partage\3-Procedures\QGIS\ECO_MARCHE_IMMO.qgs
+
 
 ## Export Open Data
 
