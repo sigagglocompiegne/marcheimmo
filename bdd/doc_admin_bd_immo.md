@@ -30,13 +30,13 @@ En résumer, l'objectif est d'identifier un bâtiment d'activité (réalisé par
 
 L'inventaire cartographique sere mené en priorité sur les ZAE (zone d'aménagement économique) avant d'être étendu aux autres sites d'activités et éventuellement en centre-ville.
 
-## Modèle conceptuel simplifié
+## Modèle relationnel simplifié
 
 ![picto](mcd_immo.png)
 
 ## Schéma fonctionnel
 
-![picto](schema_fonctionnel_bien_immo.png)
+![picto](schema_fonctionnel_bien_immo_v2.png)
 
 ## Dépendances
 
