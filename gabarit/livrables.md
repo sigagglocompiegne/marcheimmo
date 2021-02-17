@@ -26,11 +26,17 @@ Même si l'exhaustivité de cette donnée ne sera jamais atteinte sur le territo
 
 La saisie des objets du patrimoine repose sur le principe simple de la connaissance d'implantation des locaux dans un bâtiment d'actvités. Si les locaux sont identifiables, ils sont alors saisis comme un local, et leur affectation a un bâtiment d'activités connu permet de reconstruire virtuellement sa géométrie. En revanche, des locaux non identifiables dans un bâtiment d'activités, c'est le bâtiment qui est saisi comme tel, et on lui affecte des locaux (sans géométrie).
 
+Un terrain privé peut-être quant à lui, non occupé, occupé (sans bâtiment d'activités) ou une partie d'un terrain occupé.
+
 Le schéma ci-dessous présente ces principes simples avec des exemples.
 
-![picto](principe_saisie.png)
+![picto](principe_saisi_terrain.png)
 
-Schéma 1 : représentation des objets de l'inventaire cartographique selon le type de biens (terrains ou locaux) et le type de bâtiments
+Schéma 1 : représentation des objets terrains de l'inventaire cartographique
+
+![picto](principe_saisi_local.png)
+
+Schéma 2 : représentation des objets locaux et bâtiments d'activités de l'inventaire cartographique 
 
 
 L'affichage des libellés des occupants des locaux s'organise autour du principe précédent.
