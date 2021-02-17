@@ -30,7 +30,7 @@ Un terrain privé peut-être quant à lui, non occupé, occupé (sans bâtiment 
 
 Le schéma ci-dessous présente ces principes simples avec des exemples.
 
-![picto](principe_saisi_terrain.png)
+![picto](principe_saisi_terrain_v1.png)
 
 Schéma 1 : représentation des objets terrains de l'inventaire cartographique
 
