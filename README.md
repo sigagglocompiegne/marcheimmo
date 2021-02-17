@@ -2,7 +2,7 @@
 
 # Prescriptions spécifiques (locales) pour le suivi du marché de l'immobilier d'entreprises
 
-Spécification du fichier d’échange relatif aux données concernant l'inventaire cartographique des objets constituant la mise en oeuvre de la base de données et de l'application Web dédiée au marché de l'immobilier d'entreprises (terrains privés et locaux d'activités) sur le territoire de l'Agglomération de la Région de Compiègne.
+Spécification du modèle de données relatif aux objets constituant la mise en oeuvre de la base de données et de l'application Web dédiée au marché de l'immobilier d'entreprises (terrains privés et locaux d'activités) sur le territoire de l'Agglomération de la Région de Compiègne.
 
 - [Lire la documentation du standard](gabarit/livrables.md)
 - Script d'initialisation de la base de données
