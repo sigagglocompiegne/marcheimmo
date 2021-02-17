@@ -51,7 +51,7 @@ Le schéma ci-dessous présente le principe d'affichage des étiquettes des occu
 
 ![picto](principe_affichage_libelle.png)
 
-Schéma 2 : princie d'affichage des libellés des occupants
+Schéma 3 : principe d'affichage des libellés des occupants
 
 ## Règle de modélisation
 
@@ -62,17 +62,25 @@ Les objets constituant l'inventaire cartographique initial sont organisés autou
 
 La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
-Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des bâtiments (dur) du PCI Vecteur pour les bâtiments ou locaux identifiés. Dans le cas d'un bâtiment non présent dans ce référentiel, il est possible d'intégrer sa géométrie par une saisie sur un support cartographique tierce (plan masse par ex).
+Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des bâtiments (dur) du PCI Vecteur pour les bâtiments ou locaux identifiés. Dans le cas d'un bâtiment non présent dans ce référentiel, il est possible d'intégrer sa géométrie par une saisie sur un support cartographique tierce (plan masse par ex). Les bâtiments doivent être inclus dans une emprise foncière unique ou cohérente.
+
 Pour les terrains, ils doivent être en cohérence topologique avec la précision des parcelles du PCI Vecteur si cela est possible.
 
 
 ### La modélisation
 
-Les règles de modélisation consistent à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
+Les règles de modélisation consistent à présenter la façon dont les objets doivent être saisis et restitués dans le modèle de données.
 
-Ici ils sont simples, un polygone représente au moins un local, qu'il correspond à un bâtiment ou à un bâtiment par regroupement. Un bâtiment regroupant n locaux non identifiés sera représenté par un polygone. Il n'y a pas de limites de surfaces pour la représentation d'un objet. Ils doivent simplement représenter une activité économique.
+Ici ils sont simples, un polygone représente un bâtiment, à un bâtiment par regroupement ou un local identifié. Un bâtiment reconstruit à partir de ces locaux le composant sera également représenté par un polygone. Il n'y a pas de limites de surfaces pour la représentation d'un objet. Ils doivent simplement représenter une activité économique.
 
 Les locaux identifiés permettant la reconstruction virtuel du bâtiment d'activités devront être obligatoirement adjacents.
+
+Les objets saisis peuvent être de type multiple. Cette permission découle de la situation des bâtiments à l'intérieur d'une emprise foncière. En effet si plusieurs bâtimnents sont identifiés comment les saisir :
+
+![picto](principe_affichage_libelle.png)
+
+Schéma 4 : principe de saisie selon la situation du ou des bâtiments dans une emprise foncières
+
 
 ### Topologie
 
