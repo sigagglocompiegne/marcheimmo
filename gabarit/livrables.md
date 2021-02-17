@@ -62,7 +62,8 @@ Les objets constituant l'inventaire cartographique initial sont organisés autou
 
 La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
-Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des bâtiments (dur) du PCI Vecteur. Dans le cas d'un bâtiment non présent dans ce référentiel, il est possible d'intégrer sa géométrie par une saisie sur un support cartographique tierce (plan masse par ex).
+Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des bâtiments (dur) du PCI Vecteur pour les bâtiments ou locaux identifiés. Dans le cas d'un bâtiment non présent dans ce référentiel, il est possible d'intégrer sa géométrie par une saisie sur un support cartographique tierce (plan masse par ex).
+Pour les terrains, ils doivent être en cohérence topologique avec la précision des parcelles du PCI Vecteur si cela est possible.
 
 
 ### La modélisation
