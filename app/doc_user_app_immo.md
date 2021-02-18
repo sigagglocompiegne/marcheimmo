@@ -3,8 +3,8 @@
 # Documentation utilisateur du module Marché immobilier dans l'application Activité Economique #
 
 **Pour tous les utilisateurs ayant le droit d'accès à l'application** :
-- [Accès aux informations d'un bâtiment ou d'un local d'activités](doc_util_util_1_immo.md)
-- [Recherche d'un bien disponible à la vente et/ou à la location](doc_util_util_2_immo.md)
+- [Accès aux informations d'un bâtiment ou d'un local d'activités](doc_util_util_1.md)
+- [Recherche d'un bien disponible à la vente et/ou à la location](doc_util_util_2.md)
 
 **Pour l'administrateur des données** :
 
