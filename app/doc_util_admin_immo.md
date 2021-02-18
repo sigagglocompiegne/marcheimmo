@@ -91,7 +91,7 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
  * 4 - Partie sur le propriété du terrain
  * 5 - Saisie manuelle de l'occupant ou de l'occupation
  * 6 - Informations pour la commercialisation
- * 7 - Informations de métadonnées pouvant être modifiée
+ * 7 - Informations de métadonnées pouvant être modifiées
  * 8 - L'intégration des documents joints doit se faire après l'enregistrement de la saisie (enregistrement de cette fiche puis de l'objet au point suivant). 
 
 Particularité(s) à noter :
@@ -163,17 +163,24 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
   * 4 - Dans la nouvelle boite à outil qui s'affiche sur la carte, cliquez sur Fusionner, une fiche d'information apparaît pour la saisie des données métiers (cf ci-dessous)
 
 
-![picto](bati_fiche.png)
+![picto](fiche_bati.png)
 
- * 1 - 
-
-
+ * 1 - Indiquer le nom du bâtiment
+ * 2 - Renseigner les informations concernant le bâtiment
+ * 3 - Affecter l'adresse du bâtiment depuis la base adresse locale (récupération automatique des établissements rattachées à cette adresse)
+ * 4 - Information sur la propriété
+ * 5 - Onglet d'intégration des documents liés aux bâtiments
+ * 6 - Informations de métadonnées pouvant être modifiées
+ * 7 - Intégration des locaux (à faire après l'enregistrement de la fiche, cf partie précédente)
+ 
 Particularité(s) à noter :
 
 - le libellé n'est pas encore rendu obligatoire ici, mais il est préférable de saisir soit le nom du bâtiment (si il existe) ou à défaut son adresse. Cette information est répercutée au niveau de l'affichage du libellé sur la carte [Rappel des principes des libellés](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/gabarit/livrables.md).
 - si le type de propriétaire est indiqué en copropriété au niveau du bâtiment, la saisie du propriétaire du local sera possible dans le fiche du local.
 - la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
 - les établissements affectés automatiquement au bâtiment par l'adresse, ne sont pas reventilés aux locaux (fonctionnel non développé pour le moment, en réflexion si nécessaire). Un attribut est néanmoins présent pour une saisie libre d'un occupant autre ou d'une occupation particulière dans la fiche du local.
+
+**IMPORTANT : ** Avant d'affecter des locaux, dans la partie suivante, la fiche du bâtiment doit être obligatoirement enregistré.
 
 ![picto](choix_32.png)
 
