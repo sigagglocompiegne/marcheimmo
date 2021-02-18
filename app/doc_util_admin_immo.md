@@ -73,6 +73,10 @@ La sasie d'un terrain peut correspondre à une parcelle cadastrale ou une partie
 
 ![picto](doc_saisie_terrain_1.png)
 
+Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ce-dessous).
+
+![picto](doc_fond_plan.png)
+
  * 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
  * 2 - Accès aux fonctionnalités de gestion
 
