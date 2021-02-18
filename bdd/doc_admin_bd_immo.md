@@ -45,6 +45,7 @@ La base de données du suivi du marché de l'immobilier d'entreprises ne s'appui
 |Schéma | Table/Vue | Description | Usage |
 |:---|:---|:---|:---|
 |r_objet| lt_src_geom | Liste de valeurs | Valeurs décrivant le référentiel géographique utilisé pour la saisie des objets graphiques|
+|m_economie| lk_adresseetablissement | Liste de relation | Relation entre les adresses et les établissements|
 |s_sirene| an_etablissement_api | classe d'objets | données de la base de données SIRENE de l'Insee|
 |x_apps| xapps_geo_vmr_adresse | classe d'objets | données de la Base Locale des Adresses (BAL)|
 
