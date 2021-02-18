@@ -8,7 +8,7 @@
 
 ![picto](doc_util_clic_carte.png)
 
-  * 1 - Activez l'outil de sélection
+  * 1 - Activez l'outil d'interrogation
   * 2 - Cliquez sur le bâtiment ou le local d'activité
   * 3 - Le menu résultat apparaît, listant l'ensemble des résultats du clic
   * 4 - La partie Marché immobilier vous indique le résultat du clic
@@ -77,10 +77,10 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
 ![picto](doc_saisie_terrain_1.png)
 
-
-
- * 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
- * 2 - Accès aux fonctionnalités de gestion
+ * 1 - Activez l'outil de sélection
+ * 2 - Cliquez sur une parcelle
+ * 3 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, la saisie d'un terrain
+ * 4 - Dans la nouvelle boite à outil qui s'affiche sur la carte, cliquez sur Copier
 
 **Terrain correspondant à une partie de parcelle (saisie manuelle du terrain)**
 
