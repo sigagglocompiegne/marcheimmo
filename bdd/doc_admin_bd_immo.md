@@ -1,6 +1,6 @@
 ![picto](https://github.com/sigagglocompiegne/orga_gest_igeo/blob/master/doc/img/geocompiegnois_2020_reduit_v2.png)
 
-# Documentation d'administration de la base #
+# Documentation d'administration de la base des bâtiments et locaux d'activité #
 
 (reste à venir les éléments descriptifs d'un local qui seront intégrés à cette documentation)
 
