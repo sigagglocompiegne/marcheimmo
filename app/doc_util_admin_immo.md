@@ -3,7 +3,7 @@
 # Documentation utilisateur de l'application #
 
 ## Pour tous les utilisateurs :
-- (non opérationnel)
+- à rédiger
 
 ## Pour les administrateurs : 
 
