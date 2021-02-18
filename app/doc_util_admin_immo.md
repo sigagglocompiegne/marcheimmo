@@ -225,31 +225,39 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
 ![picto](doc_fond_plan.png)
 
-**SAISI DU PREMIER LOCAL**
+**SAISIE DU PREMIER LOCAL**
 
-![picto](local_manuel.png)
+![picto](local_manuel_1.png)
 
  * 1 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, Saisir un local indépendant divisé (reconstruction du bâtiment)
  * 2 - Activez l'outil polygone topologique et saisir votre objet [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin132)
  * 3 - Vous pouvez également configurer les options de saisies (accoche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
+ * 4 - A la fin de la saisie de l'objet, la fiche d'information ci-dessous s'affiche
 
 ![picto](choix_41_1.png)
 
  * 1 - Les éléments descriptifs du bâtiment sont identiques aux autres choix (des éléments descriptifs seront ajoutés par la suite), la différence ici est l'appartenance à un bâtiment existant rendu obligatoire par le choix dans une liste pré-définie. Si le bâtiment souhaité n'apparaît dans la liste ppursuivre, sinon passé l'étape 2.
  * 2 - Insérez un bâtiment non présent dans la liste
 ![picto](choix_411.png)
-  * A - Cliquez ici pour ajouter un nouveau bâtiment
-  * B - Indiquez le nom du bâtiment pour le libellé et la valeur
-  * C - CLiquez sur Ajouter, le nom du bâtiment apparaît dans la liste, vous pouvez le sélectionner.
+   * A - Cliquez ici pour ajouter un nouveau bâtiment
+   * B - Indiquez le nom du bâtiment pour le libellé et la valeur
+   * C - CLiquez sur Ajouter, le nom du bâtiment apparaît dans la liste, vous pouvez le sélectionner.
  * 3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse (à faire uniquement lors de la saisie du premier local ou pour modifier l'adresse).
  * 4 - Propriété du bâtiment (à faire uniquement lors de la saisie du premier local ou pour modifier l'adresse).
  * 5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
  * 6 - Informations annexes liés à l'inventaire cartographique
 
 
-**SAISI DES LOCAUX SUPPLEMENTAIRES**
+**SAISIE DES LOCAUX SUPPLEMENTAIRES**
 
 **Il est inutile de renseigner l'onglet Dexription du bâtiment en dehors de l'affectation au bâtiment présent dans la liste puisque celles-ci ont été renseignées lors de la saisie du premier local**
+
+![picto](local_manuel_2.png)
+
+* 1 - 
+* 2 -
+
+Se référer à la partie précédente pour les éléments de la fiche d'information.
 
 Particularité(s) à noter :
 
