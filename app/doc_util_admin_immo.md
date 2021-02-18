@@ -8,15 +8,11 @@
 
 ![picto](doc_util_clic_carte.png)
 
-1 - Activez l'outil de sélection
-
-2 - Cliquez sur le bâtiment ou le local d'activité
-
-3 - Le menu résultat apparaît, listant l'ensemble des résultats du clic
-
-4 - La partie Marché immobilier vous indique le résultat du clic
-
-5 - Cliquez sur l'icône de la fiche pour ouvrir la fiche d'informations des données du bâtiment et du ou des locaux d'activité
+  * 1 - Activez l'outil de sélection
+  * 2 - Cliquez sur le bâtiment ou le local d'activité
+  * 3 - Le menu résultat apparaît, listant l'ensemble des résultats du clic
+  * 4 - La partie Marché immobilier vous indique le résultat du clic
+  * 5 - Cliquez sur l'icône de la fiche pour ouvrir la fiche d'informations des données du bâtiment et du ou des locaux d'activité
 
 Plus de détails sur le fonctionnement du menu Résultat dans ce [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/20/les-outils-de-recherche/)
 
