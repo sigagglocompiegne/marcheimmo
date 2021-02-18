@@ -82,6 +82,18 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
  * 3 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, la saisie d'un terrain
  * 4 - Dans la nouvelle boite à outil qui s'affiche sur la carte, cliquez sur Copier
 
+
+![picto](terrain_fiche.png)
+
+
+![picto](terrain_enre.png)
+
+![picto](terrain_deselect.png)
+
+![picto](terrain_result.png)
+
+
+
 **Terrain correspondant à une partie de parcelle (saisie manuelle du terrain)**
 
 
@@ -199,5 +211,7 @@ Particularité(s) à noter :
 #### Choix 7 : Recherche par n° de bâtiment d'activité
 
 Ce choix est uniquement visible et accessible depuis l'application par le service SIG pour une gestion interne.
+
+
 
 
