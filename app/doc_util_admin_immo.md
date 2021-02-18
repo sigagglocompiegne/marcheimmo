@@ -54,11 +54,9 @@ Le développement fonctionnel de l'inventaire cartographique priviligie l'accès
 
 ![picto](doc_admin_menu.png)
 
-1 - Cliquez sur le module métier pour accéder aux diverses fonctoins de gestion de l'inventaire
-
-2 - Cliquez sur le sous-menu `Gestion de votre patrimoine` et choissisez le type d'objets à saisir
-
-3 - Cliquez sur l'outil de dessin (ici polygon topologique)
+ * 1 - Cliquez sur le module métier pour accéder aux diverses fonctoins de gestion de l'inventaire
+ * 2 - Cliquez sur le sous-menu `Gestion de votre patrimoine` et choissisez le type d'objets à saisir
+ * 3 - Cliquez sur l'outil de dessin (ici polygon topologique)
 
 Les options liées aux dessins (saisie, accroche, ...) sont détaillées au niveau du tutoriel [Dessiner et Annoter](https://geo.compiegnois.fr/portail/index.php/2020/06/16/les-outils-de-dessin/) et du tutoriel [Dessiner en mode avancé](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/)
 
