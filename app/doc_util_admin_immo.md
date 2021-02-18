@@ -48,7 +48,7 @@ Le développement fonctionnel de l'inventaire cartographique priviligie l'accès
 
 Les options liées aux dessins (saisie, accroche, ...) sont détaillées au niveau du tutoriel [Dessiner et Annoter](https://geo.compiegnois.fr/portail/index.php/2020/06/16/les-outils-de-dessin/) et du tutoriel [Dessiner en mode avancé](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/)
 
-### Choix 1 - Saisir un bien immobilier de type terrain
+#### Choix 3 - Saisir un bien immobilier de type terrain
 
 
 
@@ -61,7 +61,7 @@ Particularité(s) à noter :
 - il a été concidéré qu'un terrain ne pouvait être affecté à une adresse connue par défaut. L'adresse doit être saisie manuellement pour ce cas uniquement. Le même principe a été retenu pour l'occupation, une saisie libre.
 
 
-### Choix 2 - Saisir un bien immobilier de type bâtiment contenant 1 ou n locaux non identifiés : Local non identifié dans un bâtiment divisible 
+#### Choix 4 - Saisir un bien immobilier de type bâtiment contenant 1 ou n locaux non identifiés : Local non identifié dans un bâtiment divisible 
 
 
 
@@ -113,7 +113,7 @@ Particularité(s) à noter :
 1 - Les éléments des différents locaux affectés sont repris au niveau de l'onglet descriptif du bâtiment pour information
 
 
-#### Choix 3 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
+#### Choix 5 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
@@ -149,6 +149,10 @@ Particularité(s) à noter :
 
 **ATTENTION** : à l'initialisation du premier local d'un bâtiment, vous allez saisir les informations génériques du bâtiment, à la saisie d'un nouveau local affecté à ce même bâtiment, inutile de resaisir les informations du bâtiment (surface de planché ou observations). A l'enregistrement, ces informations seront automatiquement récupérées pour ce local.
 
+#### Choix 6 : Gérer les bâtiments d'affectation
 
+#### Choix 7 : Recherche par n° de bâtiment d'activité
+
+Ce choix est uniquement visible et accessible depuis l'application par le service SIG pour une gestion interne.
 
 
