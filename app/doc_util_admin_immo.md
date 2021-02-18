@@ -119,7 +119,7 @@ Après la saisie du bien, une fiche d'informations apparaît pour la saisie des 
 
 ![picto](choix_41_1.png)
 
-1 - Les éléments descriptifs du bâtiment sont identiques aux autres choix (des éléments descriptifs seront ajoutés par la suite), la différence ici est l'appartenance à un bâtiment existant rendu obligatoire par le choix dans une liste pré-définie.
+1 - Les éléments descriptifs du bâtiment sont identiques aux autres choix (des éléments descriptifs seront ajoutés par la suite), la différence ici est l'appartenance à un bâtiment existant rendu obligatoire par le choix dans une liste pré-définie. Si le bâtiment souhaité n'apparaît dans la liste ppursuivre, sinon passé l'étape 2.
 
 2 - Insérez un bâtiment non présent dans la liste
 ![picto](choix_411.png)
@@ -130,9 +130,9 @@ B - Indiquez le nom du bâtiment pour le libellé et la valeur
 
 C - CLiquez sur Ajouter, le nom du bâtiment apparaît dans la liste, vous pouvez le sélectionner.
 
-3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse
+3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse (à faire uniquement lors de la saisie du premier local ou pour modifier l'adresse).
 
-4 - Propriété du bâtiment
+4 - Propriété du bâtiment (à faire uniquement lors de la saisie du premier local ou pour modifier l'adresse).
 
 5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
 
@@ -141,26 +141,6 @@ C - CLiquez sur Ajouter, le nom du bâtiment apparaît dans la liste, vous pouve
 Particularité(s) à noter :
 
 - l'affectation des locaux affectée à un même bâtiment permet de la reconstruire virtuellement sur la carte
-- si le type de propriétaire est indiqué en copropriété au niveau du bâtiment, la saisie du propriétaire du local sera possible dans le fiche du local.
-- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
-
-
-![picto](choix_42.png)
-
-1 - Eléments généraux sur le bâtiment
-
-2 - Informations sur les surfaces (même principe que le choix 2)
-
-3 - Propriétaire du local (si différents du bâtiment)
-
-4 - La médiathèque est ici réservé aux documents annexes se référant au local (photo, pdf, ...)
-
-5 - Ajout d'un occupant connu ou non.
-
-6 - Informations relatives à la commercialisation du local
-
-Particularité(s) à noter :
-
 - le type de bien est rendu obligatoire
 - si le type de propriétaire est indiqué en copropriété au niveau du bâtiment, la saisie du propriétaire du local sera possible dans le fiche du local.
 - la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.
