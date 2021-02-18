@@ -21,6 +21,9 @@ L’ARC est engagée dans un plan de modernisation numérique pour l’exercice 
 
 L’ARC privilégie donc une organisation dans laquelle l’Interface Homme Machine (IHM) du métier assure l’alimentation d’un entrepôt de données territoriales. Cette stratégie « agile » permet de répondre au plus près des besoins des services dans une trajectoire soutenable assurant à la fois une bonne maitrise des flux d’information et un temps d’acculturation au sein de l’organisation.
 
+## Voir aussi
+
+- [Répertoire GitHub sur l'urbanisation des données d'aménagements, économiques et foncières](https://github.com/sigagglocompiegne/amt_fon_eco)
 
 ## Jeu de données consolidé
 
