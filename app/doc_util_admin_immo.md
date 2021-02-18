@@ -65,7 +65,7 @@ Le développement fonctionnel de l'inventaire cartographique priviligie l'accès
 
 Seules les informations nécessaires à la saisie des objets du marché immobilier sont décrites ci-après, pour plus détails sur les options liées aux dessins (saisie, accroche, ...) vous pouvez consulter le tutoriel [Dessiner et Annoter](https://geo.compiegnois.fr/portail/index.php/2020/06/16/les-outils-de-dessin/) et le tutoriel [Dessiner en mode avancé](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/)
 
-#### Choix 3 - Saisir un bien immobilier de type terrain
+#### **Choix 3 - Saisir un bien immobilier de type terrain**
 
 La sasie d'un terrain peut correspondre à une parcelle cadastrale ou une partie de cette parcelle.
 
@@ -137,7 +137,7 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
  * 3 - Vous pouvez également configurer les options de saisies (accoche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
 
 
-#### Choix 4 - Saisir un bien immobilier de type bâtiment contenant 1 ou n locaux non identifiés : Local non identifié dans un bâtiment divisible 
+#### **Choix 4 - Saisir un bien immobilier de type bâtiment contenant 1 ou n locaux non identifiés : Local non identifié dans un bâtiment divisible**
 
 La saisie d'un bâtiment doit correspondre à un bâtiment du PCI Vecteur, à défaut saisir le bâtiment depuis une source extérieure.
 
@@ -147,14 +147,20 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
 ![picto](doc_fond_plan.png)
 
-![picto](doc_saisie_bati_1.png)
 
+![picto](bati_saisie_1.png)
+
+- Si un seul bâtiment en concerné :
  * 1 - Activez l'outil de sélection
  * 2 - Cliquez sur le bâtiment
  * 3 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, la saisie d'un bâtiment contenant 1 ou n locaux
  * 4 - Dans la nouvelle boite à outil qui s'affiche sur la carte, cliquez sur Copier, une fiche d'information apparaît pour la saisie des données métiers (cf ci-dessous)
 
-(attention cas de plusieurs géoémtrie à intégrer)
+![picto](bati_saisie_1a.png)
+ 
+- Si le bâtiment est composé de plusieurs entités dans la source ou si vous souhaitez fusionner plusieurs bâtiments en un seul (entité multiple)
+ * 2 - Cliquez sur chaque partie de bâtiment ou sur les bâtiments souhaités (clic + maintient de la touche Ctrl)
+ * 4 - Dans la nouvelle boite à outil qui s'affiche sur la carte, cliquez sur Fusionner, une fiche d'information apparaît pour la saisie des données métiers (cf ci-dessous)
 
 
 ![picto](bati_fiche.png)
@@ -210,7 +216,7 @@ Particularité(s) à noter :
 1 - Les éléments des différents locaux affectés sont repris au niveau de l'onglet descriptif du bâtiment pour information
 
 
-#### Choix 5 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
+#### **Choix 5 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé**
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
@@ -246,7 +252,7 @@ Particularité(s) à noter :
 
 **ATTENTION** : à l'initialisation du premier local d'un bâtiment, vous allez saisir les informations génériques du bâtiment, à la saisie d'un nouveau local affecté à ce même bâtiment, inutile de resaisir les informations du bâtiment (surface de planché ou observations). A l'enregistrement, ces informations seront automatiquement récupérées pour ce local.
 
-#### Choix 6 : Gérer les bâtiments d'affectation
+#### **Choix 6 : Gérer les bâtiments d'affectation**
 
 ![picto](doc_admin_choix6.png)
 
@@ -259,7 +265,7 @@ Particularité(s) à noter :
 
 **ATTENTION** : les éléments modifiés s'appliqueront à tous les locaux affectés au bâtiment modifié. Si vous supprimez le bâtiment, vous devrez affecter les locaux concernés à un nouveau bâtiment.
 
-#### Choix 7 : Recherche par n° de bâtiment d'activité
+#### **Choix 7 : Recherche par n° de bâtiment d'activité**
 
 Ce choix est uniquement visible et accessible depuis l'application par le service SIG pour une gestion interne.
 
