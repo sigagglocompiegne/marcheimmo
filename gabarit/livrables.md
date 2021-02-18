@@ -121,7 +121,7 @@ Le contenu des listes de valeurs est disponible dans la documentation complète 
 
 ### Les identifiants
 
-Les identifiants des objets des espaces verts sont des identifiants non signifiants (un simple numéro incrémenté de 1 à chaque insertion précédé d'une lettre indiquant le type d'objets).
+Les identifiants des objets sont des identifiants non signifiants (un simple numéro incrémenté de 1 à chaque insertion précédé d'une lettre indiquant le type d'objets).
 
 
 
