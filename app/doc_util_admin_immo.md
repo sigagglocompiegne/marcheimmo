@@ -38,7 +38,7 @@ La documentation ci-après s'attachera à indiquer les outils fonctionnels de l'
 
 Le développement fonctionnel de l'inventaire cartographique priviligie l'accès par type de biens. Vous trouverez ci-dessous les différents choix possibles. 
 
-![picto](choix.png)
+![picto](doc_admin_menu.png)
 
 1 - Cliquez sur le module métier pour accéder aux diverses fonctoins de gestion de l'inventaire
 
