@@ -77,7 +77,7 @@ Les locaux identifiés permettant la reconstruction virtuel du bâtiment d'activ
 
 Les objets saisis peuvent être de type multiple. Cette permission découle de la situation des bâtiments à l'intérieur d'une emprise foncière. En effet si plusieurs bâtimnents sont identifiés comment les saisir ?
 
-![picto](principe_affichage_libelle.png)
+![picto](principe_saisi_bati_foncier.png)
 
 Schéma 4 : principe de saisie selon la situation du ou des bâtiments dans une emprise foncières
 
