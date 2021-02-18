@@ -28,7 +28,7 @@ L'adressage des bâtiments a été réalisé sur la Base Adresse Local (BAL) per
 
 En résumer, l'objectif est d'identifier un bâtiment d'activité (réalisé par l'inventaire cartographique), celui-ci contient n locaux d'activités occupés par un établissement. Ces locaux peuvent être ensuite mis sur le marché de la location ou de la vente. Lorsque que celui-ci n'est plus disponible, il n'est plus sur le marché et occupé par un nouvel établissement. L'atteinte d'une connaissance exhausitve des locaux à l'intérieur des bâtiments n'a pas éta fixé à ce stade. Cete base de données s'alimentera avec les données récoltées par le service gestionnaire.
 
-L'inventaire cartographique sere mené en priorité sur les ZAE (zone d'aménagement économique) avant d'être étendu aux autres sites d'activités et éventuellement en centre-ville.
+L'inventaire cartographique sera mené en priorité sur les ZAE (zone d'aménagement économique) avant d'être étendu aux autres sites d'activités et éventuellement en centre-ville.
 
 ## Modèle relationnel simplifié
 
