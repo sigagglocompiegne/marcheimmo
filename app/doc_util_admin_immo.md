@@ -23,6 +23,12 @@ Pour supprimer un objet saisi, un simple clic sur l'objet à partir de la carte 
 
 **La saisie dans l'inventaire**
 
+La saisie des objets doit respecter les principes et les règles de modélisation édictées [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/gabarit/livrables.md).
+
+La documentation ci-après s'attachera à indiquer les outils fonctionnels de l'application Web à utiliser pour la saisie et la gestion des données.
+
+*Généralités*
+
 Le développement fonctionnel de l'inventaire cartographique priviligie l'accès par type de biens. Vous trouverez ci-dessous les différents choix possibles. 
 
 ![picto](choix.png)
