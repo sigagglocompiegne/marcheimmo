@@ -4,4 +4,4 @@
 
 ## Accès aux informations d'un bâtiment ou d'un local d'activités
 
-[picto](doc_util_clic_carte.png)
+![picto](doc_util_clic_carte.png)
