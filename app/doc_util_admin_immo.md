@@ -3,7 +3,14 @@
 # Documentation utilisateur de l'application #
 
 ## Pour tous les utilisateurs :
-- à rédiger
+
+### Accès aux informations d'un bâtiment ou d'un local d'activités
+
+![picto](doc_util_clic_carte.png)
+
+### Recherche d'un bien disponible à la vente et/ou à la location
+
+![picto](doc_util_recherche_bien.png)
 
 ## Pour les administrateurs : 
 
