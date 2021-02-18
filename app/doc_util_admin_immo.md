@@ -194,17 +194,12 @@ Particularité(s) à noter :
 
 ![picto](choix_33.png)
 
-1 - Informations génériques sur le local, des éléments descriptifs seront ajoutés par la suite. La saisie du libellé est ici importante en rapport avec la saisie de l'occupant [Rappel des principes des libellés](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/gabarit/livrables.md).
-
-2 - Informations sur les surfaces
-
-3 - La médiathèque est ici réservé aux documents annexes se référant au local (photo, pdf, ...)
-
-4 - Information sur le propriétaire du local
-
-5 - Ajout d'un occupant connu ou non
-
-6 - Informations relatives à la commercialisation du local
+ * 1 - Informations génériques sur le local, des éléments descriptifs seront ajoutés par la suite. La saisie du libellé est ici importante en rapport avec la saisie de l'occupant [Rappel des principes des libellés](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/gabarit/livrables.md).
+ * 2 - Informations sur les surfaces
+ * 3 - La médiathèque est ici réservé aux documents annexes se référant au local (photo, pdf, ...)
+ * 4 - Information sur le propriétaire du local
+ * 5 - Ajout d'un occupant connu ou non
+ * 6 - Informations relatives à la commercialisation du local
 
 Particularité(s) à noter :
 
@@ -214,19 +209,15 @@ Particularité(s) à noter :
 
 ![picto](choix_34.png)
 
-1 - Tous les locaux saisis sont présent ici (1 ligne par local)
-
-2 - Accédez à la fiche du local pour visualiser toutes les informations et les mettre à jour
-
-3 - Vous pouvez ajouter un nouveau local
+ * 1 - Tous les locaux saisis sont présent ici (1 ligne par local)
+ * 2 - Accédez à la fiche du local pour visualiser toutes les informations et les mettre à jour
+ * 3 - Vous pouvez ajouter un nouveau local
 
 ![picto](choix_35.png)
 
-1 - Les éléments des différents locaux affectés sont repris au niveau de l'onglet descriptif du bâtiment pour information
-
+ * 1 - Les éléments des différents locaux affectés sont repris au niveau de l'onglet descriptif du bâtiment pour information
 
 #### **Choix 5 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé**
-
 
 La saisie d'un local identifié ne repose plus sur la géométrie d'un bâtiment mais sur une partie seulement.
 
@@ -234,34 +225,31 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
 ![picto](doc_fond_plan.png)
 
+**SAISI DU PREMIER LOCAL**
+
 ![picto](local_manuel.png)
 
  * 1 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, Saisir un local indépendant divisé (reconstruction du bâtiment)
  * 2 - Activez l'outil polygone topologique et saisir votre objet [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin132)
  * 3 - Vous pouvez également configurer les options de saisies (accoche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
 
-Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
-
 ![picto](choix_41_1.png)
 
-1 - Les éléments descriptifs du bâtiment sont identiques aux autres choix (des éléments descriptifs seront ajoutés par la suite), la différence ici est l'appartenance à un bâtiment existant rendu obligatoire par le choix dans une liste pré-définie. Si le bâtiment souhaité n'apparaît dans la liste ppursuivre, sinon passé l'étape 2.
-
-2 - Insérez un bâtiment non présent dans la liste
+ * 1 - Les éléments descriptifs du bâtiment sont identiques aux autres choix (des éléments descriptifs seront ajoutés par la suite), la différence ici est l'appartenance à un bâtiment existant rendu obligatoire par le choix dans une liste pré-définie. Si le bâtiment souhaité n'apparaît dans la liste ppursuivre, sinon passé l'étape 2.
+ * 2 - Insérez un bâtiment non présent dans la liste
 ![picto](choix_411.png)
+  * A - Cliquez ici pour ajouter un nouveau bâtiment
+  * B - Indiquez le nom du bâtiment pour le libellé et la valeur
+  * C - CLiquez sur Ajouter, le nom du bâtiment apparaît dans la liste, vous pouvez le sélectionner.
+ * 3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse (à faire uniquement lors de la saisie du premier local ou pour modifier l'adresse).
+ * 4 - Propriété du bâtiment (à faire uniquement lors de la saisie du premier local ou pour modifier l'adresse).
+ * 5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
+ * 6 - Informations annexes liés à l'inventaire cartographique
 
-A - Cliquez ici pour ajouter un nouveau bâtiment
 
-B - Indiquez le nom du bâtiment pour le libellé et la valeur
+**SAISI DES LOCAUX SUPPLEMENTAIRES**
 
-C - CLiquez sur Ajouter, le nom du bâtiment apparaît dans la liste, vous pouvez le sélectionner.
-
-3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse (à faire uniquement lors de la saisie du premier local ou pour modifier l'adresse).
-
-4 - Propriété du bâtiment (à faire uniquement lors de la saisie du premier local ou pour modifier l'adresse).
-
-5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
-
-6 - Informations annexes liés à l'inventaire cartographique
+**Il est inutile de renseigner l'onglet Dexription du bâtiment en dehors de l'affectation au bâtiment présent dans la liste puisque celles-ci ont été renseignées lors de la saisie du premier local**
 
 Particularité(s) à noter :
 
