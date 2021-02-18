@@ -38,8 +38,8 @@ Le développement fonctionnel de l'inventaire cartographique priviligie l'accès
 - 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
 - 2 - Accès aux fonctionnalités de gestion
  
-   * 3 - [Accès à la saisie d'un terrain](doc_util_admin_1_immo.md)
-   * 4 - [Accès à la saisie d'un bâtiment contenant 1 ou n locaux non identifiables](doc_util_admin_2_immo.md)
-   * 5 - [Accès à la saisie de locaux identifiables reconstruisant la bâtiment](doc_util_admin_3_immo.md)
-   * 6 - [Accès à la gestion des bâtiments d'affectation](doc_util_admin_4_immo.md)
+   * 3 - [Accès à la saisie d'un terrain](doc_util_admin_1.md)
+   * 4 - [Accès à la saisie d'un bâtiment contenant 1 ou n locaux non identifiables](doc_util_admin_2.md)
+   * 5 - [Accès à la saisie de locaux identifiables reconstruisant la bâtiment](doc_util_admin_3.md)
+   * 6 - [Accès à la gestion des bâtiments d'affectation](doc_util_admin_4.md)
    * 7 - Accès à la Recherche par n° de bâtiment d'activité (ce choix est uniquement visible et accessible depuis l'application par le service SIG pour une gestion interne)
