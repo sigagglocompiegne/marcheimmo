@@ -12,7 +12,8 @@ Spécification du modèle de données relatif aux objets constituant la mise en 
   * [Création des vues applicatives](bdd/IMMO_21_vues_xapps.sql)
   * [Création des privilèges](bdd/IMMO_99_grant.sql)
 - [Documentation d'administration de la base](bdd/doc_admin_bd_immo.md)
-- [Documentation d'administration de l'application Activité Economique](../../../amt_fon_eco/blob/master/doc/doc_admin_app_eco.md)
+- [Documentation d'administration de l'application Activité Economique (module Marché immobilier seulement)](app/doc_admin_app_eco_immo.md)
+- [Documentation d'administration de l'application Activité Economique (hors module Marché immobilier)](https://github.com/sigagglocompiegne/amt_fon_eco/blob/master/app/doc_admin_app_eco.md)
 - [Documentation utilisateur de l'application](app/doc_util_admin_immo.md)
 
 ## Contexte
