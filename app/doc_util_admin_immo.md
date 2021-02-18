@@ -71,7 +71,7 @@ La sasie d'un terrain peut correspondre à une parcelle cadastrale ou une partie
 
  * **Terrain correspondant à une parcelle (récupération de la géométrie source)**
 
-Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ce-dessous).
+Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ci-dessous).
 
 ![picto](doc_fond_plan.png)
 
@@ -94,6 +94,13 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
  * 7 - Informations de métadonnées pouvant être modifiée
  * 8 - L'intégration des documents joints doit se faire après l'enregistrement de la saisie (enregistrement de cette fiche puis de l'objet au point suivant). 
 
+Particularité(s) à noter :
+
+- le type de bien est rendu obligatoire.
+- par défaut le terrain est initialisé à `Non concerné` dans la partie commercialisation.
+- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées. 
+- il a été concidéré qu'un terrain ne pouvait être affecté à une adresse connue par défaut. L'adresse doit être saisie manuellement pour ce cas uniquement. Le même principe a été retenu pour l'occupation, une saisie libre.
+
 **ATTENTION :** la saisie du libellé du terrain et de l'occupant sont très important pour la restitution des libellés affichés sur la carte. Pour rappel, si l'occupant est saisi, c'est lui qui affiché par défaut sur la carte. Sinon c'est le libellé du terrain.
 
 ![picto](terrain_enre.png)
@@ -112,23 +119,27 @@ Afin de désactiver la sélection de la parcelle source à l'écran,
 
 ![picto](terrain_result.png)
 
-Une fois les opérations précédentes réalisées, votre saisie s'affiche sur la carte.
-
 
 **Terrain correspondant à une partie de parcelle (saisie manuelle du terrain)**
 
+Cette saisie correspond à dessiner l'emprise exacte de l'objet qui peut en partie suivre le tracé d'une parcelle.
 
-Particularité(s) à noter :
+Tous les aspects concernant la fiche d'information sont identiques au point précédent.
 
-- le type de bien est rendu obligatoire.
-- par défaut le terrain est initialisé à `Non concerné` dans la partie commercialisation.
-- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées. 
-- il a été concidéré qu'un terrain ne pouvait être affecté à une adresse connue par défaut. L'adresse doit être saisie manuellement pour ce cas uniquement. Le même principe a été retenu pour l'occupation, une saisie libre.
+Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ci-dessous).
+
+![picto](doc_fond_plan.png)
+
+![picto](terrain_manuel.png)
+
+ * 1 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, la saisie d'un terrain
+ * 2 - Activez l'outil polygone topologique et saisir votre objet [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin132)
+ * 3 - Vous pouvez également configurer les options de saisies (accoche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
 
 
 #### Choix 4 - Saisir un bien immobilier de type bâtiment contenant 1 ou n locaux non identifiés : Local non identifié dans un bâtiment divisible 
 
-Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ce-dessous).
+Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ci-dessous).
 
 ![picto](doc_fond_plan.png)
 
