@@ -49,7 +49,7 @@ Pour respecter cet affichage, il est important de définir des règles de saisis
 
 Le schéma ci-dessous présente le principe d'affichage des étiquettes des occupants en fonction des bâtiments ou locaux d'activités avec des exemples.
 
-![picto](principe_affichage_libelle.png)
+![picto](principe_libelle.png)
 
 Schéma 3 : principe d'affichage des libellés des occupants
 
