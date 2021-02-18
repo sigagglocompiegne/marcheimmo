@@ -71,11 +71,13 @@ La sasie d'un terrain peut correspondre à une parcelle cadastrale ou une partie
 
 **Terrain correspondant à une parcelle (récupération de la géométrie source)**
 
-![picto](doc_saisie_terrain_1.png)
-
 Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ce-dessous).
 
 ![picto](doc_fond_plan.png)
+
+![picto](doc_saisie_terrain_1.png)
+
+
 
  * 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
  * 2 - Accès aux fonctionnalités de gestion
@@ -93,7 +95,9 @@ Particularité(s) à noter :
 
 #### Choix 4 - Saisir un bien immobilier de type bâtiment contenant 1 ou n locaux non identifiés : Local non identifié dans un bâtiment divisible 
 
+Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ce-dessous).
 
+![picto](doc_fond_plan.png)
 
 Particularité(s) à noter :
 
