@@ -20,6 +20,12 @@ Plus de détails sur le fonctionnement du menu Résultat dans ce [tuto](https://
 
 ![picto](doc_util_recherche_bien.png)
 
+  * 1 - Ouvrez sur le module Marché Immobilier
+  * 2 - Ouvrez la recherche par type de bien et de surface
+  * 3 - Vous pouvez affiner votre recherche en indiquant des critères. Cliquez sur APPLIQUER pour lancer la recherche et activer le menu Résultat pour visualiser le résultat de cette recherche.
+
+Plus de détails sur le fonctionnement du menu Résultat dans ce [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/20/les-outils-de-recherche/)
+
 ## Pour les administrateurs : 
 
 Cette documentation est spécifique aux personnes intégrant de la donnée depuis l'application Web.
