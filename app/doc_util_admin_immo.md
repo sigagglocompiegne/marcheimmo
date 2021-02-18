@@ -9,11 +9,11 @@
 
 Cette documentation est spécifique aux personnes intégrant de la donnée depuis l'application Web.
 
-**La modification de l'inventaire**
+### La modification de l'inventaire
 
 Si le bien est déjà saisi, l'accès à ces informations pour compléments ou ajouts d'informations (média, occupants, locaux éventuels pour les bâtiments concernés) est possible par simple clic sur l'objet à partir de la carte. Ce fonctionnel permet d'accéder de nouveau à la fiche d'informations pour la modifier.
 
-**La suppression de l'inventaire**
+### La suppression de l'inventaire
 
 Pour supprimer un objet saisi, un simple clic sur l'objet à partir de la carte vous ouvre la fiche d'informations. Rendez la fiche d'informations éditable en cliquant sur EDITER, puis cliquez sur SUPPRIMER. Le développement fonctionnel supprime automatiquement les objets et les informations liées de cette manière :
 - pour un terrain : suppression classique de l'objet et des informations liées dans la base
@@ -21,13 +21,13 @@ Pour supprimer un objet saisi, un simple clic sur l'objet à partir de la carte 
 - pour un local indépendant divisé : la suppression de tous les objets (ou locaux) appartenant à un même bâtiment supprime par défaut toutes les informations, y compris celles du bâtiment d'appartenance. Si il reste 1 local d'appartenance, les informations du bâtiment demeurent et le bâtiment est reconstruit virtuellement avec les locaux restant.
 - pour un local non identifié dans un bâtiment divisible : chaque local attaché à un bâtiment peut-être suppprimé indivuellement. La suppression de tous les locaux n'entraine pas ici la suppression des informations du bâtiment. Pour supprimer définitivement ces informations, il faut EDITER la fiche et cliquer sur SUPPRIMER.
 
-**La saisie dans l'inventaire**
+### La saisie dans l'inventaire
 
 La saisie des objets doit respecter les principes et les règles de modélisation édictées [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/gabarit/livrables.md).
 
 La documentation ci-après s'attachera à indiquer les outils fonctionnels de l'application Web à utiliser pour la saisie et la gestion des données.
 
-*Généralités*
+#### Généralités
 
 Le développement fonctionnel de l'inventaire cartographique priviligie l'accès par type de biens. Vous trouverez ci-dessous les différents choix possibles. 
 
@@ -43,21 +43,8 @@ Les options liées aux dessins (saisie, accroche, ...) sont détaillées au nive
 
 ### Choix 1 - Saisir un bien immobilier de type terrain
 
-Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
-![picto](choix_1.png)
 
-1 - Elément de généralité du bien, des éléments descriptifs seront ajoutés par la suite
-
-2 - Informations sur le propriétaire du bien
-
-3 - Affectation des occupants ou de l'occupation connue
- 
-4 - Element concernant la commercialisation
-
-5 - La médiathèque permet de lier des documents annexes au bien (photo, pdf, ...)
-
-6 - Informations annexes liés à l'inventaire cartographique
 
 Particularité(s) à noter :
 
@@ -67,77 +54,9 @@ Particularité(s) à noter :
 - il a été concidéré qu'un terrain ne pouvait être affecté à une adresse connue par défaut. L'adresse doit être saisie manuellement pour ce cas uniquement. Le même principe a été retenu pour l'occupation, une saisie libre.
 
 
-### Choix 2 - Saisir un bien immobilier de type local correspondant à un bâtiment : Local (Bâtiment non divisé) => ce choix a été désactivité pour une question de simplification entre le choix 2 et 3. Par conséquent un bâtiment peut contenir de 1 à n locaux.
-
-Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
-
-![picto](choix_21.png)
-
-1 - Onglet permettant la saisie des informations liées aux bâtiments
-
-2 - Informations calculées automatiquement par rapport au local saisie dans l'onglet `Local`
-
-3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse
-
-4 - Propriété du bâtiment
-
-5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
-
-6 - Informations annexes liés à l'inventaire cartographique
-
-Particularité(s) à noter :
-
-- le libellé n'est pas encore rendu obligatoire ici, mais il est préférable de saisir un nom de bâtiment (même si celui-ci se nomme comme l'occupant), pour qu'il s'affiche sur la partie cartographique.
-- par défaut le propriétaire du bâtiment est celui du local.
-- par défaut le local est initialisé à `Non concerné` dans la partie commercialisation.
-- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
+### Choix 2 - Saisir un bien immobilier de type bâtiment contenant 1 ou n locaux non identifiés : Local non identifié dans un bâtiment divisible 
 
 
-![picto](choix_22.png)
-
-1 - Elément de généralité du local, des éléments descriptifs seront ajoutés par la suite
-
-2 - La médiathèque est ici réservé aux documents annexes se référant au local (photo, pdf, ...)
-
-Particularité(s) à noter :
-
-- la saisie d'un document joint ne peut pas s'effectuer sans enregistrement préalable de la fiche. Pour lier ces informations, un clique sur l'objet sur la carte, vous permet de rouvrir la fiche, de la rendre éditable et d'y intégrer vos informations complémentaires liées.  
-- l'adresse saisie ici, est une adresse différente du bâtiment
-- les établissements affectés automatiquement au bâtiment par l'adresse, sont par défaut concidérés comme occupants du local. Un attribut est néanmoins présent pour une saisie libre d'un occupant autre ou d'une occupation particulière.
-
-![picto](choix_23.png)
-
-1 - Informations sur les différentes surfaces à renseigner
-
-2 - Ces 2 dernières surfaces ne sont disponibles que si le local est déclaré en activité dans le type de bien.
-
-Particularité(s) à noter :
-
-- possibilité d'affecter un établissement SIRENE par une recherche par son numéro SIRET, son nom, son enseigne, ... dans l'onglet `Occupant(s) ou occupation`
-
-#### Résultat cartographique pour le choix 2
-
-![picto](choix_211.png)
-
-1 - Représentation du bâtiment seul avec en étiquette le nom du bâtiment et entre parenthèse le nombre de locaux (ici obligatoirement 1 et pas plus)
-
-### Choix 3 - Saisir un bien immobilier de type bâtiment contenant n locaux non identifiés : Local non identifié dans un bâtiment divisible => => ce choix a été fusionné pour une question de simplification avec le choix 2. Par conséquent un bâtiment peut contenir de 1 à n locaux.
-
-Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
-
-![picto](choix_31_1.png)
-
-1 - Onglet permettant la saisie des informations liées aux bâtiments dont la surface de planché totale du bâtiment
-
-2 - Informations calculées automatiquement par rapport au local saisie dans l'onglet `Local`
-
-3 - Affectation d'une adresse BAL au bâtiment et récupération automatique de la liste des établissements affectés à cette adresse
-
-4 - Propriété du bâtiment
-
-5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
-
-6 - Informations annexes liés à l'inventaire cartographique
 
 Particularité(s) à noter :
 
@@ -158,7 +77,7 @@ Particularité(s) à noter :
 
 1 - Informations génériques sur le local, des éléments descriptifs seront ajoutés par la suite
 
-2 - Informations sur les surfaces (même principe que le choix 2)
+2 - Informations sur les surfaces
 
 3 - La médiathèque est ici réservé aux documents annexes se référant au local (photo, pdf, ...)
 
@@ -187,13 +106,13 @@ Particularité(s) à noter :
 1 - Les éléments des différents locaux affectés sont repris au niveau de l'onglet descriptif du bâtiment pour information
 
 
-#### Résultat cartographique pour le choix 3
+#### Résultat cartographique pour le choix 2
 
 ![picto](choix_311.png)
 
 1 - Représentation du bâtiment seul avec en étiquette le nom du bâtiment et entre parenthèse le nombre de locaux affectés non identifiés (ici 3). Si le nombre de locaux est à 0, cela signifie que le bâtiment a été initialisé dans l'inventaire cartographique sans affectation de locaux.
 
-### Choix 4 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
+#### Choix 3 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
