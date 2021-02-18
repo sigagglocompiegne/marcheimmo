@@ -139,7 +139,7 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
 #### **Choix 4 - Saisir un bien immobilier de type bâtiment contenant 1 ou n locaux non identifiés : Local non identifié dans un bâtiment divisible**
 
-La saisie d'un bâtiment doit correspondre à un bâtiment du PCI Vecteur, à défaut saisir le bâtiment depuis une source extérieure.
+La saisie d'un bâtiment doit correspondre à un bâtiment du PCI Vecteur, à défaut saisir le bâtiment depuis une source extérieure (la méthode de saisie est ici la même que pour un terrain sur une partie de parcelle vu dans la partie précédente. Appliquer ces principes mais pour la saisie d'un bâtiment contenant 1 ou n locaux non identifiables).
 
 * **Bâtiment correspondant à un bâtiment du PCI Vecteur (récupération de la géométrie source)**
 
@@ -226,6 +226,19 @@ Particularité(s) à noter :
 
 
 #### **Choix 5 - Saisir un bien immobilier de type local identifié recomponsant virtuellement le bâtiment d'activité : Local indépendant divisé**
+
+
+La saisie d'un local identifié ne repose plus sur la géométrie d'un bâtiment mais sur une partie seulement.
+
+Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ci-dessous).
+
+![picto](doc_fond_plan.png)
+
+![picto](local_manuel.png)
+
+ * 1 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, Saisir un local indépendant divisé (reconstruction du bâtiment)
+ * 2 - Activez l'outil polygone topologique et saisir votre objet [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin132)
+ * 3 - Vous pouvez également configurer les options de saisies (accoche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
 
 Après la saisie du bien, une fiche d'informations apparaît pour la saisie des données métiers. En cliquant sur SAUVEGARDER en bas de la fiche, l'objet est enregistré dans la base de données sur marché de l'immobilier d'entreprises.
 
