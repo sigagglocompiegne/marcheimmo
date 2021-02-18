@@ -151,6 +151,8 @@ Particularité(s) à noter :
 
 #### Choix 6 : Gérer les bâtiments d'affectation
 
+![picto](doc_admin_choix6.png)
+
 #### Choix 7 : Recherche par n° de bâtiment d'activité
 
 Ce choix est uniquement visible et accessible depuis l'application par le service SIG pour une gestion interne.
