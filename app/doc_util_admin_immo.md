@@ -69,7 +69,7 @@ Seules les informations nécessaires à la saisie des objets du marché immobili
 
 La sasie d'un terrain peut correspondre à une parcelle cadastrale ou une partie de cette parcelle.
 
-#### **Terrain correspondant à une parcelle (récupération de la géométrie source)**
+#### * **Terrain correspondant à une parcelle (récupération de la géométrie source)**
 
 Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de plan dans le Menu (cf ci-dessous).
 
@@ -120,7 +120,7 @@ Afin de désactiver la sélection de la parcelle source à l'écran,
 ![picto](terrain_result.png)
 
 
-#### **Terrain correspondant à une partie de parcelle (saisie manuelle du terrain)**
+#### * **Terrain correspondant à une partie de parcelle (saisie manuelle du terrain)**
 
 Cette saisie correspond à dessiner l'emprise exacte de l'objet qui peut en partie suivre le tracé d'une parcelle.
 
