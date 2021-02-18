@@ -67,7 +67,16 @@ Seules les informations nécessaires à la saisie des objets du marché immobili
 
 #### Choix 3 - Saisir un bien immobilier de type terrain
 
+La sasie d'un terrain peut correspondre à une parcelle cadastrale ou une partie de cette parcelle.
 
+**Terrain correspondant à une parcelle (récupération de la géométrie source)**
+
+![picto](doc_saisie_terrain_1.png)
+
+ * 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
+ * 2 - Accès aux fonctionnalités de gestion
+
+**Terrain correspondant à une partie de parcelle (saisie manuelle du terrain)**
 
 
 Particularité(s) à noter :
