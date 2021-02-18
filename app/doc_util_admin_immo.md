@@ -54,11 +54,16 @@ Le développement fonctionnel de l'inventaire cartographique priviligie l'accès
 
 ![picto](doc_admin_menu.png)
 
- * 1 - Cliquez sur le module métier pour accéder aux diverses fonctoins de gestion de l'inventaire
- * 2 - Cliquez sur le sous-menu `Gestion de votre patrimoine` et choissisez le type d'objets à saisir
- * 3 - Cliquez sur l'outil de dessin (ici polygon topologique)
+ * 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
+ * 2 - Accès aux fonctionnalités de gestion
+ * 3 - Accès à la saisie d'un terrain
+ * 4 - Accès à la saisie d'un bâtiment contenant 1 ou n locaux non identifiables
+ * 5 - Accès à la saisie de locaux identifiables reconstruisant la bâtiment
+ * 6 - Accès à la gestion des bâtiments d'affectation
+ * 7 - Accès à la Recherche par n° de bâtiment d'activité (ce choix est uniquement visible et accessible depuis l'application par le service SIG pour une gestion interne)
 
-Les options liées aux dessins (saisie, accroche, ...) sont détaillées au niveau du tutoriel [Dessiner et Annoter](https://geo.compiegnois.fr/portail/index.php/2020/06/16/les-outils-de-dessin/) et du tutoriel [Dessiner en mode avancé](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/)
+
+Seules les informations nécessaires à la saisie des objets du marché immobilier sont décrites ci-après, pour plus détails sur les options liées aux dessins (saisie, accroche, ...) vous pouvez consulter le tutoriel [Dessiner et Annoter](https://geo.compiegnois.fr/portail/index.php/2020/06/16/les-outils-de-dessin/) et le tutoriel [Dessiner en mode avancé](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/)
 
 #### Choix 3 - Saisir un bien immobilier de type terrain
 
