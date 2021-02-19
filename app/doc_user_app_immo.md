@@ -36,10 +36,8 @@ Pour supprimer un objet saisi, un simple clic sur l'objet à partir de la carte 
 
 La saisie des objets doit respecter les principes et les règles de modélisation édictées [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/gabarit/livrables.md).
 
-La documentation ci-après s'attachera à indiquer les outils fonctionnels de l'application Web à utiliser pour la saisie et la gestion des données.
-
-   * 3 - [Accès à la saisie d'un terrain](doc_util_admin_1.md)
-   * 4 - [Accès à la saisie d'un bâtiment contenant 1 ou n locaux non identifiables](doc_util_admin_2.md)
-   * 5 - [Accès à la saisie de locaux identifiables reconstruisant la bâtiment](doc_util_admin_3.md)
-   * 6 - [Accès à la gestion des bâtiments d'affectation](doc_util_admin_4.md)
-   * 7 - Accès à la Recherche par n° de bâtiment d'activité (ce choix est uniquement visible et accessible depuis l'application par le service SIG pour une gestion interne)
+- La documentation ci-après s'attachera à indiquer les outils fonctionnels de l'application Web à utiliser pour la saisie et la gestion des données.
+   * [Accès à la saisie d'un terrain](doc_util_admin_1.md)
+   * [Accès à la saisie d'un bâtiment contenant 1 ou n locaux non identifiables](doc_util_admin_2.md)
+   * [Accès à la saisie de locaux identifiables reconstruisant la bâtiment](doc_util_admin_3.md)
+   * [Accès à la gestion des bâtiments d'affectation](doc_util_admin_4.md)
