@@ -16,7 +16,7 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
  * 1 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, Saisir un local indépendant divisé (reconstruction du bâtiment)
  * 2 - Activez l'outil polygone topologique et saisir votre objet [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin132)
- * 3 - Vous pouvez également configurer les options de saisies (accoche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
+ * 3 - Vous pouvez également configurer les options de saisies (accroche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
  * 4 - A la fin de la saisie de l'objet, la fiche d'information ci-dessous s'affiche
 
 ![picto](choix_41_1.png)
@@ -39,10 +39,14 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
 ![picto](saisi_loc_2.png)
 
-* 1 - 
-* 2 -
+ * 1 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, Saisir un local indépendant divisé (reconstruction du bâtiment)
+ * 2 - Activez l'outil polygone topologique et saisir votre objet [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin132)
+ * 3 - **Le local supplémentaire saisi doit être adjacent à un précédent lot**.Vous pouvez configurer les options de saisies (accroche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
+ * 4 - Terminez la saisie du second local
+ *  
+Se référer à la partie précédente pour les éléments de la fiche d'information. Ce lot doit être affecté au même bâtiment que les locaux saisis précédemment. A la fin de la votre saisie, vous devez avoir le résultat ci-dessous.
 
-Se référer à la partie précédente pour les éléments de la fiche d'information.
+![picto](saisi_loc_result.png)
 
 Particularité(s) à noter :
 
