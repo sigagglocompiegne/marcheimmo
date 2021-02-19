@@ -43,8 +43,8 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
  * 2 - Activez l'outil polygone topologique et saisir votre objet [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin132)
  * 3 - **Le local supplémentaire saisi doit être adjacent à un précédent lot**.Vous pouvez configurer les options de saisies (accroche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
  * 4 - Terminez la saisie du second local
- *  
-Se référer à la partie précédente pour les éléments de la fiche d'information. Ce lot doit être affecté au même bâtiment que les locaux saisis précédemment. A la fin de la votre saisie, vous devez avoir le résultat ci-dessous.
+ 
+Se référer à la partie précédente pour les éléments de la fiche d'information. **Ce lot doit être affecté au même bâtiment que les locaux saisis précédemment**. A la fin de la votre saisie, vous devez avoir le résultat ci-dessous.
 
 ![picto](saisi_loc_result.png)
 
