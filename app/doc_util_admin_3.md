@@ -35,9 +35,9 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
 **SAISIE DES LOCAUX SUPPLEMENTAIRES**
 
-**Il est inutile de renseigner l'onglet Dexription du bâtiment en dehors de l'affectation au bâtiment présent dans la liste puisque celles-ci ont été renseignées lors de la saisie du premier local**
+**Il est inutile de renseigner l'onglet Description du bâtiment en dehors de l'affectation au bâtiment présent dans la liste puisque celles-ci ont été renseignées lors de la saisie du premier local**
 
-![picto](local_manuel_2.png)
+![picto](saisi_loc_2.png)
 
 * 1 - 
 * 2 -
