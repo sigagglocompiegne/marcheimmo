@@ -38,6 +38,7 @@ DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immolocident();
 DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immolocnonident();
 DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immolocnonident_bien();
 DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immoterrain();
+DROP FUNCTION IF EXISTS m_economie.ft_m_gestion_immo_libelle();
 
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
@@ -427,6 +428,10 @@ DELETE FROM m_economie.an_immo_bien WHERE idimmo = OLD.idimmo;
 DELETE FROM m_economie.an_immo_comm WHERE idimmo = OLD.idimmo;
 
 END IF;
+											   
+REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
 
 RETURN NEW;
 
@@ -684,7 +689,40 @@ END;
 
 $BODY$;
 
-                                       
+ -- ############################################################ ft_m_gestion_immo_libelle #########################################    
+											   
+-- FUNCTION: m_economie.ft_m_gestion_immo_libelle()
+
+-- DROP FUNCTION m_economie.ft_m_gestion_immo_libelle();
+
+CREATE FUNCTION m_economie.ft_m_gestion_immo_libelle()
+    RETURNS trigger
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF
+AS $BODY$
+
+BEGIN
+-- rafraichissement de la vue matérialisée permettant de gérer l'affichage des libellés sur la carte
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
+
+return new;
+
+END;
+
+$BODY$;
+
+-- Trigger: t_t1_refresh_libelle
+
+-- DROP TRIGGER t_t1_refresh_libelle ON m_economie.lk_immo_batiadr;
+
+CREATE TRIGGER t_t1_refresh_libelle
+    AFTER INSERT OR DELETE OR UPDATE 
+    ON m_economie.lk_immo_batiadr
+    FOR EACH ROW
+    EXECUTE PROCEDURE m_economie.ft_m_gestion_immo_libelle();
+
+										   
                                         
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
