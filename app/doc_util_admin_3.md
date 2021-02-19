@@ -32,7 +32,7 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
  * 5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
  * 6 - Informations annexes liés à l'inventaire cartographique
 
-Lorsque vous avez terminé, sauvegarder la fiche en cliquant sur SAUVEGARDER (en bas de la fiche), puis cliquez sur ENREGISTRER la saisie en haut de la fanêtre du navigateur (cf ci-dessous).
+Lorsque vous avez terminé, sauvegarder la fiche en cliquant sur SAUVEGARDER (en bas de la fiche), puis cliquez sur ENREGISTRER la saisie en haut de la fanêtre du navigateur (cf ci-contre).
 ![picto](enre_loc.png)
 
 
