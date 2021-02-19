@@ -881,4 +881,31 @@ CREATE INDEX idx_an_immo_media_id
 
 --################################################################# an_immo_desc #######################################################
 
-(à venir)
+-- Table: m_economie.an_immo_desc
+
+-- DROP TABLE m_economie.an_immo_desc;
+
+CREATE TABLE m_economie.an_immo_desc
+(
+    iddesc text COLLATE pg_catalog."default" NOT NULL,
+    idbien text COLLATE pg_catalog."default",
+    observ character varying(5000) COLLATE pg_catalog."default",
+    CONSTRAINT an_immo_desc_pkey PRIMARY KEY (iddesc)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+
+COMMENT ON TABLE m_economie.an_immo_desc
+    IS 'Table alphanumérique contenant les informations sur les équipements présents dans les locaux (éléments descriptifs détaillés)';
+
+COMMENT ON COLUMN m_economie.an_immo_desc.iddesc
+    IS 'Identifiant unique de la description';
+
+COMMENT ON COLUMN m_economie.an_immo_desc.idbien
+    IS 'Identifiant du bien concerné';
+
+COMMENT ON COLUMN m_economie.an_immo_desc.observ
+    IS 'Commentaires sur la description';
