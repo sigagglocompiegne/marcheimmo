@@ -6,11 +6,12 @@
 
 Afin que l'ensemble des données et des fonctionnalités puissent être accessibles, vous devez initilaiser les informations immobilières dans l'application Activité Economique (cf ci-dessous)
 
-![picto](init_immo.png)
+![picto](init_immo_1.png)
 
 - 1 - Ouvrir le menu CARTE
 - 2 - Désactiviter le groupe Lots
-- 3 - Activer le groupe Immobilier
+- 3 - Vous pouvez également désactiver la couche des sites d'activité pour plus de lisibilité
+- 4 - Activer le groupe Immobilier
 
 **Pour tous les utilisateurs ayant le droit d'accès à l'application** :
 
