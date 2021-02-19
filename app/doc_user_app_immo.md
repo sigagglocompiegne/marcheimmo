@@ -8,8 +8,9 @@ Afin que l'ensemble des données et des fonctionnalités puissent être accessib
 
 ![picto](init_immo.png)
 
-- 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
-- 2 - Accès aux fonctionnalités de gestion
+- 1 - Ouvrir le menu CARTE
+- 2 - Désactiviter le groupe Lots
+- 3 - Activer le groupe Immobilier
 
 **Pour tous les utilisateurs ayant le droit d'accès à l'application** :
 - [Accès aux informations d'un bâtiment ou d'un local d'activités](doc_util_util_1.md)
