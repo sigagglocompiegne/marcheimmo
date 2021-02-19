@@ -183,6 +183,14 @@ GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immoterrain() TO create_sig;
 GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immoterrain() TO edit_sig;
 
 
+ALTER FUNCTION m_economie.ft_m_gestion_immo_libelle()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_libelle() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_libelle() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_libelle() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_libelle() TO edit_sig;
+
 -- ########################################################### VUE DE GESTION  ####################################################################
 
 ALTER TABLE m_economie.an_v_immo_bien_locnonident
