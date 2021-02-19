@@ -12,7 +12,7 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
 
 **SAISIE DU PREMIER LOCAL**
 
-![picto](local_manuel_1.png)
+![picto](saisi_loc_1.png)
 
  * 1 - Dans le menu du Module Marché Immobilier, sélectionnez dans la partie Gestion du patrimoine, Saisir un local indépendant divisé (reconstruction du bâtiment)
  * 2 - Activez l'outil polygone topologique et saisir votre objet [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin132)
