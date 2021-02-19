@@ -86,9 +86,7 @@ Particularité(s) à noter :
 
 **ATTENTION** : les éléments modifiés s'appliqueront à tous les locaux affectés au bâtiment modifié. Si vous supprimez le bâtiment, vous devrez affecter les locaux concernés à un nouveau bâtiment.
 
-#### **Choix 7 : Recherche par n° de bâtiment d'activité**
 
-Ce choix est uniquement visible et accessible depuis l'application par le service SIG pour une gestion interne.
 
 
 
