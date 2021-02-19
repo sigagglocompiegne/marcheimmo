@@ -40,5 +40,5 @@ La saisie des objets doit respecter les principes et les règles de modélisatio
 - La documentation ci-après s'attachera à indiquer les outils fonctionnels de l'application Web à utiliser pour la saisie et la gestion des données.
    * [Saisir un bien immobilier de type terrain](doc_util_admin_1.md)
    * [Saisir un bâtiment contenant 1 ou n locaux non identifiables](doc_util_admin_2.md)
-   * [Saisir des locaux identifiables reconstruisant la bâtiment](doc_util_admin_3.md)
+   * [Saisir des locaux identifiables reconstruisant le bâtiment](doc_util_admin_3.md)
    * [Gérer les bâtiments d'affectation](doc_util_admin_4.md)
