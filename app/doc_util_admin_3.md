@@ -2,7 +2,7 @@
 
 # Documentation utilisateur du module Marché immobilier dans l'application Activité Economique
 
-## Saisir des locaux identifiables reconstruisant la bâtiment
+## Saisir des locaux identifiables reconstruisant le bâtiment
 
 La saisie d'un local identifié ne repose plus sur la géométrie d'un bâtiment mais sur une partie seulement.
 
