@@ -2,6 +2,15 @@
 
 # Documentation utilisateur du module Marché immobilier dans l'application Activité Economique #
 
+**Initialisation du module Marché Immobilier** :
+
+Afin que l'ensemble des données et des fonctionnalités puissent être accessibles, vous devez initilaiser les informations immobilières dans l'application Activité Economique (cf ci-dessous)
+
+![picto](init_immo.png)
+
+- 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
+- 2 - Accès aux fonctionnalités de gestion
+
 **Pour tous les utilisateurs ayant le droit d'accès à l'application** :
 - [Accès aux informations d'un bâtiment ou d'un local d'activités](doc_util_util_1.md)
 - [Recherche d'un bien disponible à la vente et/ou à la location](doc_util_util_2.md)
@@ -29,15 +38,6 @@ La saisie des objets doit respecter les principes et les règles de modélisatio
 
 La documentation ci-après s'attachera à indiquer les outils fonctionnels de l'application Web à utiliser pour la saisie et la gestion des données.
 
- - Généralités
-
-Le développement fonctionnel de l'inventaire cartographique priviligie l'accès par type de biens. Vous trouverez ci-dessous les différents choix possibles. 
-
-![picto](doc_admin_menu.png)
-
-- 1 - Accès aux fonctionnalités avancées du module Marché Immobilier
-- 2 - Accès aux fonctionnalités de gestion
- 
    * 3 - [Accès à la saisie d'un terrain](doc_util_admin_1.md)
    * 4 - [Accès à la saisie d'un bâtiment contenant 1 ou n locaux non identifiables](doc_util_admin_2.md)
    * 5 - [Accès à la saisie de locaux identifiables reconstruisant la bâtiment](doc_util_admin_3.md)
