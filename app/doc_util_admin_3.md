@@ -32,6 +32,9 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
  * 5 - La médiathèque est ici réservé aux documents annexes se référant au bâtiment (photo, pdf, ...)
  * 6 - Informations annexes liés à l'inventaire cartographique
 
+Lorsque vous avez terminé, sauvegarder la fiche en cliquant sur SAUVEGARDER (en bas de la fiche), puis cliquez sur ENREGISTRER la saisie en haut de la fanêtre du navigateur (cf ci-dessous).
+![picto](enre_loc.png)
+
 
 **SAISIE DES LOCAUX SUPPLEMENTAIRES**
 
@@ -44,7 +47,7 @@ Vous pouvez afficher le fond de plan cadastrale au niveau du groupe Fonds de pla
  * 3 - **Le local supplémentaire saisi doit être adjacent à un précédent lot**.Vous pouvez configurer les options de saisies (accroche) avant la saisie ou en cours de saisie [tuto](https://geo.compiegnois.fr/portail/index.php/2020/06/13/les-outils-de-dessin-avances/#dessin12)
  * 4 - Terminez la saisie du second local
  
-Se référer à la partie précédente pour les éléments de la fiche d'information. **Ce lot doit être affecté au même bâtiment que les locaux saisis précédemment**. A la fin de la votre saisie, vous devez avoir le résultat ci-dessous.
+Se référer à la partie précédente pour les éléments de la fiche d'information et la procédure d'enregistrement pour valider votre seconde saisie. **Ce lot doit être affecté au même bâtiment que les locaux saisis précédemment**. A la fin de la votre saisie, vous devez avoir le résultat ci-dessous.
 
 ![picto](saisi_loc_result.png)
 
