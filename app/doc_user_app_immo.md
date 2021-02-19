@@ -13,8 +13,10 @@ Afin que l'ensemble des données et des fonctionnalités puissent être accessib
 - 3 - Activer le groupe Immobilier
 
 **Pour tous les utilisateurs ayant le droit d'accès à l'application** :
-- [Accès aux informations d'un bâtiment ou d'un local d'activités](doc_util_util_1.md)
-- [Recherche d'un bien disponible à la vente et/ou à la location](doc_util_util_2.md)
+
+- Documentation disponible :
+   * [Accès aux informations d'un bâtiment ou d'un local d'activités](doc_util_util_1.md)
+   * [Recherche d'un bien disponible à la vente et/ou à la location](doc_util_util_2.md)
 
 **Pour l'administrateur des données** :
 
