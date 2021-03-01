@@ -109,15 +109,15 @@ L'encodage des caractères sera en UTF8.
 
 ## Description des classes d'objets
 
-La description des classes d'objets est contenue la documentation complète de la base de données en cliquant [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/doc/doc_admin_bd_immo.md).
+La description des classes d'objets est contenue la documentation complète de la base de données en cliquant [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/bdd/doc_admin_bd_immo.md).
 
 ## Implémentation informatique
 
-L'implémentation informatique est décrite dans la documentation complète de la base de données en cliquant [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/doc/doc_admin_bd_immo.md).
+L'implémentation informatique est décrite dans la documentation complète de la base de données en cliquant [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/bdd/doc_admin_bd_immo.md).
 
 ### Liste de valeurs
 
-Le contenu des listes de valeurs est disponible dans la documentation complète de la base de données en cliquant [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/doc/doc_admin_bd_immo.md) dans la rubrique `Liste de valeurs`.
+Le contenu des listes de valeurs est disponible dans la documentation complète de la base de données en cliquant [ici](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/bdd/doc_admin_bd_immo.md) dans la rubrique `Liste de valeurs`.
 
 ### Les identifiants
 
