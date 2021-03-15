@@ -5,6 +5,9 @@
 /*GeoCompiegnois - http://geo.compiegnois.fr/ */
 /*Auteur : Grégory Bodet */
 
+-- ICI SONT PRESENTES LES DROITS DE MANIERES GENERIQUES COMME ILS DOIVENT ETRE INTEGRES POUR CHAQUE CLASSE D'OBJETS. SI DES PARTICULARITES SONT
+-- INTRODUITES ELLES SONT DETAILLEES CI-DESSOUS
+
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
 -- ###                                                                        GRANT                                                                  ###
@@ -14,242 +17,60 @@
 
 -- #################################################################### SEQUENCE  ####################################################################
 
-ALTER SEQUENCE m_economie.geo_immo_bien_seq
-    OWNER TO sig_create;
-    
-ALTER SEQUENCE m_economie.lk_immo_batiadr_seq
-    OWNER TO sig_create;
-    
-ALTER SEQUENCE m_economie.an_immo_bati_seq
-    OWNER TO sig_create;
+ALTER SEQUENCE [schema].[sequence]
+    OWNER TO create_sig;
 
-ALTER SEQUENCE m_economie.an_immo_bien_seq
-    OWNER TO sig_create;
-    
-ALTER SEQUENCE m_economie.an_immo_comm_seq
-    OWNER TO sig_create;
-    
-ALTER SEQUENCE m_economie.an_immo_media_seq
-    OWNER TO sig_create;
-    
-ALTER SEQUENCE m_economie.an_immo_prop_seq
-    OWNER TO sig_create;
+GRANT ALL ON SEQUENCE [schema].[sequence] TO create_sig;
     
 -- #################################################################### DOMAINE DE VALEUR  ####################################################################
 
-ALTER TABLE m_economie.lt_immo_ityp
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.lt_immo_ityp TO sig_create;
-GRANT ALL ON TABLE m_economie.lt_immo_ityp TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lt_immo_ityp TO edit_sig;
-GRANT SELECT ON TABLE m_economie.lt_immo_ityp TO read_sig;
+ALTER TABLE [schema].[table]
+    OWNER to create_sig;
 
-ALTER TABLE m_economie.lt_immo_tbien
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.lt_immo_tbien TO sig_create;
-GRANT ALL ON TABLE m_economie.lt_immo_tbien TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lt_immo_tbien TO edit_sig;
-GRANT SELECT ON TABLE m_economie.lt_immo_tbien TO read_sig;
+GRANT ALL ON TABLE [schema].[table] TO sig_create;
+GRANT SELECT ON TABLE [schema].[table] TO sig_read;
+GRANT ALL ON TABLE [schema].[table] TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE [schema].[table] TO sig_edit;
 
-ALTER TABLE m_economie.lt_immo_etat
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.lt_immo_etat TO sig_create;
-GRANT ALL ON TABLE m_economie.lt_immo_etat TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lt_immo_etat TO edit_sig;
-GRANT SELECT ON TABLE m_economie.lt_immo_etat TO read_sig;
+-- #################################################################### CLASSE D'OBJET ####################################################################
 
--- #################################################################### TABLE  ####################################################################
 
-ALTER TABLE m_economie.geo_immo_bien
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.geo_immo_bien TO sig_create;
-GRANT ALL ON TABLE m_economie.geo_immo_bien TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.geo_immo_bien TO edit_sig;
-GRANT SELECT ON TABLE m_economie.geo_immo_bien TO read_sig;
+ALTER TABLE [schema].[table]
+    OWNER to create_sig;
 
-ALTER TABLE m_economie.an_immo_bien
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_bien TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_bien TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_bien TO edit_sig;
-GRANT SELECT ON TABLE m_economie.an_immo_bien TO read_sig;
-
-ALTER TABLE m_economie.an_immo_bati
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_bati TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_bati TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_bati TO edit_sig;
-GRANT SELECT ON TABLE m_economie.an_immo_bati TO read_sig;
-
-ALTER TABLE m_economie.an_immo_comm
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_comm TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_comm TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_comm TO edit_sig;
-GRANT SELECT ON TABLE m_economie.an_immo_comm TO read_sig;
-
-ALTER TABLE m_economie.an_immo_desc
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_desc TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_desc TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_desc TO edit_sig;
-GRANT SELECT ON TABLE m_economie.an_immo_desc TO read_sig;
-
-ALTER TABLE m_economie.an_immo_propbati
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_propbati TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_propbati TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_propbati TO edit_sig;
-GRANT SELECT ON TABLE m_economie.an_immo_propbati TO read_sig;
-
-ALTER TABLE m_economie.an_immo_propbien
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_propbien TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_propbien TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_propbien TO edit_sig;
-GRANT SELECT ON TABLE m_economie.an_immo_propbien TO read_sig;
-
-ALTER TABLE m_economie.an_immo_media
-OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_media TO sig_create;
-GRANT ALL ON TABLE m_economie.an_immo_media TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.an_immo_media TO edit_sig;
-GRANT SELECT ON TABLE m_economie.an_immo_media TO read_sig;
-
-ALTER TABLE m_economie.lk_immo_batiadr
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_economie.lk_immo_batiadr TO sig_create;
-GRANT ALL ON TABLE m_economie.lk_immo_batiadr TO create_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_economie.lk_immo_batiadr TO edit_sig;
-GRANT SELECT ON TABLE m_economie.lk_immo_batiadr TO read_sig;
+GRANT ALL ON TABLE [schema].[table] TO sig_create;
+GRANT SELECT ON TABLE [schema].[table] TO sig_read;
+GRANT ALL ON TABLE [schema].[table] TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE [schema].[table] TO sig_edit;
 
 
 -- ########################################################### FONCTION  ####################################################################
 
-ALTER FUNCTION m_economie.ft_m_gestion_immo_insertbati()
-    OWNER TO sig_create;
+ALTER FUNCTION [schema].[fonction]()
+    OWNER TO create_sig;
 
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_insertbati() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_insertbati() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_insertbati() TO edit_sig;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_insertbati() TO create_sig;
+GRANT EXECUTE ON FUNCTION [schema].[fonction]() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION [schema].[fonction]() TO create_sig;
 
-ALTER FUNCTION m_economie.ft_m_gestion_immo_statbati()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_statbati() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_statbati() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_statbati() TO edit_sig;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_statbati() TO create_sig;
-
-ALTER FUNCTION m_economie.ft_m_gestion_immolocident()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocident() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocident() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocident() TO create_sig;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocident() TO edit_sig;
-
-ALTER FUNCTION m_economie.ft_m_gestion_immolocnonident()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocnonident() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocnonident() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocnonident() TO create_sig;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocnonident() TO edit_sig;
-
-ALTER FUNCTION m_economie.ft_m_gestion_immolocnonident_bien()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocnonident_bien() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocnonident_bien() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocnonident_bien() TO create_sig;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocnonident_bien() TO edit_sig;
-
-ALTER FUNCTION m_economie.ft_m_gestion_immolocunique()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocunique() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocunique() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocunique() TO create_sig;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immolocunique() TO edit_sig;
-
-ALTER FUNCTION m_economie.ft_m_gestion_immoterrain()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immoterrain() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immoterrain() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immoterrain() TO create_sig;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immoterrain() TO edit_sig;
-
-
-ALTER FUNCTION m_economie.ft_m_gestion_immo_libelle()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_libelle() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_libelle() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_libelle() TO create_sig;
-GRANT EXECUTE ON FUNCTION m_economie.ft_m_gestion_immo_libelle() TO edit_sig;
 
 -- ########################################################### VUE DE GESTION  ####################################################################
 
-ALTER TABLE m_economie.an_v_immo_bien_locnonident
-    OWNER TO sig_create;
+ALTER TABLE [schema].[vue]
+OWNER TO create_sig;
 
-GRANT ALL ON TABLE m_economie.an_v_immo_bien_locnonident TO sig_create;
-GRANT SELECT ON TABLE m_economie.an_v_immo_bien_locnonident TO read_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.an_v_immo_bien_locnonident TO edit_sig;
-GRANT ALL ON TABLE m_economie.an_v_immo_bien_locnonident TO create_sig;
+GRANT ALL ON TABLE [schema].[vue] TO sig_create;
+GRANT SELECT ON TABLE [schema].[vue] TO sig_read;
+GRANT ALL ON TABLE [schema].[vue] TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE [schema].[vue] TO sig_edit;
 
-
-ALTER TABLE m_economie.geo_v_immo_bien_locident
-    OWNER TO sig_create;
-
-GRANT ALL ON TABLE m_economie.geo_v_immo_bien_locident TO sig_create;
-GRANT SELECT ON TABLE m_economie.geo_v_immo_bien_locident TO read_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.geo_v_immo_bien_locident TO edit_sig;
-GRANT ALL ON TABLE m_economie.geo_v_immo_bien_locident TO create_sig;
-
-ALTER TABLE m_economie.geo_v_immo_bien_locnonident
-    OWNER TO sig_create;
-
-GRANT ALL ON TABLE m_economie.geo_v_immo_bien_locnonident TO sig_create;
-GRANT SELECT ON TABLE m_economie.geo_v_immo_bien_locnonident TO read_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.geo_v_immo_bien_locnonident TO edit_sig;
-GRANT ALL ON TABLE m_economie.geo_v_immo_bien_locnonident TO create_sig;
-
-
-ALTER TABLE m_economie.geo_v_immo_bien_terrain
-    OWNER TO sig_create;
-
-GRANT ALL ON TABLE m_economie.geo_v_immo_bien_terrain TO sig_create;
-GRANT SELECT ON TABLE m_economie.geo_v_immo_bien_terrain TO read_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_economie.geo_v_immo_bien_terrain TO edit_sig;
-GRANT ALL ON TABLE m_economie.geo_v_immo_bien_terrain TO create_sig;
 
 -- ########################################################### VUE APPLICATIVE ####################################################################
 
-ALTER TABLE x_apps.xapps_geo_vmr_immo_bati
-    OWNER TO sig_create;
+ALTER TABLE [schema].[vue]
+    OWNER TO create_sig;
 
-GRANT ALL ON TABLE x_apps.xapps_geo_vmr_immo_bati TO sig_create;
-GRANT SELECT ON TABLE x_apps.xapps_geo_vmr_immo_bati TO read_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE x_apps.xapps_geo_vmr_immo_bati TO edit_sig;
-GRANT ALL ON TABLE x_apps.xapps_geo_vmr_immo_bati TO create_sig;
-
-ALTER TABLE x_apps.xapps_geo_vmr_immo_etat
-    OWNER TO sig_create;
-
-GRANT ALL ON TABLE x_apps.xapps_geo_vmr_immo_etat TO sig_create;
-GRANT SELECT ON TABLE x_apps.xapps_geo_vmr_immo_etat TO read_sig;
-GRANT SELECT ON TABLE x_apps.xapps_geo_vmr_immo_etat TO edit_sig;
-GRANT ALL ON TABLE x_apps.xapps_geo_vmr_immo_etat TO create_sig;
-
-ALTER TABLE x_apps.xapps_an_vmr_immo_bati
-    OWNER TO sig_create;
-
-GRANT ALL ON TABLE x_apps.xapps_an_vmr_immo_bati TO sig_create;
-GRANT SELECT ON TABLE x_apps.xapps_an_vmr_immo_bati TO read_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE x_apps.xapps_an_vmr_immo_bati TO edit_sig;
-GRANT ALL ON TABLE x_apps.xapps_an_vmr_immo_bati TO create_sig;
+GRANT SELECT ON TABLE [schema].[vue] TO sig_create;
+GRANT SELECT ON TABLE [schema].[vue] TO sig_read;
+GRANT SELECT ON TABLE [schema].[vue] TO sig_edit;
+GRANT SELECT ON TABLE [schema].[vue] TO create_sig;
 
