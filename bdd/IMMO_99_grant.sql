@@ -64,7 +64,7 @@ GRANT ALL ON TABLE [schema].[vue] TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE [schema].[vue] TO sig_edit;
 
 
--- ########################################################### VUE APPLICATIVE ####################################################################
+-- ########################################################### VUE APPLICATIVE ou OPEN DATA ####################################################################
 
 ALTER TABLE [schema].[vue]
     OWNER TO create_sig;
