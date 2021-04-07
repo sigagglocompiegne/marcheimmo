@@ -16,8 +16,9 @@
 --VUES
 
 DROP VIEW IF EXISTS x_apps.xapps_an_vmr_immo_bati;
-DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_etat;
-DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_bati;
+DROP VIEW IF EXISTS x_apps.xapps_geo_vmr_immo_etat;
+DROP VIEW IF EXISTS x_apps.xapps_geo_vmr_immo_bati;
+DROP VIEW IF EXISTS x_apps.xapps_geo_vmr_immo_loc;
 
 
 -- #################################################################################################################################
@@ -26,7 +27,7 @@ DROP VIEW IF EXISTS x_apps.xapps_geo_v_immo_bati;
 -- ###                                                                                                                           ###
 -- #################################################################################################################################
 
---################################################## xapps_geo_v_immo_etat ###############################################
+--################################################## xapps_geo_vmr_immo_etat ###############################################
 
 -- View: x_apps.xapps_geo_vmr_immo_etat
 
@@ -291,6 +292,79 @@ CREATE INDEX idx_xapps_an_immo_bati_idbati
     (idbati COLLATE pg_catalog."default")
     TABLESPACE pg_default;
 
+--################################################## xapps_geo_vmr_immo_loc ###############################################
+             
+-- View: x_apps.xapps_geo_vmr_immo_loc
+
+-- DROP MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_loc;
+
+CREATE MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_loc
+TABLESPACE pg_default
+AS
+ SELECT row_number() OVER () AS gid,
+    b.idimmo,
+    s.site_nom,
+    t.valeur AS type_loc,
+        CASE
+            WHEN b.ityp::text = '22'::text OR b.ityp::text = '10'::text THEN
+            CASE
+                WHEN ((( SELECT an_immo_bien.lib_occup
+                   FROM m_economie.an_immo_bien
+                  WHERE an_immo_bien.idimmo = b.idimmo))::text) = ''::text OR (( SELECT an_immo_bien.lib_occup
+                   FROM m_economie.an_immo_bien
+                  WHERE an_immo_bien.idimmo = b.idimmo)) IS NULL THEN ( SELECT an_immo_bien.libelle
+                   FROM m_economie.an_immo_bien
+                  WHERE an_immo_bien.idimmo = b.idimmo)
+                ELSE ( SELECT an_immo_bien.lib_occup
+                   FROM m_economie.an_immo_bien
+                  WHERE an_immo_bien.idimmo = b.idimmo)
+            END
+            ELSE
+            CASE
+                WHEN (( SELECT count(*) AS count
+                   FROM m_economie.lk_immo_batiadr
+                  WHERE lk_immo_batiadr.idbati = b.idbati)) > 0 THEN
+                CASE
+                    WHEN (( SELECT count(*) AS count
+                       FROM m_economie.lk_immo_batiadr a,
+                        m_economie.lk_adresseetablissement e,
+                        m_economie.an_sa_etab ae,
+                        s_sirene.an_etablissement_api ne
+                      WHERE a.id_adresse = e.idadresse AND e.siret::text = ne.siret::text AND e.siret::text = ae.idsiret::text AND ae.l_compte = true AND ne.etatadministratifetablissement::text = 'A'::text AND a.idbati = b.idbati)) <= 3 THEN ( SELECT xapps_geo_vmr_immo_bati.etiquette
+                       FROM x_apps.xapps_geo_vmr_immo_bati
+                      WHERE xapps_geo_vmr_immo_bati.idbati = b.idbati)
+                    ELSE ( SELECT an_immo_bati.libelle
+                       FROM m_economie.an_immo_bati
+                      WHERE an_immo_bati.idbati = b.idbati)
+                END
+                ELSE
+                CASE
+                    WHEN (( SELECT count(*) AS count
+                       FROM m_economie.an_immo_bien
+                      WHERE an_immo_bien.idimmo = b.idimmo)) <= 3 THEN (( SELECT string_agg(
+                            CASE
+                                WHEN length(an_immo_bien.lib_occup::text) = 0 THEN an_immo_bien.libelle
+                                ELSE an_immo_bien.lib_occup
+                            END::text, chr(10)) AS string_agg
+                       FROM m_economie.an_immo_bien
+                      WHERE an_immo_bien.idimmo = b.idimmo))::character varying
+                    ELSE ( SELECT an_immo_bati.libelle
+                       FROM m_economie.an_immo_bati
+                      WHERE an_immo_bati.idbati = b.idbati)
+                END
+            END
+        END AS libelle,
+    b.geom
+   FROM m_economie.geo_immo_bien b
+     LEFT JOIN m_economie.an_sa_site s ON b.idsite::text = s.idsite::text
+     JOIN m_economie.lt_immo_ityp t ON b.ityp::text = t.code::text
+WITH DATA;
+
+ALTER TABLE x_apps.xapps_geo_vmr_immo_loc
+    OWNER TO create_sig;
+
+COMMENT ON MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_loc
+    IS 'Vue matérialisée géographique rafraichie reconstituant la carte applicative de l''application ECONOMIE à savoir les découpages des locaus d''activités et le nom des occupants';
 
 
 
