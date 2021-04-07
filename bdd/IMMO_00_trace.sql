@@ -23,3 +23,4 @@
 2020-01-29 : GB / Simplification des bâtiments avec 1 local, fusionner avec les bâtiments contenant n locaux
 2020-02-01 : GB / Documentation GitHub pas à jour manque les éléments descriptifs qui seront intégrés plus tard (en attente retour service métier)
 2020-02-16 : GB / Intégration des derniers ajustements concernant les libellés affichés sur les locaux et les bâtiments
+2021-04-07 : GB / Intégration d'une vue applicative recomposant l'affichage des locaux d'activité et le libellé des occupants (reconstitution de l'affichage de la partie carto de l'application)
