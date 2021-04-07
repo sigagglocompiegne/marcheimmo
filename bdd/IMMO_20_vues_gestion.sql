@@ -97,6 +97,7 @@ BEGIN
 REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_loc;
 
 return new;
 
@@ -298,7 +299,8 @@ END IF;
 REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
-
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_loc;
+											   
 END IF;
 
 RETURN NEW;
@@ -432,6 +434,7 @@ END IF;
 REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_loc;
 
 RETURN NEW;
 
@@ -557,7 +560,8 @@ END IF;
 REFRESH MATERIALIZED VIEW x_apps.xapps_an_vmr_immo_bati;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
-
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_loc;
+				  
 RETURN NEW;
 
 END;
@@ -682,7 +686,8 @@ END IF;
 
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_etat;
 REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_bati;
-
+REFRESH MATERIALIZED VIEW x_apps.xapps_geo_vmr_immo_loc;
+											   
 RETURN NEW;
 
 END;
