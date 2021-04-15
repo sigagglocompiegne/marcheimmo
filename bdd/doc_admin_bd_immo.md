@@ -229,6 +229,7 @@ Particularité(s) à noter : aucune
 |op_sai|Opérateur de saisie (par défaut login de connexion à GEO)|character varying(20)| |
 |date_sai|Date de la saisie du document|timestamp without time zone| |
 |l_doc|Titre du document ou légère description|character varying(100)| |
+|alaune|Gestion des photographies en une des annonces immobilières|booléen|false|
 |gid|Compteur (identifiant interne)|integer|nextval('m_economie.an_immo_media_seq'::regclass)|
 
 Particularité(s) à noter : aucune
