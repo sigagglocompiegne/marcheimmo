@@ -834,6 +834,7 @@ CREATE TABLE m_economie.an_immo_media
     date_sai timestamp without time zone,
     l_doc character varying(100) COLLATE pg_catalog."default",
     gid integer NOT NULL DEFAULT nextval('m_economie.an_immo_media_seq'::regclass),
+    alaune boolean NOT NULL DEFAULT false,
     CONSTRAINT an_immo_media_pkey PRIMARY KEY (gid)
 )
 WITH (
@@ -867,6 +868,9 @@ COMMENT ON COLUMN m_economie.an_immo_media.date_sai
 
 COMMENT ON COLUMN m_economie.an_immo_media.l_doc
     IS 'Titre du document ou légère description';
+    
+    COMMENT ON COLUMN m_economie.an_immo_media.alaune
+    IS 'Indication si la photo doit être en une de l''annonce immobilière';
 
 COMMENT ON COLUMN m_economie.an_immo_media.gid
     IS 'Compteur (identifiant interne)';
