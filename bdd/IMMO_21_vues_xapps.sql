@@ -98,6 +98,7 @@ AS
          SELECT o.idbati,
             ba.libelle,
             ba.libelle AS etiquette,
+            ba.bati_nom,
             stat.nbloc_tot,
             o.idsite,
             st_multi(st_union(o.geom))::geometry(MultiPolygon,2154) AS geom
@@ -147,6 +148,7 @@ AS
  SELECT row_number() OVER () AS gid,
     b.idbati,
     b.libelle,
+    b.bati_nom,
         CASE
             WHEN e.nb_etab <= 3 THEN e.liste_etab::character varying
             ELSE b.libelle
