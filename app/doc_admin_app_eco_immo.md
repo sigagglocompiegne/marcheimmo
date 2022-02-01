@@ -45,7 +45,7 @@ Sont décrites ici les Géotables et/ou Tables intégrées dans GEO pour les bes
 
 ## GeoTable : `geo_immo_bien (carte)`
 
-Sur cette table est insérée un champ calculé pour gérer l'affichage des étiquettes des bâtiments et leurs occupants contenant le code [SQL].
+Sur cette table est insérée un champ calculé pour gérer l'affichage des étiquettes des bâtiments et leurs occupants contenant le code [SQL](https://github.com/sigagglocompiegne/marcheimmoent/blob/master/bdd/etiquette_local.sql).
 
 
    
