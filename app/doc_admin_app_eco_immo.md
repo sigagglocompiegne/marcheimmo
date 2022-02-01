@@ -47,7 +47,7 @@ Sont décrites ici les Géotables et/ou Tables intégrées dans GEO pour les bes
 
 Sur cette table est insérée un champ calculé pour gérer l'affichage des étiquettes des bâtimênts et leurs occupants contenant le code SQL suivant :
 
-`-- si local indépendant divisé ou un terrain
+-- si local indépendant divisé ou un terrain
 CASE WHEN {ityp} = '22' or {ityp} = '10' THEN
     --si le libellé de l'occupant est vide 
 	CASE WHEN 
@@ -170,7 +170,7 @@ ELSE
 	(SELECT etiquette FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati})
 	END
 	
-END`
+END
 
    
 ## Table : `nom`
