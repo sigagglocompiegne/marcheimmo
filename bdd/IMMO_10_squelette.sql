@@ -602,6 +602,7 @@ CREATE TABLE m_economie.an_immo_bati
     surf_p integer,
     mprop boolean DEFAULT false,
     observ character varying(1000) COLLATE pg_catalog."default",
+    bati_nom boolean DEFAULT false,
     CONSTRAINT an_immo_bati_pkey PRIMARY KEY (idbati),
     CONSTRAINT an_immo_bati_ityp_fkey FOREIGN KEY (ityp)
         REFERENCES m_economie.lt_immo_ityp (code) MATCH SIMPLE
