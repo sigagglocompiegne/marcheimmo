@@ -31,28 +31,29 @@ ELSE
 	 	(SELECT siren FROM  m_economie.an_sa_etab_rad)
 		AND a.idbati = {idbati}) BETWEEN 1 AND 2
 		THEN
-		-- affiche le nom du bâtiment et les 2 premiers établissements avec ... 
-		-- affiche le nom du bâtiment si pas une adresse et les 2 premiers établissements avec ... 
-		CASE WHEN (SELECT count(*) FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati} AND bati_nom IS TRUE) = 0 THEN '' ELSE
+		-- affiche le nom du bâtiment si nom validé
+		CASE WHEN (SELECT count(*) FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati} AND bati_nom IS TRUE) = 0 
+        THEN 
+        (SELECT etiquette FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati})
+        -- sinon affiche les 2 premiers établissements avec ... 
+        ELSE
 		(SELECT libelle FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati})
-		|| chr(10)
 		END
-		||
-		-- affiche la liste
-		(SELECT etiquette FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati})
+		
+		
         
-	-- si plus de 2 établissements ont affiche le nom du bâtiments + les 2 premiers établissements
+	-- si plus de 2 établissements ont affiche le nom du bâtiments ou les 2 premiers établissements
 	WHEN (SELECT count(*) FROM m_economie.lk_immo_batiadr a , m_economie.lk_adresseetablissement e, m_economie.an_sa_etab ae, s_sirene.an_etablissement_api ne 
 		WHERE a.id_adresse = e.idadresse AND e.siret = ne.siret AND e.siret = ae.idsiret AND ae.l_compte = true AND ne.etatadministratifetablissement = 'A' AND left(ae.idsiret,9) NOT IN
 	 	(SELECT siren FROM  m_economie.an_sa_etab_rad)
 		AND a.idbati = {idbati}) > 2
 		THEN
-		-- affiche le nom du bâtiment si pas une adresse) et les 2 premiers établissements avec ... 
-		CASE WHEN (SELECT count(*) FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati} AND bati_nom IS TRUE) = 0 THEN '' ELSE
-		(SELECT libelle FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati})
-		|| chr(10)
-		END
-		||
+		-- affiche le nom du bâtiment si validé  
+		CASE WHEN (SELECT count(*) FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati} AND bati_nom IS TRUE) = 1 
+        THEN 
+        (SELECT libelle FROM x_apps.xapps_geo_vmr_immo_bati WHERE idbati = {idbati}) 
+        -- sinon affiche les 2 premiers établissements avec ...
+        ELSE
 		
 		-- ici tableau dans lequel je prends les 2 premières éléments que j'aggrège
 		(SELECT array_to_string((array_agg( 
@@ -100,7 +101,8 @@ ELSE
 		  GROUP BY ba.idbati
 		  )
 		  	  
-		  || chr(10) || '...'
+		  || chr(10) || '...' 
+     END
 	-- si aucun établissement rattachés aux bâtiments ET si deS locaux saisie avec un occupant
 	WHEN ((SELECT count(*) FROM m_economie.lk_immo_batiadr a , m_economie.lk_adresseetablissement e, m_economie.an_sa_etab ae, s_sirene.an_etablissement_api ne 
 		WHERE a.id_adresse = e.idadresse AND e.siret = ne.siret AND e.siret = ae.idsiret AND ae.l_compte = true AND ne.etatadministratifetablissement = 'A' AND left(ae.idsiret,9) NOT IN
