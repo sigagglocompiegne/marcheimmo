@@ -124,6 +124,7 @@ Particularité(s) à noter : aucune
 |surf_p|Surface de plancher total du bâtiment renseigné par l'utilisateur|integer| |
 |mprop|Type de propriétaire (unique ou en copropriété). La valeur true indique qu'il s'agit d'une copropriété|boolean|false|
 |observ|Observations|character varying(1000)| |
+|bati_nom|Nom d'un bâtiment|boolean|false|
 
 
 Particularité(s) à noter : cette classe d'objets peut être alimentée indépendemment lorsqu'il s'agit d'un bâtiment reconstruit virtuellement par les locaux qui le composent. Les locaux sont affectés alors à un bâtiment listé comme appartemant au type 22.
