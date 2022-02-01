@@ -25,3 +25,5 @@
 2020-02-16 : GB / Intégration des derniers ajustements concernant les libellés affichés sur les locaux et les bâtiments
 2021-04-07 : GB / Intégration d'une vue applicative recomposant l'affichage des locaux d'activité et le libellé des occupants (reconstitution de l'affichage de la partie carto de l'application)
 2021-04-15 : GB / Adaptation mineure au niveau de la gestion des médias
+2022-02-01 : GB / Adaptation au niveau de la gestion des étiquettes d'affiche des lots et des locaux (ajout d'un attribut dans an_immo_bati et modification de la vue matérialisée xapps_geo_vmr_immo_bati)
+2022-02-01 : GB / Modification du trigger des gestions dess locaux pour ajouter l'attribut bati_nom de la table an_immo_bati
