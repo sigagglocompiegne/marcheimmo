@@ -274,7 +274,8 @@ UPDATE  m_economie.an_immo_bati SET
 libelle = NEW.libelle_bati,
 surf_p = NEW.surf_pbati,
 mprop = NEW.mprop,
-observ = NEW.observ_bati
+observ = NEW.observ_bati,
+bati_nom = NEW.bati_nom
 WHERE idbati = NEW.idbati;
 
 END IF;
@@ -361,8 +362,8 @@ SELECT v_idcomm,v_idimmo,v_idbien,NEW.prix_a,NEW.prix_am,NEW.loyer_a,NEW.loyer_a
 INSERT INTO m_economie.an_immo_propbati (idprop,idbati,propnom,proptel,proptelp,propmail,observ)
 SELECT v_idprop,v_idbati,NEW.propnom,NEW.proptel,NEW.proptelp,NEW.propmail,NEW.observ_prop;
 
-INSERT INTO m_economie.an_immo_bati (idbati,idimmo,ityp,libelle,surf_p,mprop,observ)
-SELECT v_idbati,v_idimmo,'23',NEW.libelle_bati,NEW.surf_pbati,NEW.mprop,NEW.observ_bati;
+INSERT INTO m_economie.an_immo_bati (idbati,idimmo,ityp,libelle,surf_p,mprop,observ,bati_nom)
+SELECT v_idbati,v_idimmo,'23',NEW.libelle_bati,NEW.surf_pbati,NEW.mprop,NEW.observ_bati,NEW.bati_nom;
 
 -- si l'identifiant adresse est saisie (uniquement via Gabarit QGIS interne au service SIG)
 IF NEW.id_adresse > 0 THEN
@@ -411,7 +412,8 @@ UPDATE  m_economie.an_immo_bati SET
 libelle = NEW.libelle_bati,
 surf_p = NEW.surf_pbati,
 mprop = NEW.mprop,
-observ = NEW.observ_bati
+observ = NEW.observ_bati,
+bati_nom = NEW.bati_nom
 WHERE idbati = NEW.idbati;
 
 END IF;
@@ -852,6 +854,7 @@ CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locident
     cbi.observ AS observ_comm,
     ba.idbati AS bati_appart,
     ba.libelle AS libelle_bati,
+    ba.bati_nom,
     ba.surf_p AS surf_pbati,
     ba.mprop,
     ba.observ AS observ_bati,
@@ -927,6 +930,7 @@ CREATE OR REPLACE VIEW m_economie.geo_v_immo_bien_locnonident
     null::integer AS id_adresse,
     string_agg(a.id_adresse::text,' ,') AS bal,
     ba.libelle AS libelle_bati,
+    ba.bati_nom,
     ba.surf_p AS surf_pbati,
     ba.mprop,
     ba.observ AS observ_bati,
