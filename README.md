@@ -13,7 +13,6 @@ Spécification du modèle de données relatif aux objets constituant la mise en 
   * [Création des privilèges](bdd/IMMO_99_grant.sql)
 - [Documentation d'administration de la base](bdd/doc_admin_bd_immo.md)
 - [Documentation d'administration de l'application Activité Economique (module Marché immobilier seulement)](app/doc_admin_app_eco_immo.md)
-- [Documentation d'administration de l'application Activité Economique (hors module Marché immobilier)](https://github.com/sigagglocompiegne/amt_fon_eco/blob/master/app/doc_admin_app_eco.md)
 - [Documentation utilisateur du module Marché Immobilier](app/doc_user_app_immo.md)
 
 ## Contexte
