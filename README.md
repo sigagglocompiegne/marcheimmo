@@ -1,5 +1,8 @@
 ![picto](https://github.com/sigagglocompiegne/orga_gest_igeo/blob/master/doc/img/geocompiegnois_2020_reduit_v2.png)
 
+Le modèle de données autour de l'activité économique est en cours de refonte, cette thématique de l'immobilier d'entreprises sera intégrée à la [documentation en cours](https://github.com/sigagglocompiegne/amt_fon_eco) de rédaction et remplacera celle-ci.
+
+
 # Prescriptions spécifiques (locales) pour le suivi du marché de l'immobilier d'entreprises
 
 Spécification du modèle de données relatif aux objets constituant la mise en oeuvre de la base de données et de l'application Web dédiée au marché de l'immobilier d'entreprises (terrains privés et locaux d'activités) sur le territoire de l'Agglomération de la Région de Compiègne.
